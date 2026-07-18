@@ -151,3 +151,27 @@ when *all* of the following are independently verified (see
 
 Full technical rules that keep the theme aligned with these criteria
 during day-to-day development live in `docs/CLAUDE.md`.
+
+## 7. Design Notes (Phase 1 — theme.json tokens)
+
+- **`border` is decorative-only, not held to 3:1 contrast.** Across the
+  base palette and all three style variations, the `border` token sits
+  well under the 3:1 WCAG 1.4.11 non-text contrast ratio against
+  `background` (roughly 1.4–2.2:1 depending on variation). This is
+  intentional: `border` is used for subtle hairline dividers, not as the
+  sole means of identifying an interactive component's boundary. Buttons
+  get their boundary from solid fill + text; focus indicators use
+  `primary`/`accent` (already 6.5–14:1 against their backgrounds) rather
+  than the `border` token. If a future pattern ever uses `border` as the
+  *only* visual cue for an interactive element (e.g. an outlined input
+  or an outline-style button), that usage needs its own higher-contrast
+  token, not `border`.
+- **System font stacks for Phase 1, webfont bundling deliberately
+  deferred.** The type scale currently pairs a system serif (headings)
+  with a system sans (body) — zero licensing/bundling overhead, ships
+  immediately. Bundling an OFL-licensed pairing (e.g. a display serif +
+  grotesque sans) would sharpen the editorial identity further and is a
+  legitimate next step, but doing it now — before the palette/layout
+  direction is validated — risks bundling assets that get reworked
+  later. Revisit once Phase 2/3 patterns make the visual direction
+  concrete.

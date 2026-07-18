@@ -2,6 +2,19 @@
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 3,
 	"title": "Sandstone",
-	"settings": {},
-	"styles": {}
+	"settings": {
+		"color": {
+			"palette": [
+				{ "slug": "background", "name": "Background", "color": "#F7F1E7" },
+				{ "slug": "surface", "name": "Surface", "color": "#EFE4D2" },
+				{ "slug": "border", "name": "Border", "color": "#C7B48C" },
+				{ "slug": "text", "name": "Text", "color": "#3B2F22" },
+				{ "slug": "text-muted", "name": "Muted Text", "color": "#6B5C48" },
+				{ "slug": "primary", "name": "Primary", "color": "#8A4B2E" },
+				{ "slug": "primary-contrast", "name": "Primary Contrast", "color": "#FFFFFF" },
+				{ "slug": "accent", "name": "Accent", "color": "#4B6B53" },
+				{ "slug": "accent-contrast", "name": "Accent Contrast", "color": "#FFFFFF" }
+			]
+		}
+	}
 }

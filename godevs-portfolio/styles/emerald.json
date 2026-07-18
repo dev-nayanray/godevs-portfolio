@@ -2,6 +2,19 @@
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 3,
 	"title": "Emerald",
-	"settings": {},
-	"styles": {}
+	"settings": {
+		"color": {
+			"palette": [
+				{ "slug": "background", "name": "Background", "color": "#F5F8F6" },
+				{ "slug": "surface", "name": "Surface", "color": "#E8F0EA" },
+				{ "slug": "border", "name": "Border", "color": "#AEC7B7" },
+				{ "slug": "text", "name": "Text", "color": "#142019" },
+				{ "slug": "text-muted", "name": "Muted Text", "color": "#4E5E54" },
+				{ "slug": "primary", "name": "Primary", "color": "#0F6B4C" },
+				{ "slug": "primary-contrast", "name": "Primary Contrast", "color": "#FFFFFF" },
+				{ "slug": "accent", "name": "Accent", "color": "#7C5F31" },
+				{ "slug": "accent-contrast", "name": "Accent Contrast", "color": "#FFFFFF" }
+			]
+		}
+	}
 }

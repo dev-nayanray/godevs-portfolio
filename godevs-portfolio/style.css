@@ -18,3 +18,14 @@ License v2 or later. This theme, like WordPress, is licensed under the
 GPL. Use it to make something cool, have fun, and share what you've
 learned with others.
 */
+
+/**
+ * Accessibility defaults that theme.json cannot express (no "outline"
+ * style property exists in the schema). Token-driven via the CSS custom
+ * property theme.json itself generates — no hard-coded color values.
+ */
+:focus-visible {
+	outline: 2px solid var(--wp--preset--color--accent);
+	outline-offset: 2px;
+}
+
