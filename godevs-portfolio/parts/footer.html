@@ -1,7 +1,33 @@
-<!-- wp:group {"tagName":"footer","layout":{"type":"constrained"}} -->
-<footer class="wp-block-group">
-<!-- wp:paragraph -->
-<p><!-- TODO: Phase 2 — full footer content. Part: footer.html --></p>
-<!-- /wp:paragraph -->
+<!-- wp:group {"align":"full","tagName":"footer","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|l","left":"var:preset|spacing|m","right":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
+<footer class="wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--xl);padding-right:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--l);padding-left:var(--wp--preset--spacing--m)">
+
+	<!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
+	<div class="wp-block-group">
+		<!-- wp:navigation {"ariaLabel":"Footer","layout":{"type":"flex","flexWrap":"wrap"}} /-->
+
+		<!-- wp:social-links {"iconColor":"text","size":"has-small-icon-size"} -->
+		<ul class="wp-block-social-links has-icon-color has-small-icon-size"></ul>
+		<!-- /wp:social-links -->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:separator {"backgroundColor":"border","style":{"spacing":{"margin":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m"}}}} -->
+	<hr class="wp-block-separator has-text-color has-border-color has-alpha-channel-opacity has-border-background-color" style="margin-top:var(--wp--preset--spacing--m);margin-bottom:var(--wp--preset--spacing--m)"/>
+	<!-- /wp:separator -->
+
+	<!-- wp:group {"layout":{"type":"flex","justifyContent":"center"}} -->
+	<div class="wp-block-group">
+		<!-- wp:paragraph {"fontSize":"small","metadata":{"bindings":{"content":{"source":"godevs-portfolio/copyright-year"}}}} -->
+		<p class="has-small-font-size">© 2026</p>
+		<!-- /wp:paragraph -->
+
+		<!-- wp:site-title {"level":0,"fontSize":"small"} /-->
+
+		<!-- wp:paragraph {"fontSize":"small"} -->
+		<p class="has-small-font-size">All rights reserved.</p>
+		<!-- /wp:paragraph -->
+	</div>
+	<!-- /wp:group -->
+
 </footer>
 <!-- /wp:group -->

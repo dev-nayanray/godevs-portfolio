@@ -124,20 +124,108 @@ focus-outline CSS needed to actually load to prove it works.
   which already clear 3:1+ by a wide margin), documented in
   [docs/PRD.md](PRD.md) design notes rather than forced to comply.
 
-**Not yet started:** pattern markup, template/template-part markup
-(templates still have `<!-- TODO -->` placeholders), demo content,
-screenshot asset, readme.txt content sections, languages/POT file,
-webfont bundling decision (if revisited).
+**Phase 2 — Templates and template parts (complete)**
 
-**Next phase (Phase 2 — Templates and template parts):** Build out
-`templates/*.html` and `parts/*.html` to compose patterns and template
-parts using **only** the tokens defined in this phase (`var:preset|...`
-references — no new hex/px values). Leave placeholder Group blocks
-commented `<!-- pattern placeholder: [pattern-slug] -->` where Phase 3
-patterns will later be inserted, rather than writing real pattern markup
-now. Do not invent new colors/sizes/spacing in Phase 2 — if something
-seems to need a value not in the Phase 1 scale, that's a signal to come
-back and extend the scale deliberately, not to hardcode.
+All 4 `parts/*.html` and all 13 `templates/*.html` built, token-only
+(grep-audited: zero hex/px anywhere in `templates/` or `parts/`). 5
+custom page templates (`page-services`, `page-portfolio`, `page-team`,
+`page-pricing`, `page-contact`) registered in `theme.json`
+`customTemplates` with `postTypes: ["page"]`.
+
+**Architecture decisions made along the way** (deviations from a
+literal read of the brief, each because the literal reading was
+technically impossible or would violate a non-negotiable rule):
+- **No custom skip-link code.** WordPress core 7.0+ automatically
+  injects a fully accessible, natively-translated skip link for every
+  block theme (`_block_template_add_skip_link()` in
+  `wp-includes/block-template.php`), and it's smart enough to detect and
+  reuse the first `<main>` element's existing `id` as its jump target —
+  exactly the `"anchor":"main-content"` set on every template's main
+  group. A first implementation attempt added a theme-side
+  `wp_body_open` skip link + CSS; verification caught that it produced
+  **two** stacked "Skip to content" links (confirmed by reading the
+  raw HTML and cross-referencing core's source), so it was removed.
+  Kept: the `id="main-content"` anchors (still the actual jump target)
+  and the `:focus-visible` outline CSS (unrelated, still needed).
+- **Copyright line uses the Block Bindings API**, not a shortcode or
+  hardcoded year: a `godevs-portfolio/copyright-year` binding source
+  (registered in `class-theme-setup.php`) resolves a paragraph's content
+  to "© {current year}" server-side, next to a `core/site-title` block —
+  dynamic, no theme-author credit, no yearly manual update needed.
+- **`page.html` and `single.html` do NOT hardcode PRD's per-page pattern
+  stacks.** `page.html` is WordPress's shared template for *every*
+  regular Page — About and Testimonials both use it per the PRD table,
+  with different pattern stacks, which are mutually exclusive to bake
+  into one shared file. Both templates render `<!-- wp:post-content /-->`
+  instead; the specific pattern stacks belong in each demo page's own
+  content, built in a later phase. The 5 dedicated `page-*.html`
+  templates are different: each is used by exactly one demo page by
+  design, so their placeholders ARE hardcoded directly per the PRD table.
+- **`single.html` open question, as instructed:** built as a standard
+  single-post template (`post-content` + a `portfolio-case-study`
+  placeholder comment), deliberately not resolving whether Case Studies
+  end up as regular Posts (current single.html), Pages with a custom
+  template, or a future companion plugin — theme-side CPT is ruled out
+  either way per the non-negotiable rules. **Needs your decision before
+  Phase 3 builds `patterns/portfolio-case-study.php`.**
+- **`page-contact.html` placeholders a `contact-info` pattern that
+  doesn't exist yet.** The PRD's Contact row says "contact block group,"
+  which isn't one of the 12 scaffolded `patterns/*.php` files. Marked as
+  `<!-- pattern placeholder: contact-info -->` and flagged here as a
+  13th pattern Phase 3 needs to either add or fold into an existing one.
+- **`archive.html`/`index.html`/`home.html`/`search.html` are
+  query-loop templates, not pattern-placeholder templates** — the blog
+  listing itself is the dynamic content; only the trailing `footer-cta`
+  is a pattern placeholder (search.html has none, results are the
+  content). `footer-minimal` used on `search.html`/`404.html` (utility
+  pages); full `footer` used everywhere else — this footer split wasn't
+  explicitly specified, so flagging the choice here.
+
+**Verification actually performed** (wp-env, not code review):
+- All 13 templates register with `source: theme` via
+  `get_block_templates()` — no silent "template not found" fallback.
+- All 5 custom templates confirmed `postTypes` includes `page` (the
+  exact data WP's Page editor reads to decide whether to list a
+  template in the Template dropdown).
+- Every route tested end-to-end: `/` (front-page, 200), `/sample-page/`
+  (page, 200), a post permalink (single, 200), a category archive
+  (archive, 200), `/?s=test` (search, 200), a deliberately-broken URL
+  (404, 404) — every response contains exactly one `id="main-content"`.
+- **Proved a custom template actually applies**, not just registers:
+  assigned `page-services` to the sample page via `_wp_page_template`
+  post meta and confirmed the rendered HTML contains exactly the 4
+  `pattern placeholder` comments in the PRD-specified order
+  (hero-agency, services-grid, pricing-table, footer-cta), then reverted
+  the test page back to its default template.
+- Confirmed via raw HTML inspection that the skip link is the first
+  element after `<body>`, before any nav/logo/button link, and that its
+  `href` matches the `<main>` element's `id`.
+- `wp-content/debug.log` stayed free of theme-related PHP
+  notices/warnings/fatals throughout (only the same pre-existing,
+  unrelated `wp_update_themes()` sandboxed-network warning as Phase 1,
+  plus benign WP-Cron "Automatic updates" log lines).
+- Grep audit (`grep -rniE '#[0-9a-f]{3,6}|[0-9]+px' templates/ parts/`)
+  returned zero matches.
+
+**Not yet started:** pattern markup (`patterns/*.php` still have
+placeholder bodies), demo content, screenshot asset, readme.txt content
+sections, languages/POT file, webfont bundling decision (if revisited).
+
+**Open question for you before Phase 3:** how should Case Studies work
+— regular Posts (current `single.html`), Pages with a dedicated custom
+template (like the 5 `page-*.html` templates), or a future companion
+plugin? Whichever it is, no theme-side CPT, per the non-negotiable
+rules. This blocks a clean build of `patterns/portfolio-case-study.php`.
+
+**Next phase (Phase 3 — Block patterns):** Build out the 12 scaffolded
+`patterns/*.php` files (plus the newly-flagged `contact-info` 13th
+pattern) referenced by every `<!-- pattern placeholder: ... -->` comment
+across `templates/*.html`. `docs/PRD.md` Section 5 (demo-page pattern
+stacks) and this file's Phase 2 notes above are the source of truth for
+what each placeholder needs to become. Token-only, same as Phase 2 — no
+new hex/px, only `var:preset|...` references. Resolve the case-study
+open question above before touching `portfolio-case-study.php`
+specifically.
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._

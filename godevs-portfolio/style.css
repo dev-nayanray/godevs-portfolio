@@ -29,3 +29,11 @@ learned with others.
 	outline-offset: 2px;
 }
 
+/**
+ * No skip-link CSS here: WordPress core enqueues its own
+ * ('wp-block-template-skip-link') automatically for block themes,
+ * alongside the skip-link markup it injects — see class-theme-setup.php
+ * for the full explanation. Styling it here too would just be a
+ * second, possibly-conflicting copy of the same rules.
+ */
+
