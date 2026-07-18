@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+vendor/
+
+# wp-env
+.wp-env/
+.wp-env.override.json
+
+# WordPress core / test environment (if ever pulled locally outside wp-env)
+wordpress/
+wp-content/uploads/
+wp-content/upgrade/
+*.sql
+
+# Build output
+build/
+dist/
+
+# Logs
+*.log
+npm-debug.log*
+debug.log
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Env/secrets
+.env
+.env.local
+
+# phpcs cache
+.phpcs-cache

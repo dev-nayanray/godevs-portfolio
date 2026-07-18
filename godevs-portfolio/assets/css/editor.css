@@ -1,0 +1,9 @@
+/**
+ * Editor-only styles for GoDevs Portfolio.
+ *
+ * Enqueued via add_editor_style() so the block editor preview matches the
+ * front end. Must only ever reference theme.json custom properties
+ * (--godevs-portfolio--*) — no hard-coded values. See docs/CLAUDE.md.
+ *
+ * TODO: Phase 1/2 — populate once theme.json tokens exist.
+ */
