@@ -421,21 +421,174 @@ check after every change — clean throughout (only the same pre-existing,
 unrelated `wp_update_themes()` sandboxed-network warning as every prior
 phase).
 
-**Not yet started:** demo content (real Pages/Posts using these
-patterns, at the slugs now documented in PRD.md), screenshot asset,
-readme.txt content sections, languages/POT file, webfont bundling
-decision (if revisited).
+**Phase 5 — Demo content assembly (complete)**
 
-**Next phase (Phase 5 — Demo content assembly):** Build the actual
-Pages/Posts: Home (front-page.html, already structurally complete),
-About, Services, Portfolio, the 4 Case Study pages at the exact slugs
-above (customizing `portfolio-case-study.php`'s copy per project — don't
-ship it verbatim 4 times), Team, Pricing, Testimonials, Blog posts, and
-Contact — per docs/PRD.md Section 5. Set Reading Settings appropriately
-(front page = Home) so `front-page.html` and `home.html`/`index.html`
-each serve their intended role. Produce a WXR export per docs/PRD.md
-once content is in place, and verify it imports cleanly on a fresh
-`wp-env` install (PRD Success Criteria #4).
+**Architectural fix made before content could even be written:**
+`page-case-study.html` previously hardcoded
+`<!-- wp:pattern {"slug":"godevs-portfolio/portfolio-case-study"} /-->`
+directly in the template (same pattern as `page-services.html` etc.).
+That's correct when a template is used by exactly one demo page, but
+`page-case-study.html` is used by **four** — all four would have shown
+byte-identical "Northwind Rebrand" text. Fixed by changing that one line
+to `<!-- wp:post-content {"layout":{"type":"constrained"}} /-->` (the
+same approach as `page.html`), so each of the 4 Case Study pages now
+supplies its own content, expanded from the pattern's structure with
+real per-project copy. The closing `cta-banner` reference stayed
+hardcoded in the template — repeating a generic closing CTA across all
+four is normal, unlike repeating an entire case study verbatim.
+
+**Reading Settings & front page (Step 1) — verified live, not
+assumed:** `front-page.html` renders at `/` regardless of Reading
+Settings — confirmed by testing before AND after setting a static front
+page. Final configuration: "Your homepage displays" → **A static page**,
+Homepage → **Home**, Posts page → **Blog** (a near-empty marker Page
+created specifically so `/blog/` triggers `home.html`, giving that
+template a real testable URL rather than only existing as an unused
+fallback). Permalink structure set to `/%postname%/`.
+
+**Navigation menu (Step 2):** a real `wp_navigation` post ("Primary
+Navigation", 8 items: Home, About, Services, Portfolio, Team, Pricing,
+Blog, Contact, each `"kind":"custom"` with a predictable relative URL)
+created via `wp_insert_post()`, then wired into both `header.html` and
+`header-transparent.html` via an explicit `"ref"` attribute on the
+`core/navigation` block. **Found and cleaned up along the way:**
+WordPress auto-creates an empty default "Navigation" post (just
+`<!-- wp:page-list /-->`) the first time a block theme needs one with no
+`ref` set — this had been silently sitting in the database since an
+earlier phase. Deleted it before export so the demo package ships with
+exactly one, intentional navigation menu. `footer.html`'s nav block was
+deliberately left unwired (not requested) — verified live that it
+automatically resolves to the one real navigation post that exists
+rather than falling back to a page-list, which is a WordPress core
+convenience behavior worth knowing about, not something this theme
+implements itself.
+
+**Known, accepted fragility — flagging explicitly:** the `"ref"` ID
+hardcoded into `header.html`/`header-transparent.html` is a **database
+post ID**, which is inherently per-install runtime data, not portable
+theme code. This was built as explicitly instructed ("wire header.html's
+navigation block to reference this menu explicitly via ref"), but a
+fresh WXR import is not guaranteed to recreate the navigation post at
+the same ID. In the Step Final 2 test below it coincidentally landed on
+the same ID (37) both times — that is a coincidence of this test's
+identical content-creation order, not a structural guarantee. If a
+future import lands on a different ID, the navigation block falls back
+to WordPress's default behavior (shows all Pages) rather than erroring —
+a degraded-but-not-broken outcome. `demo-content/README.md` documents
+the one-time manual fix (reselect the menu in the Navigation block after
+import), which is standard WordPress practice, not unique to this theme.
+
+**Demo Pages created (Step 3)** — exact slugs, matching `docs/PRD.md`:
+
+| Title | Slug | Template | Content source |
+|---|---|---|---|
+| Home | `home` | `front-page.html` (auto) | unused — template is fully self-contained |
+| About | `about` | `page.html` | custom-written intro (not reused hero copy — see below) + `stats-counter`, `team-grid`, `cta-banner` |
+| Services | `services` | `page-services.html` | template-owned |
+| Portfolio | `portfolio` | `page-portfolio.html` | template-owned |
+| Team | `team` | `page-team.html` | template-owned |
+| Pricing | `pricing` | `page-pricing.html` | template-owned |
+| Contact | `contact` | `page-contact.html` | template-owned |
+| Testimonials | `testimonials` | `page.html` | `testimonials-carousel-static`, `logo-cloud`, `stats-counter`, `cta-banner` |
+| Blog | `blog` | `home.html` (posts page) | empty (marker page only) |
+| Case Studies | `case-studies` | `page.html` | parent page only, not in nav — establishes the `/case-studies/...` URL prefix for its 4 children |
+| Northwind Rebrand | `case-studies/northwind-rebrand` | `page-case-study.html` | distinct case-study copy |
+| Globex Mobile App | `case-studies/globex-mobile-app` | `page-case-study.html` | distinct case-study copy |
+| Fabrikam Commerce Platform | `case-studies/fabrikam-commerce-platform` | `page-case-study.html` | distinct case-study copy |
+| Contoso Marketing Site | `case-studies/contoso-marketing-site` | `page-case-study.html` | distinct case-study copy |
+
+**About page deliberately does NOT reuse `hero-freelancer`** even
+though `docs/PRD.md`'s table lists it first in About's pattern stack —
+`hero-freelancer` is also used verbatim on the Team and Contact pages,
+and its specific copy ("I design and build websites for small
+businesses") reads as a homepage-style pitch, not company-story
+narrative. Reusing it on About would have put identical hero text on 3
+pages of the same site. Wrote a custom "Our Story" intro instead, kept
+`stats-counter`/`team-grid`/`cta-banner` as genuine reuse (realistic —
+real sites commonly preview the team on About and link to a full Team
+page). Flagging this as a deliberate content-quality judgment call, not
+a literal PRD-table implementation.
+
+**Demo blog Posts (Step 4):** 5 posts, 2 categories ("Process",
+"Industry Insights"), all with real short-form agency-blog copy (process
+insights / industry tips, per the brief) and a placeholder featured
+image: "5 Signs Your Website Redesign Can't Wait", "How We Run a
+Discovery Sprint (And Why It Matters)", "Brand Consistency Isn't
+Optional Anymore", "What We Look for When Reviewing a Portfolio Site",
+and "Inside Our Design-to-Development Handoff Process" (the long one —
+4 H2 sections, meant to exercise `post-navigation-link` meaningfully).
+
+**Images:** reused the existing `assets/images/placeholder-*.png`
+theme-bundled graphics throughout, per the brief's fallback instruction
+— did not attempt an openverse.org fetch given this session's earlier
+confirmed-unreliable outbound network, consistent with the Phase 3
+decision.
+
+**WXR export (Step 5):** `demo-content/godevs-portfolio-demo-content.xml`
++ `demo-content/README.md` (import steps, and the Reading-Settings /
+Navigation-ref caveats documented above). Final export: 14 pages, 5
+posts, 1 navigation, 1 attachment — cleaned of the stray auto-generated
+Navigation post and WordPress's own default sample content (Sample
+Page, Hello World, draft Privacy Policy) before the final export, so the
+package ships as exclusively real theme demo content.
+
+**Verification actually performed** (two full wp-env passes, not code
+review):
+
+*Pass 1 — current instance, content freshly created:* every one of the
+12 non-trivial URLs (About, Services, Portfolio, Team, Pricing, Contact,
+Testimonials, Case Studies parent, all 4 case studies) plus the front
+page, `/blog/`, a full blog post, search, and 404 — all HTTP 200 (404
+correctly 404), all exactly one `<h1>`. Confirmed the 4 case studies
+render genuinely distinct text (not verbatim duplicates) by grepping
+project-specific phrases from each — first attempt came back empty due
+to the same `wptexturize()` apostrophe-encoding false alarm from Phase
+3 (grepped `Globex's` instead of `Globex&#8217;s`); re-checked with
+apostrophe-free snippets and confirmed all 4 are genuinely distinct.
+`debug.log` stayed clean throughout.
+
+*Pass 2 — full destroy + fresh install + WXR import:* `wp-env destroy`,
+fresh `wp-env start`, activated the theme, installed the WordPress
+Importer plugin (network access to downloads.wordpress.org worked in
+this session, unlike the earlier-observed github.com DNS failures —
+different host, not assumed to work), imported the WXR file. **Two real
+findings, both honestly reportable rather than papered over:**
+1. The one media attachment failed to import — `cURL error 7: Failed to
+   connect to localhost:8888` — because the WXR references an absolute
+   `localhost:8888` URL and, inside the CLI container's own network
+   namespace, `localhost` does not resolve to the WordPress container.
+   This is a Docker-networking artifact of testing via
+   `wp-env run cli wp import` specifically, not a real-world hosting
+   issue (on any actual host, the export/import domains differ and the
+   HTTP fetch succeeds normally). Confirmed the failure degrades
+   gracefully: the affected posts' `_thumbnail_id` meta points to a
+   nonexistent attachment, `post-featured-image` simply renders nothing,
+   no PHP error, no fatal.
+2. Reading Settings did not survive the import (WXR format doesn't
+   include site options, only content) — confirmed `/blog/` served
+   `page.html` instead of `home.html` immediately post-import, exactly
+   as `demo-content/README.md` already anticipated. Manually reapplied
+   the same 3 Reading Settings and reconfirmed `/blog/` correctly
+   switched to `home.html`'s "Blog" H1.
+
+After those two known, documented, gracefully-degrading issues: all 12
+pages + search + 404 re-verified with exactly one H1 each, the
+navigation menu resolved correctly (its `ref` coincidentally landed on
+the same ID as the original — not a guarantee, see above), and
+`wp-content/debug.log` was not even created — a fully clean pass.
+
+**Not yet started:** screenshot asset, readme.txt content sections,
+languages/POT file, webfont bundling decision (if revisited).
+
+**Next phase (Phase 6 — Accessibility & QA pass):** Run the WordPress
+Theme Check plugin and `phpcs` with the WPThemeReview ruleset across the
+whole theme (per the non-negotiable rule 7 and PRD Success Criteria
+1–2, neither of which has been run yet — every prior phase's
+verification has been functional/manual, not the formal tooling this
+phase requires). Generate the `.pot` file for translation readiness.
+Use `docs/WPORG_CHECKLIST.md` as the acceptance criteria (create it if
+it doesn't exist yet, derived from the WordPress.org Theme Review
+required-item list already referenced in `docs/PRD.md` Section 3).
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._
