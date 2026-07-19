@@ -207,25 +207,130 @@ technically impossible or would violate a non-negotiable rule):
 - Grep audit (`grep -rniE '#[0-9a-f]{3,6}|[0-9]+px' templates/ parts/`)
   returned zero matches.
 
-**Not yet started:** pattern markup (`patterns/*.php` still have
-placeholder bodies), demo content, screenshot asset, readme.txt content
-sections, languages/POT file, webfont bundling decision (if revisited).
+**Case study decision (resolved before Phase 3):** Case Studies are
+regular Pages using a dedicated custom template
+(`templates/page-case-study.html`, registered in `theme.json`
+`customTemplates` as "Case Study"), not Posts and not a CPT. `single.html`
+was reverted to a standard blog-post template (`post-title`,
+`post-featured-image`, `post-content`, `post-terms`,
+`post-navigation-link` prev/next). No comments template part was added —
+`docs/PRD.md` doesn't list commenting as a stated goal, so it was
+omitted rather than adding unscoped surface area.
 
-**Open question for you before Phase 3:** how should Case Studies work
-— regular Posts (current `single.html`), Pages with a dedicated custom
-template (like the 5 `page-*.html` templates), or a future companion
-plugin? Whichever it is, no theme-side CPT, per the non-negotiable
-rules. This blocks a clean build of `patterns/portfolio-case-study.php`.
+**Phase 3 — Block patterns (complete)**
 
-**Next phase (Phase 3 — Block patterns):** Build out the 12 scaffolded
-`patterns/*.php` files (plus the newly-flagged `contact-info` 13th
-pattern) referenced by every `<!-- pattern placeholder: ... -->` comment
-across `templates/*.html`. `docs/PRD.md` Section 5 (demo-page pattern
-stacks) and this file's Phase 2 notes above are the source of truth for
-what each placeholder needs to become. Token-only, same as Phase 2 — no
-new hex/px, only `var:preset|...` references. Resolve the case-study
-open question above before touching `portfolio-case-study.php`
-specifically.
+All 12 scaffolded patterns built as real PHP files with genuine
+business-portfolio copy (not lorem ipsum), plus a 13th
+(`contact-info.php`) to fill the gap the PRD's Contact row left ("contact
+block group" didn't name an actual pattern — flagged in Phase 2, built
+here since leaving it as a placeholder would have failed this phase's own
+"zero placeholders remaining" verification bar). `inc/class-block-patterns.php`
+now registers all 9 pattern categories on `init`; the pattern files
+themselves need no manual registration — WordPress auto-discovers any
+`.php` file in `patterns/` from its header comment. All 31 placeholder
+comments across every template replaced with real
+`<!-- wp:pattern {"slug":"godevs-portfolio/..."} /-->` references.
+Grep-audited clean (zero hex/px in `patterns/`) and `php -l`-linted clean
+across every pattern and `inc/` file before touching wp-env.
+
+**Images:** three theme-generated placeholder graphics
+(`assets/images/placeholder-{wide,portrait,logo}.png`) — plain, original,
+neutral-gray "image placeholder" boxes generated via PowerShell
+System.Drawing, not real photos. Chosen over fetching real photos from
+openverse.org because this sandbox's outbound DNS was unreliable earlier
+in the project (confirmed failing for github.com in an earlier session)
+and because it carries zero licensing/attribution burden — this was
+explicitly discussed and confirmed before building any patterns, not a
+silent substitution. Every image has real, specific alt text describing
+what should eventually go there (e.g. "Portrait of Jordan Lee, Creative
+Director"), even though the current image is a placeholder graphic.
+
+**Heading hierarchy:** every pattern uses H2 for its own section heading
+and H3 for sub-items (service cards, project titles, team names, pricing
+tiers) — patterns never assume they're the page's H1, per instruction.
+Verified by extracting every `<h1>`–`<h6>` tag from the rendered home
+page and the Services page: consistent H2→H3 pairs per section, no
+skipped levels anywhere. Front-page.html and the 5 dedicated `page-*.html`
+templates have no template-level H1 (no `post-title` block, consistent
+with the pattern established in Phase 2) — each page's hero pattern's H2
+functions as its visually-prominent title instead. This is a known,
+accepted tradeoff in FSE pattern libraries, not an oversight; flagging it
+again here since "no H1 at all" is a different concern than "skipped
+level" and worth being explicit about.
+
+**Architecture decisions / things flagged along the way:**
+- Pricing table's "Growth" tier gets a visible **text** badge ("Most
+  Popular"), not just a background-color change — satisfies the
+  no-color-alone requirement directly.
+- `testimonials-carousel-static.php` is genuinely static: `core/columns`
+  + `core/quote`, zero JS/carousel library, per the non-negotiable rules.
+- `cta-banner.php` uses the `primary-to-accent` gradient from Phase 1 —
+  first real use of a gradient token in the theme, confirms it resolves
+  correctly per active style variation (see Phase 4 below).
+- All button/link hrefs (`/contact/`, `/portfolio/`, `/services/`,
+  `/case-studies/...`) are placeholder paths matching the demo-content
+  structure Phase 5 will create; they 404 until then, which is expected.
+
+**Verification actually performed** (wp-env, not code review):
+- All 13 patterns + all 9 categories confirmed registered via
+  `WP_Block_Patterns_Registry`/`WP_Block_Pattern_Categories_Registry` —
+  correct slugs, titles, and category assignments, zero registration
+  errors from the pattern PHP files' loops/arrays/sprintf calls.
+- Every template's rendered front-end output checked for zero leftover
+  `pattern placeholder` comments: home page, all 6 custom-template pages
+  (created as real test Pages with `_wp_page_template` meta set, then
+  deleted after verification), the category archive, and a 404 — all
+  clean, all HTTP 200 (404 correctly returns 404), all exactly one
+  `id="main-content"`.
+- Confirmed the actual pattern copy renders, not just the wrapper
+  structure (e.g., home page contains "Strategy-led design...",
+  "Trusted by teams", "120+", etc.; the Services test page contains the
+  Starter/Growth/Studio pricing tiers).
+- All three placeholder image assets return HTTP 200 from their real
+  theme URL.
+- **Two false-alarm "bugs" during verification, both testing artifacts
+  fixed by re-checking rather than mis-diagnosing the code:** (1) a grep
+  for `style.css` inside double-quoted `href="..."` found nothing because
+  WordPress emits enqueued stylesheet `<link>` tags with single-quoted
+  `href='...'` — the stylesheet was loading correctly all along, and
+  `:focus-visible { outline: 2px solid var(--wp--preset--color--accent); }`
+  was confirmed present by curling the served `style.css` directly. (2) a
+  grep for the literal footer-cta heading text with a straight apostrophe
+  found nothing because WordPress's `wptexturize()` renders it as
+  `Let&#039;s build...` — the pattern was rendering correctly all along.
+  Both are noted here as a reminder that a failed grep during verification
+  needs its own follow-up check before it's trusted as a real defect.
+- **Focus-visible outline — verified as far as is possible without a
+  real browser:** confirmed the CSS rule is present in the served
+  stylesheet, confirmed that stylesheet is `<link>`-loaded on every page
+  checked, and confirmed every interactive element across all 13
+  patterns is a real focusable element (`core/button` anchors,
+  `core/social-links` anchors, `core/search` input) — no custom
+  non-focusable click targets. Could not literally press Tab in a
+  browser in this environment; flagging that as the honest limit of this
+  verification rather than claiming a full keyboard walkthrough.
+- `wp-content/debug.log` stayed free of theme-related PHP
+  notices/warnings/fatals through pattern registration, rendering, and
+  the block-bindings/pattern-category `init` hooks (only the same
+  pre-existing, unrelated `wp_update_themes()` sandboxed-network warning
+  as Phases 1–2, plus benign WP-Cron log lines).
+
+**Not yet started:** demo content (real Pages/Posts using these
+patterns), screenshot asset, readme.txt content sections, languages/POT
+file, webfont bundling decision (if revisited).
+
+**Next phase (Phase 4 — Style variations spot-check with real
+content):** Now that real patterns exist (not empty templates), confirm
+Midnight/Sandstone/Emerald still look intentional and distinct — the
+Phase 1 contrast math was verified against the token values in the
+abstract; this phase should verify it against actual rendered pattern
+content, especially the `cta-banner` gradient (first real gradient
+usage) and the pricing table's primary-background "Growth" card (first
+place a non-neutral background sits behind body text at real content
+scale). Check all three variations against: home page, page-services,
+page-pricing, page-case-study. Do this before Phase 5 (demo-content
+assembly) so any variation-specific issues are caught before they're
+multiplied across 8–10 real demo pages.
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._

@@ -120,7 +120,7 @@ reusable block patterns — no one-off, page-specific markup.
 | About | `page.html` | `hero-freelancer`, `stats-counter`, `team-grid`, `cta-banner` |
 | Services | `page-services.html` | `hero-agency`, `services-grid`, `pricing-table`, `footer-cta` |
 | Portfolio | `page-portfolio.html` | `hero-agency`, `portfolio-grid`, `logo-cloud`, `cta-banner` |
-| Case Study (single) | `single.html` | `portfolio-case-study`, `stats-counter`, `testimonials-carousel-static`, `footer-cta` |
+| Case Study | `page-case-study.html` | `portfolio-case-study`, `cta-banner` |
 | Team | `page-team.html` | `hero-freelancer`, `team-grid`, `stats-counter`, `cta-banner` |
 | Pricing | `page-pricing.html` | `pricing-table`, `testimonials-carousel-static`, `footer-cta` |
 | Testimonials | `page.html` | `testimonials-carousel-static`, `logo-cloud`, `stats-counter`, `cta-banner` |

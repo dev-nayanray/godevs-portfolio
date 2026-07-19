@@ -6,7 +6,8 @@
 		{ "name": "page-portfolio", "title": "Page: Portfolio", "postTypes": [ "page" ] },
 		{ "name": "page-team", "title": "Page: Team", "postTypes": [ "page" ] },
 		{ "name": "page-pricing", "title": "Page: Pricing", "postTypes": [ "page" ] },
-		{ "name": "page-contact", "title": "Page: Contact", "postTypes": [ "page" ] }
+		{ "name": "page-contact", "title": "Page: Contact", "postTypes": [ "page" ] },
+		{ "name": "page-case-study", "title": "Case Study", "postTypes": [ "page" ] }
 	],
 	"settings": {
 		"appearanceTools": true,
