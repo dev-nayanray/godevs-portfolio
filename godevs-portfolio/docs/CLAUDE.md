@@ -315,22 +315,127 @@ level" and worth being explicit about.
   pre-existing, unrelated `wp_update_themes()` sandboxed-network warning
   as Phases 1–2, plus benign WP-Cron log lines).
 
-**Not yet started:** demo content (real Pages/Posts using these
-patterns), screenshot asset, readme.txt content sections, languages/POT
-file, webfont bundling decision (if revisited).
+**Phase 4 — H1 fix, style-variation spot-check, and documentation
+reconciliation (complete)**
 
-**Next phase (Phase 4 — Style variations spot-check with real
-content):** Now that real patterns exist (not empty templates), confirm
-Midnight/Sandstone/Emerald still look intentional and distinct — the
-Phase 1 contrast math was verified against the token values in the
-abstract; this phase should verify it against actual rendered pattern
-content, especially the `cta-banner` gradient (first real gradient
-usage) and the pricing table's primary-background "Growth" card (first
-place a non-neutral background sits behind body text at real content
-scale). Check all three variations against: home page, page-services,
-page-pricing, page-case-study. Do this before Phase 5 (demo-content
-assembly) so any variation-specific issues are caught before they're
-multiplied across 8–10 real demo pages.
+**The missing-H1 fix (front-page.html) — approach chosen and why:**
+`hero-agency.php` now decides its own heading level at render time:
+`is_front_page() ? 1 : 2`. This is option (a) from the brief
+("give the pattern a block-level heading attribute that templates can
+override"), implemented via a PHP conditional rather than a literal
+block attribute — patterns/*.php execute as real PHP, so this was the
+cleanest way to make one reusable pattern context-aware without forking
+a duplicate copy of the markup (which would have violated the
+patterns-over-hard-coded-markup rule far more than a conditional does).
+`is_front_page()` is reliable here regardless of whether Reading
+Settings uses "a static page" or "your latest posts", since
+front-page.html only ever renders for the actual front-page request —
+confirmed live: the rendered home page contains exactly one `<h1>`
+("Strategy-led design for brands ready to grow"), and the same pattern
+instance renders `<h2>` correctly on page-services.html and
+page-portfolio.html (verified via test pages, see below).
+
+**The rest of the H1 fix:**
+- `page.html` and all 6 custom `page-*.html` templates (`page-services`,
+  `page-portfolio`, `page-team`, `page-pricing`, `page-contact`,
+  `page-case-study`) now open with `core/post-title` at `level:1`,
+  styled small/muted/uppercase (`fontSize: small`, `textColor:
+  text-muted`) rather than prominent — each of these templates already
+  has its own visually-prominent hero pattern with an H2, so a
+  large H1 would have looked like a duplicate title stacked on top.
+  The small H1 reads as an "eyebrow" label instead, satisfying the real
+  requirement (exactly one real, visible H1) without visual clutter.
+  `page-case-study.html` gets the same treatment even though
+  `portfolio-case-study.php` also has its own kicker text + H2 project
+  name directly below it — a minor, accepted overlap, not a bug.
+- `single.html` already had `post-title` at `level:1` (prominent, huge)
+  from the Phase 3 rebuild — left unchanged, since blog posts don't have
+  a competing hero pattern.
+- `archive.html` and `search.html` already produce H1 via
+  `core/query-title`'s own default level (confirmed live: `<h1
+  class="wp-block-query-title">`) — no change needed, and confirmed the
+  `post-title` block *inside* the query loop on these same pages
+  correctly defaults to H2, not H1 (this was the one real risk in this
+  phase: if it defaulted to H1, every post in a loop would have produced
+  a duplicate H1 — checked live rather than assumed, and it's H2).
+- `home.html` and `index.html` had **no H1 at all** — not called out
+  explicitly in the brief, but the same "every page needs exactly one
+  H1" principle applies, so a plain "Blog" H1 was added to both and
+  flagged here rather than left as a silent gap.
+- `404.html` already rendered a literal `<h1>` in its saved HTML, but
+  the block comment's JSON attributes didn't say `"level":1` — fixed for
+  consistency (so the editor doesn't disagree with the front end if this
+  template is later opened in the Site Editor).
+
+**Verified live, not assumed:** every route re-checked after the fix —
+home page, a sample Page, a blog post, a category archive, search
+results, 404, and all 6 custom-templated pages (created as real test
+Pages via `_wp_page_template` meta, then deleted) — every single one
+renders **exactly one** `<h1>`, confirmed by both `grep -c '<h1'` and by
+reading each H1's actual text content to confirm it's the right one.
+
+**Style variation spot-check (Step 1):**
+- **Gradient midpoint, not just endpoints** — script-computed (CSS
+  `linear-gradient` interpolates RGB channels linearly, so the midpoint
+  is the channel-wise average of the two stop colors) for all 4 palettes.
+  `primary-contrast` text against the *worst point on the gradient*
+  (not just the two ends already checked in Phase 1): Base 5.72:1,
+  Midnight 6.91:1, Sandstone 5.95:1, Emerald 5.94:1 — all still clear
+  4.5:1 by a comfortable margin. No variation-level fix needed.
+- **`text-muted` (portfolio-grid.php's caption text) against
+  `background`**, all 4 palettes: Base 7.58:1, Midnight 7.81:1,
+  Sandstone 5.75:1, Emerald 6.43:1 — all pass, consistent with Phase 1.
+- **Pricing table's "Growth" tier visual distinctness** — structurally
+  variation-proof: it's marked with a visible "Most Popular" *text*
+  label (not a color-only signal), and its card uses the `primary`
+  background token while sibling cards use `surface` — `primary` and
+  `surface` are two different palette slugs in every variation by
+  definition, so the tier stays visually distinct regardless of which
+  variation is active. No per-variation fix needed.
+- **Honest limitation:** no real browser/screenshot tool is available in
+  this environment, so "does it look intentional" was verified via
+  contrast math and structural reasoning (token-slug guarantees), not an
+  actual visual screenshot per variation. Flagging this rather than
+  claiming a visual review that didn't happen.
+
+**Documentation reconciliation (Steps 2–3), now in `docs/PRD.md`:**
+- `contact-info` added explicitly to the Section 5 pattern-stack table
+  (13 patterns total, not 12) with a note on how the gap was found.
+- Contact form explicitly scoped **out** of this theme — `contact-info`
+  is static contact details only; a working submission mechanism is
+  Phase 6+/future, via a recommended (not bundled) companion plugin,
+  consistent with the existing Non-Goals section.
+- The four exact case-study slugs `portfolio-grid.php` hard-codes
+  (`northwind-rebrand`, `globex-mobile-app`,
+  `fabrikam-commerce-platform`, `contoso-marketing-site`) are now
+  written down in PRD.md so Phase 5 creates Pages at those exact slugs
+  rather than inventing different ones and silently breaking the links.
+  Also noted: `portfolio-case-study.php` currently contains
+  Northwind-specific copy from its one Phase 3 worked example — Phase 5
+  needs to treat it as a *starting-point* pattern and customize the
+  copy per project, not ship four pages that all say "Northwind Rebrand."
+
+**Verification actually performed** (wp-env, not code review): see H1
+verification above (live-rendered, not grep-only) plus a full debug.log
+check after every change — clean throughout (only the same pre-existing,
+unrelated `wp_update_themes()` sandboxed-network warning as every prior
+phase).
+
+**Not yet started:** demo content (real Pages/Posts using these
+patterns, at the slugs now documented in PRD.md), screenshot asset,
+readme.txt content sections, languages/POT file, webfont bundling
+decision (if revisited).
+
+**Next phase (Phase 5 — Demo content assembly):** Build the actual
+Pages/Posts: Home (front-page.html, already structurally complete),
+About, Services, Portfolio, the 4 Case Study pages at the exact slugs
+above (customizing `portfolio-case-study.php`'s copy per project — don't
+ship it verbatim 4 times), Team, Pricing, Testimonials, Blog posts, and
+Contact — per docs/PRD.md Section 5. Set Reading Settings appropriately
+(front page = Home) so `front-page.html` and `home.html`/`index.html`
+each serve their intended role. Produce a WXR export per docs/PRD.md
+once content is in place, and verify it imports cleanly on a fresh
+`wp-env` install (PRD Success Criteria #4).
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._

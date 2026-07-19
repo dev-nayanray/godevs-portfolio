@@ -125,8 +125,48 @@ reusable block patterns — no one-off, page-specific markup.
 | Pricing | `page-pricing.html` | `pricing-table`, `testimonials-carousel-static`, `footer-cta` |
 | Testimonials | `page.html` | `testimonials-carousel-static`, `logo-cloud`, `stats-counter`, `cta-banner` |
 | Blog | `archive.html` / `index.html` | standard post-list layout, `footer-cta` |
-| Contact | `page-contact.html` | `hero-freelancer` (compact), contact block group, `logo-cloud` |
+| Contact | `page-contact.html` | `hero-freelancer` (compact), `contact-info`, `logo-cloud` |
 | 404 | `404.html` | minimal not-found block group, `cta-banner` |
+
+**13 patterns total**, not 12 — `contact-info` (address/phone/email in a
+three-column layout) was added during Phase 3 to fill a gap this table
+originally left: the Contact row named "contact block group" without
+ever naming an actual pattern file. See
+[docs/CLAUDE.md](CLAUDE.md) Phase 3 notes for how that gap was found and
+closed. `contact-info` has the same header-block documentation standard
+(Title/Slug/Categories) as the other 12, registered under its own
+`godevs-portfolio-contact` pattern category.
+
+**Contact form — explicitly out of scope for this theme.** `contact-info`
+provides static contact details only (email, phone, studio address) — it
+has no working submission mechanism. This is intentional, not an
+oversight: Section 4 (Non-Goals) already commits to "no bundled plugin
+dependency," and a real form handler is exactly the kind of
+functionality that belongs in a companion forms plugin (e.g. Contact
+Form 7, WPForms), not baked into the theme. A working contact form is
+Phase 6+ / future scope, to be delivered as a *recommended* plugin
+integration point at most, never a requirement for the theme to render
+or pass Theme Review.
+
+**Case study demo pages — exact slugs `portfolio-grid.php` links to.**
+`patterns/portfolio-grid.php` hard-codes four project links; Phase 5
+must create these as real Pages using the `page-case-study.html`
+template at exactly these slugs, or the links silently break:
+
+| Project (link text) | Slug |
+|---|---|
+| Northwind Rebrand | `/case-studies/northwind-rebrand/` |
+| Globex Mobile App | `/case-studies/globex-mobile-app/` |
+| Fabrikam Commerce Platform | `/case-studies/fabrikam-commerce-platform/` |
+| Contoso Marketing Site | `/case-studies/contoso-marketing-site/` |
+
+`patterns/portfolio-case-study.php` currently contains Northwind-specific
+copy (it was built as one worked example, not four). Phase 5 should treat
+it as a **starting-point pattern**, not verbatim content: insert it into
+each of the four Case Study pages and edit the challenge/approach/result
+copy, stats, and gallery per project — the same way a real site owner
+would use it — rather than shipping four pages that all literally say
+"Northwind Rebrand."
 
 ## 6. Success Criteria
 
