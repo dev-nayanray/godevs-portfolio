@@ -1583,18 +1583,179 @@ a menu, matching Phase 11's format.
 - WXR files: 6 total, each independently verified via its own
   destroy-and-restart wp-env pass.
 
-**Next phase (Phase 13 — Medical Practice + Law Firm):** the content-
-risk-review niches — demo copy needs the fictional-only-credentials and
-no-guaranteed-outcomes discipline documented in `docs/PRD.md` Section
-8. Also the deferred `page-team-member.html` template (needed for
-`team-member-profile.php`, built Phase 10 but never yet used) — this is
-the phase that actually needs individual attorney/doctor profile
-pages, so the template can't be deferred further. Both niches reuse
-`services-grid.php` (Conditions Treated / Practice Areas) and
-`faq-list.php` as their core differentiators per `docs/NICHE_DEMOS.md`
-— no other new/variant patterns anticipated. Final running total after
-Phase 13: 45 + 14 (7 Medical + 7 Law) = 59 of 59 — the full Phase 9
-plan complete.
+**Phase 13 — Medical Practice + Law Firm (complete)**
+
+**Step 1 — `page-team-member.html` built and registered.** The
+deferred custom template (Phase 10's `team-member-profile.php` had no
+template to sit on until now) follows the established `page.html`/
+`page-case-study.html` convention exactly: a small muted "eyebrow"
+`core/post-title` (H1) + generic `core/post-content` — no hardcoded
+pattern stack, per the Phase 10 architecture rule. Registered in
+`theme.json`'s `customTemplates` (title "Team Member Profile",
+`postTypes: ["page"]`). Verified registered live via
+`get_block_templates()`, and end-to-end verified via a **temporary
+smoke-test page** (`smoketest-team-member`, "Dr. Renata Salgado," an
+expanded `team-member-profile.php` instance) created, checked live
+(post-title eyebrow H1 rendered correctly, pattern's own H2 name
+present), then **deleted before export** — it does not ship and does
+not count toward either niche's page total, keeping the pre-committed
+45 + 14 = 59 running total exact.
+
+**Step 2 — Medical Practice, 7 pages built** (persona: "Willowbrook
+Family Medicine," a fictional multi-provider practice — not a named
+real doctor implying real credentials): Home, About, Services, Team,
+FAQ, New Patients, Contact. Content-risk discipline applied
+throughout per `docs/PRD.md` Section 8 and this phase's explicit
+non-negotiable rules:
+- Services described in generic, non-clinical categories only
+  ("General Checkups", "Preventive Care", "Chronic Condition
+  Management", "Same-Day Appointments") — no treatment-efficacy or
+  outcome claims anywhere.
+- 4 fictional providers (Dr. Renata Salgado, Dr. Julian Ferro, Dr.
+  Naomi Vance, Alex Kim PA-C) — names/roles only via `team-grid.php`,
+  which carries no credentials field by construction, so no real- or
+  fake-sounding license/board-certification claims are possible.
+- New Patients page expanded from `new-patients-info.php` (its
+  default hardcodes a different phone number) — informational only:
+  office hours, correct phone number, and a new "Insurance we accept"
+  section (standard carrier names — Blue Cross Blue Shield, Aetna,
+  Cigna, UnitedHealthcare, Medicare — a factual administrative list,
+  not a medical claim) with a "replace with your actual accepted
+  plans" note retained in the copy. **No booking form, no CPT**,
+  confirmed from Phase 10's pattern design.
+- Every page's `post_content` prefixed with an HTML comment: "Demo
+  content only — replace with real, reviewed practice information
+  before publishing."
+
+**Step 3 — Law Firm, 7 pages built** (persona: "Ashgrove & Pierce,
+LLP," a fictional multi-practice-area firm): Home, About, Practice
+Areas, Team, Results, FAQ, Contact. Same content-risk care level:
+- `services-grid.php` reframed as "Practice Areas" (Family Law,
+  Business Formation, Estate Planning, Civil Litigation) — general,
+  non-jurisdiction-specific descriptions only.
+- 4 fictional attorneys (Marcus Ashgrove, Danielle Pierce, Omar
+  Farouk, Grace Whitfield) — names/roles only, same
+  no-credentials-field safety as Medical's team-grid.
+- `portfolio-case-study.php` reused for "Results," rewritten as
+  Situation/Strategy/Outcome (not Challenge/Approach/Result) with
+  deliberately hedged outcome language ("Achieved a favorable
+  resolution for our client through a negotiated settlement" — never
+  a win/loss framing or a specific dollar figure), the pattern's
+  original marketing-metric stats replaced with safe process-oriented
+  ones (Practice Area / Resolution Type / Matter Duration), the
+  closing image gallery **dropped entirely** (not applicable to a
+  legal matter), and an explicit disclaimer paragraph appended: "Past
+  results do not guarantee similar outcomes in future matters."
+- Same "Demo content only" HTML comment prefix on every page.
+
+**Step 4 — heading-level audit (rule 8), checked fresh, not assumed
+from Phase 12's clean result.** Grepped `patterns/` directly for
+`godevs_portfolio_hero_heading_level()` calls: still exactly 3
+patterns use it (`hero-agency.php`, `hero-freelancer.php`,
+`hero-video.php` — unchanged from Phase 12's finding). Across both
+niches' 14 pages, only **`hero-agency`** was used, and only once per
+niche — hand-expanded on each Home page with a hardcoded `<h1>`
+(correct, since each is used exactly once, on the front page). Both
+manually verified live via direct regex match against the actual
+rendered headline text, both during the initial build and again
+during Step Final's fresh-import passes:
+- Medical: Home renders `<h1>Comprehensive care for your whole
+  family</h1>` — confirmed.
+- Law Firm: Home renders `<h1>Practical legal guidance for
+  individuals and businesses</h1>` — confirmed.
+
+No other pattern used in either niche carries a heading-level
+conditional; all other headings (H2 section titles, H3 sub-items) are
+hardcoded directly in the authored copy, not conditional.
+
+**Content-risk grep sweep — clean for both niches.** A programmatic
+sweep (case-insensitive `stripos` against every page's saved
+`post_content`) checked for: `cure(s/d)`, `guarantee(d)`, `success
+rate`, `we win`, `100% success`, `proven to`, `best in the`, `#1`,
+`no risk`, `risk-free`, `malpractice`, `lawsuit`, plus (Law Firm only)
+`we won`, `won the case`, `settlement of`, `awarded`, `verdict of`,
+`bar certified`, `board certified`, `licensed to practice in`, and a
+dollar-figure regex (`\$[\d,]+...`). **Medical: clean, zero flags
+across 7 pages.** **Law Firm: one flag** — the word "guarantee" in the
+Results page's own disclaimer sentence ("Past results do **not**
+guarantee similar outcomes in future matters"). Inspected directly:
+this is the safe, recommended hedge itself, not a guarantee claim — a
+confirmed false positive from the blunt keyword match, not a content
+issue. No dollar figures found anywhere. Re-run identically against
+the fresh WXR re-imports in Step Final with the same result both
+times.
+
+**Step 5 — WXR export + docs.** `demo-content/godevs-portfolio-demo-medical.xml`
+and `demo-content/godevs-portfolio-demo-law-firm.xml` exported (8
+items each: 7 pages + 1 navigation). `demo-content/README.md`
+rewritten: niche table now lists all 8 demos, "6 demos"/"6 files"
+language updated to 8 throughout, and a new **top-level warning
+section** (not just the in-content HTML comments) added near the top
+of the file explicitly flagging that the Medical and Law Firm demos
+are illustrative placeholder content only and must be replaced with
+real, professionally-reviewed copy before any real practice or firm
+publishes a site built from them.
+
+**Step Final — 3 fresh wp-env passes, each a full destroy-and-restart:**
+1. **Agency regression:** re-imported `godevs-portfolio-demo-content.xml`
+   fresh. All 14 core routes (10 top-level pages + 4 nested case-study
+   pages under `/case-studies/`) returned 200 with exactly one H1
+   each, confirming Phase 13's changes (new template registration,
+   `theme.json` edit) didn't disturb the existing Agency demo. Same
+   known media-attachment Docker-networking cURL error reproduced
+   again on import (expected, pre-existing, unrelated to this phase).
+2. **Medical:** clean import (8 items). All 7 pages 200 with exactly
+   one H1 and correct heading text. Home's hardcoded hero `<h1>`
+   re-confirmed. `smoketest-team-member` correctly returns 404 —
+   proof the temporary smoke-test page was excluded from the shipped
+   WXR as intended. Demo-content comment present on all 7 pages.
+   Content-risk grep clean.
+3. **Law Firm:** clean import (8 items). All 7 pages 200 with exactly
+   one H1 and correct heading text. Home's hardcoded hero `<h1>`
+   re-confirmed. Demo-content comment present on all 7 pages.
+   Content-risk grep: same single "guarantee"-in-disclaimer false
+   positive as the build-time check, otherwise clean.
+
+`debug.log` stayed clean (no file present) across all 3 passes.
+
+**Two transient infrastructure issues hit during Step Final, both
+pre-existing failure modes from earlier phases, neither theme-related:**
+a Docker CLI credential-helper Go panic during one `wp-env start`
+(fixed by simply retrying — no stale containers were left behind this
+time, unlike the Phase 12-adjacent occurrence), and a `git fetch`
+`early EOF`/`invalid index-pack` error during another `wp-env start`
+while it fetched a WordPress core version (also fixed by retrying).
+Also re-confirmed a tooling gotcha worth flagging for future phases:
+piping a backgrounded `wp-env start` through `| tail -N` masks the
+command's real exit code (the pipeline reports `tail`'s exit status,
+which is always 0) — checking `$?` for a piped background command in
+this environment produced a **false positive** ("exit code 0") on a
+run that had actually failed with the docker-compose flag error;
+switched to running the bare command with an explicit `echo
+"EXIT_CODE=$?"` afterward to get the true status.
+
+**Exact counts, for the record:**
+- Pages built this phase: 14 (7 Medical + 7 Law Firm).
+- **Running page count: 59 of 59 total — all niches complete**
+  (14 Agency + 6 Freelancer + 7 Web Dev Studio + 6 Photographer + 6
+  Interior Designer + 6 Architect + 7 Medical + 7 Law Firm).
+- Patterns: still 30 — no new patterns needed; `new-patients-info.php`
+  and `portfolio-case-study.php` (both built Phase 10) got their first
+  real use this phase, both expanded rather than referenced live.
+- Templates: 7 custom templates now registered (added
+  `page-team-member.html` this phase).
+- WXR files: 8 total (all niches), each independently verified via
+  its own destroy-and-restart wp-env pass.
+
+**Next phase (Phase 14 — Multi-niche QA + packaging):** all 8 niches'
+content is now built and verified individually. Phase 14 shifts to
+cross-cutting release-readiness work: Theme Check / phpcs run across
+the theme files and all 8 WXR files, a final pattern-count
+reconciliation against `docs/PATTERN_LIBRARY.md` (confirm the
+documented 30-pattern count matches what's actually in `patterns/`,
+and that every pattern's documented niche-usage list is accurate now
+that all 8 demos exist), and a version bump ahead of WordPress.org
+directory submission.
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._
