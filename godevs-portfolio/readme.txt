@@ -4,7 +4,7 @@ Contributors: REPLACE_WITH_YOUR_WORDPRESS_ORG_USERNAME
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.3.0
+Stable tag: 0.4.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Tags: full-site-editing, block-patterns, style-variations, portfolio, blog, one-column, two-columns, grid-layout, custom-colors, custom-menu, editor-style, featured-images, rtl-language-support, translation-ready, accessibility-ready
@@ -88,6 +88,16 @@ WordPress.org Theme Review itself.
    content, in the default "Studio" style variation.
 
 == Changelog ==
+
+= 0.4.0 - 2026-07-19 =
+* Shared pattern library expansion (multi-niche groundwork): 8 new
+  core patterns (FAQ list, process steps, testimonial spotlight, team
+  member profile, video hero, location & hours, value props, company
+  timeline) plus 6 niche-specific portfolio/gallery/before-after
+  patterns. Converted the front page and 5 dedicated page templates
+  from hardcoded pattern stacks to standard post-content composition
+  so multiple business niches can share them. No new demo content in
+  this release — patterns and templates only.
 
 = 0.3.0 - 2026-07-19 =
 * Packaging pass: complete readme.txt, real screenshot and

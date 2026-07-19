@@ -11,18 +11,14 @@
 defined( 'ABSPATH' ) || exit;
 
 /*
- * Patterns don't own page-level structure, so they default to H2 (see
- * docs/CLAUDE.md Phase 3 notes). front-page.html is the one exception:
- * it has no post-title to supply the page's H1, so when this exact
- * pattern instance is rendered as the front page's hero, it promotes
- * itself to H1 — is_front_page() is reliable here regardless of whether
- * Reading Settings uses "a static page" or "your latest posts", since
- * front-page.html only ever renders for the actual front-page request.
- * This keeps hero-agency a single reusable pattern (also used, as H2,
- * on page-services.html and page-portfolio.html) rather than forking a
- * duplicate copy of the markup just to change one tag.
+ * See godevs_portfolio_hero_heading_level() in functions.php (Phase 10):
+ * H1 when this instance is rendered as the current niche's front page
+ * (which has no post-title of its own to supply the page's H1), H2
+ * everywhere else. Every niche's Home page uses this same pattern
+ * instance via post-content now (Phase 10 template fix), so the check
+ * has to keep working per-request, not per-template.
  */
-$godevs_portfolio_hero_agency_level = is_front_page() ? 1 : 2;
+$godevs_portfolio_hero_agency_level = godevs_portfolio_hero_heading_level();
 $godevs_portfolio_hero_agency_tag   = 'h' . $godevs_portfolio_hero_agency_level;
 ?>
 <!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|l","left":"var:preset|spacing|xl"}}}} -->

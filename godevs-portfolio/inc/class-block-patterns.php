@@ -79,6 +79,14 @@ class Block_Patterns {
 			'godevs-portfolio-contact',
 			array( 'label' => __( 'Portfolio: Contact', 'godevs-portfolio' ) )
 		);
+		register_block_pattern_category(
+			'godevs-portfolio-faq',
+			array( 'label' => __( 'Portfolio: FAQ', 'godevs-portfolio' ) )
+		);
+		register_block_pattern_category(
+			'godevs-portfolio-process',
+			array( 'label' => __( 'Portfolio: Process', 'godevs-portfolio' ) )
+		);
 		// phpcs:enable WPThemeReview.PluginTerritory.ForbiddenFunctions.editor_blocks_register_block_pattern_category
 	}
 }

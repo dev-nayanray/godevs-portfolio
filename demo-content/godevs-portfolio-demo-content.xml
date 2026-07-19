@@ -17,25 +17,25 @@
  7. WordPress will then import each of the posts, pages, comments, categories, etc.
     contained in this file into your site.
 -->
-<!-- generator="WordPress/7.0.2" created="2026-07-19 07:08" -->
+<!-- generator="WordPress/7.0.2" created="2026-07-19 12:23" -->
 <rss version="2.0" xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:wp="http://wordpress.org/export/1.2/">
   <channel>
 <title>Godevs-portfoilo</title>
 <link>http://localhost:8888</link>
 <description/>
-<pubDate>Sun, 19 Jul 2026 07:08:32 +0000</pubDate>
+<pubDate>Sun, 19 Jul 2026 12:23:39 +0000</pubDate>
 <language>en-US</language>
 <wp:wxr_version>1.2</wp:wxr_version>
 <wp:base_site_url>http://localhost:8888</wp:base_site_url>
 <wp:base_blog_url>http://localhost:8888</wp:base_blog_url>
 <wp:category>
-  <wp:term_id>3</wp:term_id>
+  <wp:term_id>2</wp:term_id>
   <wp:category_nicename>industry-insights</wp:category_nicename>
   <wp:category_parent/>
   <wp:cat_name><![CDATA[Industry Insights]]></wp:cat_name>
 </wp:category>
 <wp:category>
-  <wp:term_id>2</wp:term_id>
+  <wp:term_id>3</wp:term_id>
   <wp:category_nicename>process</wp:category_nicename>
   <wp:category_parent/>
   <wp:cat_name><![CDATA[Process]]></wp:cat_name>
@@ -47,14 +47,14 @@
   <wp:cat_name><![CDATA[Uncategorized]]></wp:cat_name>
 </wp:category>
 <wp:term>
-  <wp:term_id>3</wp:term_id>
+  <wp:term_id>2</wp:term_id>
   <wp:term_taxonomy>category</wp:term_taxonomy>
   <wp:term_slug>industry-insights</wp:term_slug>
   <wp:term_parent/>
   <wp:term_name><![CDATA[Industry Insights]]></wp:term_name>
 </wp:term>
 <wp:term>
-  <wp:term_id>2</wp:term_id>
+  <wp:term_id>3</wp:term_id>
   <wp:term_taxonomy>category</wp:term_taxonomy>
   <wp:term_slug>process</wp:term_slug>
   <wp:term_parent/>
@@ -69,56 +69,59 @@
 </wp:term>
 <generator>https://wordpress.org/?v=7.0.2</generator>
 <item>
-  <title><![CDATA[Blog Featured Image]]></title>
-  <link>http://localhost:8888/blog-featured-image/</link>
-  <pubDate>Sun, 19 Jul 2026 06:59:14 +0000</pubDate>
-  <dc:creator/>
-  <guid isPermaLink="false">http://localhost:8888/wp-content/uploads/2026/07/placeholder-wide.png</guid>
-  <description/>
-  <content:encoded><![CDATA[]]></content:encoded>
-  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
-  <wp:post_id>17</wp:post_id>
-  <wp:post_date>2026-07-19 06:59:14</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 06:59:14</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 06:59:14</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 06:59:14</wp:post_modified_gmt>
-  <wp:comment_status>open</wp:comment_status>
-  <wp:ping_status>closed</wp:ping_status>
-  <wp:post_name>blog-featured-image</wp:post_name>
-  <wp:status>inherit</wp:status>
-  <wp:post_parent>0</wp:post_parent>
-  <wp:menu_order>0</wp:menu_order>
-  <wp:post_type>attachment</wp:post_type>
-  <wp:post_password/>
-  <wp:is_sticky>0</wp:is_sticky>
-  <wp:attachment_url>http://localhost:8888/wp-content/uploads/2026/07/placeholder-wide.png</wp:attachment_url>
-  <wp:postmeta>
-    <wp:meta_key>_wp_attached_file</wp:meta_key>
-    <wp:meta_value><![CDATA[2026/07/placeholder-wide.png]]></wp:meta_value>
-  </wp:postmeta>
-  <wp:postmeta>
-    <wp:meta_key>_wp_attachment_metadata</wp:meta_key>
-    <wp:meta_value><![CDATA[a:6:{s:5:"width";i:1600;s:6:"height";i:900;s:4:"file";s:28:"2026/07/placeholder-wide.png";s:8:"filesize";i:38944;s:5:"sizes";a:5:{s:6:"medium";a:5:{s:4:"file";s:28:"placeholder-wide-300x169.png";s:5:"width";i:300;s:6:"height";i:169;s:9:"mime-type";s:9:"image/png";s:8:"filesize";i:8661;}s:5:"large";a:5:{s:4:"file";s:29:"placeholder-wide-1024x576.png";s:5:"width";i:1024;s:6:"height";i:576;s:9:"mime-type";s:9:"image/png";s:8:"filesize";i:43102;}s:9:"thumbnail";a:5:{s:4:"file";s:28:"placeholder-wide-150x150.png";s:5:"width";i:150;s:6:"height";i:150;s:9:"mime-type";s:9:"image/png";s:8:"filesize";i:4496;}s:12:"medium_large";a:5:{s:4:"file";s:28:"placeholder-wide-768x432.png";s:5:"width";i:768;s:6:"height";i:432;s:9:"mime-type";s:9:"image/png";s:8:"filesize";i:30279;}s:9:"1536x1536";a:5:{s:4:"file";s:29:"placeholder-wide-1536x864.png";s:5:"width";i:1536;s:6:"height";i:864;s:9:"mime-type";s:9:"image/png";s:8:"filesize";i:77587;}}s:10:"image_meta";a:13:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}s:3:"alt";s:0:"";}}]]></wp:meta_value>
-  </wp:postmeta>
-  <wp:postmeta>
-    <wp:meta_key>_wp_attachment_image_alt</wp:meta_key>
-    <wp:meta_value><![CDATA[Placeholder featured image for blog posts]]></wp:meta_value>
-  </wp:postmeta>
-</item>
-<item>
   <title><![CDATA[Home]]></title>
   <link>http://localhost:8888/</link>
   <pubDate>Sun, 19 Jul 2026 06:59:15 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/home/</guid>
   <description/>
-  <content:encoded><![CDATA[]]></content:encoded>
+  <content:encoded><![CDATA[<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/hero-agency"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/logo-cloud"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/services-grid"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/portfolio-grid"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/stats-counter"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/testimonials-carousel-static"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/cta-banner"} /-->
+</div>
+<!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>18</wp:post_id>
   <wp:post_date>2026-07-19 06:59:15</wp:post_date>
   <wp:post_date_gmt>2026-07-19 06:59:15</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 06:59:15</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 06:59:15</wp:post_modified_gmt>
+  <wp:post_modified>2026-07-19 12:13:09</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-19 12:13:09</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>home</wp:post_name>
@@ -172,13 +175,35 @@
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/services/</guid>
   <description/>
-  <content:encoded><![CDATA[]]></content:encoded>
+  <content:encoded><![CDATA[<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/hero-agency"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/services-grid"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/pricing-table"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/footer-cta"} /-->
+</div>
+<!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>20</wp:post_id>
   <wp:post_date>2026-07-19 06:59:15</wp:post_date>
   <wp:post_date_gmt>2026-07-19 06:59:15</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 06:59:15</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 06:59:15</wp:post_modified_gmt>
+  <wp:post_modified>2026-07-19 12:13:09</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-19 12:13:09</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>services</wp:post_name>
@@ -200,13 +225,35 @@
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/portfolio/</guid>
   <description/>
-  <content:encoded><![CDATA[]]></content:encoded>
+  <content:encoded><![CDATA[<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/hero-agency"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/portfolio-grid"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/logo-cloud"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/cta-banner"} /-->
+</div>
+<!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>21</wp:post_id>
   <wp:post_date>2026-07-19 06:59:15</wp:post_date>
   <wp:post_date_gmt>2026-07-19 06:59:15</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 06:59:15</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 06:59:15</wp:post_modified_gmt>
+  <wp:post_modified>2026-07-19 12:13:09</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-19 12:13:09</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>portfolio</wp:post_name>
@@ -228,13 +275,35 @@
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/team/</guid>
   <description/>
-  <content:encoded><![CDATA[]]></content:encoded>
+  <content:encoded><![CDATA[<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/hero-freelancer"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/team-grid"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/stats-counter"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/cta-banner"} /-->
+</div>
+<!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>22</wp:post_id>
   <wp:post_date>2026-07-19 06:59:15</wp:post_date>
   <wp:post_date_gmt>2026-07-19 06:59:15</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 06:59:15</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 06:59:15</wp:post_modified_gmt>
+  <wp:post_modified>2026-07-19 12:13:09</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-19 12:13:09</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>team</wp:post_name>
@@ -256,13 +325,29 @@
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/pricing/</guid>
   <description/>
-  <content:encoded><![CDATA[]]></content:encoded>
+  <content:encoded><![CDATA[<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/pricing-table"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/testimonials-carousel-static"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/footer-cta"} /-->
+</div>
+<!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>23</wp:post_id>
   <wp:post_date>2026-07-19 06:59:15</wp:post_date>
   <wp:post_date_gmt>2026-07-19 06:59:15</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 06:59:15</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 06:59:15</wp:post_modified_gmt>
+  <wp:post_modified>2026-07-19 12:13:09</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-19 12:13:09</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>pricing</wp:post_name>
@@ -284,13 +369,29 @@
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/contact/</guid>
   <description/>
-  <content:encoded><![CDATA[]]></content:encoded>
+  <content:encoded><![CDATA[<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/hero-freelancer"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/contact-info"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/logo-cloud"} /-->
+</div>
+<!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>24</wp:post_id>
   <wp:post_date>2026-07-19 06:59:15</wp:post_date>
   <wp:post_date_gmt>2026-07-19 06:59:15</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 06:59:15</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 06:59:15</wp:post_modified_gmt>
+  <wp:post_modified>2026-07-19 12:13:09</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-19 12:13:09</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>contact</wp:post_name>
@@ -673,7 +774,7 @@
   <category domain="category" nicename="industry-insights"><![CDATA[Industry Insights]]></category>
   <wp:postmeta>
     <wp:meta_key>_thumbnail_id</wp:meta_key>
-    <wp:meta_value><![CDATA[17]]></wp:meta_value>
+    <wp:meta_value><![CDATA[44]]></wp:meta_value>
   </wp:postmeta>
 </item>
 <item>
@@ -710,7 +811,7 @@
   <category domain="category" nicename="process"><![CDATA[Process]]></category>
   <wp:postmeta>
     <wp:meta_key>_thumbnail_id</wp:meta_key>
-    <wp:meta_value><![CDATA[17]]></wp:meta_value>
+    <wp:meta_value><![CDATA[44]]></wp:meta_value>
   </wp:postmeta>
 </item>
 <item>
@@ -744,7 +845,7 @@
   <category domain="category" nicename="industry-insights"><![CDATA[Industry Insights]]></category>
   <wp:postmeta>
     <wp:meta_key>_thumbnail_id</wp:meta_key>
-    <wp:meta_value><![CDATA[17]]></wp:meta_value>
+    <wp:meta_value><![CDATA[44]]></wp:meta_value>
   </wp:postmeta>
 </item>
 <item>
@@ -781,7 +882,7 @@
   <category domain="category" nicename="industry-insights"><![CDATA[Industry Insights]]></category>
   <wp:postmeta>
     <wp:meta_key>_thumbnail_id</wp:meta_key>
-    <wp:meta_value><![CDATA[17]]></wp:meta_value>
+    <wp:meta_value><![CDATA[44]]></wp:meta_value>
   </wp:postmeta>
 </item>
 <item>
@@ -831,7 +932,7 @@
   <category domain="category" nicename="process"><![CDATA[Process]]></category>
   <wp:postmeta>
     <wp:meta_key>_thumbnail_id</wp:meta_key>
-    <wp:meta_value><![CDATA[17]]></wp:meta_value>
+    <wp:meta_value><![CDATA[44]]></wp:meta_value>
   </wp:postmeta>
 </item>
 <item>
@@ -866,6 +967,39 @@
   <wp:post_type>wp_navigation</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+</item>
+<item>
+  <title><![CDATA[Placeholder featured image]]></title>
+  <link>http://localhost:8888/placeholder-featured-image/</link>
+  <pubDate>Sun, 19 Jul 2026 12:22:44 +0000</pubDate>
+  <dc:creator/>
+  <guid isPermaLink="false">http://localhost:8888/wp-content/uploads/2026/07/placeholder-wide.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>44</wp:post_id>
+  <wp:post_date>2026-07-19 12:22:44</wp:post_date>
+  <wp:post_date_gmt>2026-07-19 12:22:44</wp:post_date_gmt>
+  <wp:post_modified>2026-07-19 12:22:44</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-19 12:22:44</wp:post_modified_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>placeholder-featured-image</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>0</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>http://localhost:8888/wp-content/uploads/2026/07/placeholder-wide.png</wp:attachment_url>
+  <wp:postmeta>
+    <wp:meta_key>_wp_attached_file</wp:meta_key>
+    <wp:meta_value><![CDATA[2026/07/placeholder-wide.png]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wp_attachment_metadata</wp:meta_key>
+    <wp:meta_value><![CDATA[a:6:{s:5:"width";i:1600;s:6:"height";i:900;s:4:"file";s:28:"2026/07/placeholder-wide.png";s:8:"filesize";i:38944;s:5:"sizes";a:5:{s:6:"medium";a:5:{s:4:"file";s:28:"placeholder-wide-300x169.png";s:5:"width";i:300;s:6:"height";i:169;s:9:"mime-type";s:9:"image/png";s:8:"filesize";i:8661;}s:5:"large";a:5:{s:4:"file";s:29:"placeholder-wide-1024x576.png";s:5:"width";i:1024;s:6:"height";i:576;s:9:"mime-type";s:9:"image/png";s:8:"filesize";i:43102;}s:9:"thumbnail";a:5:{s:4:"file";s:28:"placeholder-wide-150x150.png";s:5:"width";i:150;s:6:"height";i:150;s:9:"mime-type";s:9:"image/png";s:8:"filesize";i:4496;}s:12:"medium_large";a:5:{s:4:"file";s:28:"placeholder-wide-768x432.png";s:5:"width";i:768;s:6:"height";i:432;s:9:"mime-type";s:9:"image/png";s:8:"filesize";i:30279;}s:9:"1536x1536";a:5:{s:4:"file";s:29:"placeholder-wide-1536x864.png";s:5:"width";i:1536;s:6:"height";i:864;s:9:"mime-type";s:9:"image/png";s:8:"filesize";i:77587;}}s:10:"image_meta";a:13:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}s:3:"alt";s:0:"";}}]]></wp:meta_value>
+  </wp:postmeta>
 </item>
   </channel>
 </rss>

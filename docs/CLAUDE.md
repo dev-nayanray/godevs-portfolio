@@ -1152,5 +1152,165 @@ independently verifiable):**
   fresh-wp-env import test for all 8 separate WXR files (not just the
   Agency one), updated `readme.txt`, and a final packaged `.zip`.
 
+**Phase 10 — Shared pattern library expansion + template architecture
+fix (complete)**
+
+**Step 1 — the template hard-coding fix, done first as instructed since
+everything else depended on it.** Converted `front-page.html` and all 5
+dedicated page templates (`page-services.html`, `page-portfolio.html`,
+`page-team.html`, `page-pricing.html`, `page-contact.html`) from
+hardcoded `wp:pattern` stacks to `core/post-content`, exactly mirroring
+`page-case-study.html`'s Phase 5 precedent. `front-page.html` kept its
+`header-transparent` part and — deliberately — got **no** post-title
+block, preserving Phase 4's design where `hero-agency.php`'s own H1
+supplies the page's heading. The other 5 templates kept their existing
+small muted post-title "eyebrow" block (a guaranteed H1 for any niche
+using them) and lost only the hardcoded pattern stack. **Decided not to
+carry over `page-case-study.html`'s trailing hardcoded `cta-banner`**
+to any of the 5 — that pattern existed there specifically because 4
+Case Study pages wanted an identical closing CTA without repeating
+verbatim case-study copy; it doesn't generalize to cross-niche template
+reuse, where different niches may want different closing patterns
+entirely. All 5 templates are now purely generic (optional eyebrow +
+full post-content), giving every niche complete control over its own
+stack.
+
+**Extracted the shared `godevs_portfolio_hero_heading_level()` helper**
+into `functions.php`, exactly as `docs/PATTERN_LIBRARY.md` recommended,
+and moved `hero-agency.php`'s existing `is_front_page()` conditional
+onto it. **Found a related, previously-undetected bug while doing
+this:** `hero-freelancer.php` had no such conditional at all — hardcoded
+to H2 always. Harmless through Phase 9, since it was only ever used on
+About/Team/Contact pages that supply their own H1 — but Phase 11 plans
+to use this exact pattern as the Home hero for the Freelancer and
+Photographer niches, whose front page has no post-title of its own.
+Left unfixed, those niches would have shipped with **zero H1s**. Fixed
+alongside `hero-agency.php`, before any niche build could hit it.
+
+**The highest-risk part of this step — migrating the Agency demo's
+actual content, not just the templates:** each of the 6 affected pages
+(Home, Services, Portfolio, Team, Pricing, Contact) had its `post_content`
+updated via `wp_update_post()` to contain the exact pattern stack its
+template used to hardcode (e.g. Home: `hero-agency`, `logo-cloud`,
+`services-grid`, `portfolio-grid`, `stats-counter`,
+`testimonials-carousel-static`, `cta-banner`, in that order, each
+wrapped the same way the template used to wrap it). **Verified live,
+twice:** first against the existing dev database, then — because the
+first pass doesn't prove the fix survives a fresh install — by
+destroying the environment, starting genuinely fresh, importing the
+demo content, and re-running the full 17-route click-through again.
+Both passes: all expected status codes, exactly one `<h1>` per page,
+real pattern content confirmed present (not just wrapper markup).
+Specifically re-verified `hero-agency`'s H1/H2 behavior across `/`
+(H1), `/services/`, and `/portfolio/` (H2 on both) — unchanged from
+before the template conversion, confirming the conditional keys off the
+actual request context, not which template happened to render it.
+
+**Found and fixed a second real risk this same step would have
+silently introduced: the shipped WXR file itself.**
+`demo-content/godevs-portfolio-demo-content.xml` was captured *before*
+this migration — if left as-is, a fresh import of the "finished" theme
+would have produced blank Home/Services/Portfolio/Team/Pricing/Contact
+pages, since the old export's `post_content` for those pages was still
+empty (the old templates supplied the content, not the database).
+Re-exported the WXR after the migration and replaced the shipped file.
+While re-exporting, found the reused dev database's featured-image
+attachment was missing (0 attachments vs. the 1 the original Phase 5
+export shipped) — re-uploaded the placeholder image as a real
+attachment and re-attached it to all 5 blog posts before the final
+export, so the replacement WXR is a strict improvement over the
+original rather than trading one fix for a content regression. Final
+export: 21 items (14 pages, 5 posts, 1 navigation, 1 attachment) —
+exact parity with Phase 5's original count. Verified by importing this
+exact file into a **third**, completely fresh wp-env instance: same
+media-import Docker-networking error as Phase 5 documented (confirms
+it's a reproducible environment artifact, not a new bug), everything
+else imported cleanly, full click-through clean again.
+
+**Step 2 — 8 new core patterns built**, all reviewed against the
+existing pattern set for near-duplication before finalizing (per the
+brief's explicit instruction): `faq-list.php` (built on `core/details`,
+zero custom JS), `process-steps.php`, `testimonial-spotlight.php`,
+`team-member-profile.php`, `hero-video.php` (ships with no bundled
+video file, only a poster frame using the existing placeholder image),
+`location-hours.php` (static placeholder graphic, not a live map
+embed), `value-props.php` (deliberately unboxed/unlinked, to stay
+visually distinct from `services-grid`'s linked cards), and
+`company-timeline.php`. None turned out to be a near-duplicate on
+closer inspection — the one close call, `awards-certifications.php`,
+had already been resolved as a `logo-cloud.php` reuse back in Phase 9
+and stayed that way.
+
+**Step 3 — 6 niche-specific patterns built:** `portfolio-grid-simple.php`,
+`portfolio-grid-masonry.php` (CSS-only staggered effect via uneven
+image counts per column, no JS reflow), `portfolio-grid-project.php`,
+`gallery-categories.php` (static linked cards, not JS-filtered),
+`before-after-columns.php` (static two-column, not a slider), and
+**`new-patients-info.php`** — built under this name directly, not
+`appointment-cta.php` as first drafted in Phase 9, to match the "New
+Patients" page framing signed off before this phase started. Purely
+informational (phone number + office hours), no booking form, no CPT.
+
+**2 new pattern categories registered** (`godevs-portfolio-faq`,
+`godevs-portfolio-process`) in `inc/class-block-patterns.php`, same
+pattern as the existing 9.
+
+**Version bumped 0.3.0 → 0.4.0** in `style.css`, `functions.php`, and
+`readme.txt`'s Stable tag together (all three every time, per
+established convention) — required per the Phase 6 lesson, since 14
+new pattern files were added and the pattern-registry site-transient
+cache is keyed to the `Version` header.
+
+**Step 4 — verification, full results:**
+- Every pattern referenced anywhere in `docs/PATTERN_LIBRARY.md` cross-
+  checked against the live `WP_Block_Patterns_Registry`: **30 registered,
+  zero gaps**, the only difference being the intentional
+  `appointment-cta` → `new-patients-info` rename (documented in both
+  the pattern's own file header and `docs/PATTERN_LIBRARY.md`).
+- **Agency demo regression check: passed, both on the existing database
+  and on a genuinely fresh import of the updated WXR** — see above.
+- All 14 new/changed patterns rendered via `do_blocks()` directly
+  against the registry (the closest live-verifiable equivalent to
+  "insert in the Site Editor" available in this environment, same
+  honest limitation flagged in every prior phase that lacked a real
+  browser): correct categories, non-empty output, no empty `alt`
+  attributes, for every one.
+- Theme Check: `PASS: YES`, 38 checks, identical 3 non-blocking items
+  as every prior phase — re-confirmed twice (existing DB, then fresh
+  instance).
+- phpcs WPThemeReview against `functions.php`, `inc/`, and `patterns/`
+  (all 30 pattern files, including the 14 new ones): exit 0, zero
+  errors, zero warnings.
+- `debug.log`: clean on both verification passes (only the same benign
+  WP-Cron "Automatic updates" lines seen since Phase 1).
+
+**Exact counts, for the record:**
+- Patterns: 30 registered (16 existing + 14 new), matching the Phase 9
+  target exactly.
+- Templates converted: 6 (`front-page.html` + 5 dedicated `page-*.html`
+  templates).
+- 2 new pattern categories.
+- Theme version: 0.3.0 → 0.4.0.
+- `demo-content/godevs-portfolio-demo-content.xml`: re-exported, 21
+  items, parity with Phase 5's original count restored.
+
+**Not done this phase, deliberately deferred:** `page-team-member.html`
+(the dedicated template `team-member-profile.php` needs before
+individual attorney/doctor profile pages can be built) — the brief's
+Step 1 didn't include it in the "5 dedicated templates" list to
+convert, and building individual profile pages is Phase 13's job
+(Medical + Law), not this phase's. The pattern is registered and ready;
+only the template that would host real profile pages is still missing,
+noted here so Phase 13 doesn't rediscover this.
+
+**Next phase (Phase 11 — Freelancer + Web Dev Studio niche demo
+content):** the lowest-risk pair, closest to the existing Agency
+baseline. Both niches' patterns are fully built and verified; Phase 11
+is pure content-and-page-assembly work (real demo copy, real Pages,
+real WXR exports for each niche) using the shared library this phase
+completed — no new patterns anticipated beyond what's already in
+`docs/PATTERN_LIBRARY.md`, though Phase 9's own discipline (verify
+before assuming) still applies if something unexpected turns up.
+
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._

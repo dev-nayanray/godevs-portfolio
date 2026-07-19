@@ -9,6 +9,19 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+/*
+ * See godevs_portfolio_hero_heading_level() in functions.php (Phase 10).
+ * This pattern was hardcoded to H2 through Phase 9 — harmless while it
+ * was only ever used on About/Team/Contact pages (which supply their
+ * own post-title H1), but Phase 11+ plans to use this exact pattern as
+ * the Home hero for the Freelancer and Photographer niches, whose
+ * front-page.html has no post-title of its own. Left un-fixed, those
+ * niches would have shipped with zero H1s. Fixed here alongside
+ * hero-agency.php's identical logic, before any niche build reaches it.
+ */
+$godevs_portfolio_hero_freelancer_level = godevs_portfolio_hero_heading_level();
+$godevs_portfolio_hero_freelancer_tag   = 'h' . $godevs_portfolio_hero_freelancer_level;
 ?>
 <!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|l","left":"var:preset|spacing|xl"}}}} -->
 <div class="wp-block-columns alignwide">
@@ -24,8 +37,8 @@ defined( 'ABSPATH' ) || exit;
 	<!-- wp:column {"width":"62%","verticalAlignment":"center"} -->
 	<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:62%">
 
-		<!-- wp:heading {"level":2,"fontSize":"xx-large"} -->
-		<h2 class="wp-block-heading has-xx-large-font-size"><?php esc_html_e( 'I design and build websites for small businesses', 'godevs-portfolio' ); ?></h2>
+		<!-- wp:heading {"level":<?php echo (int) $godevs_portfolio_hero_freelancer_level; ?>,"fontSize":"xx-large"} -->
+		<<?php echo esc_attr( $godevs_portfolio_hero_freelancer_tag ); ?> class="wp-block-heading has-xx-large-font-size"><?php esc_html_e( 'I design and build websites for small businesses', 'godevs-portfolio' ); ?></<?php echo esc_attr( $godevs_portfolio_hero_freelancer_tag ); ?>>
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"fontSize":"large","textColor":"text-muted"} -->

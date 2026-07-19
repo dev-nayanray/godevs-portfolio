@@ -1,18 +1,22 @@
 # Pattern Library — GoDevs Portfolio Multi-Niche Expansion
 
-Written in Phase 9 (planning only). Companion to `docs/NICHE_DEMOS.md`.
+Written in Phase 9 (planning). The 14 new patterns and the 2 new
+categories (`faq`, `process`) were built in Phase 10 — this document is
+now a built inventory, not just a plan; see `docs/CLAUDE.md` Phase 10
+notes for the live verification. Companion to `docs/NICHE_DEMOS.md`.
 Every pattern below is listed once, even when reused by multiple
 niches — this is the anti-duplication discipline this document exists
 to enforce: **a "variant" must differ in layout or structure, never
 just in copy.** Where two niches want the same shape with different
 words, that's one pattern, not two.
 
-Target: **27 content-facing patterns** (13 existing + 14 new), plus the
-3 existing structural/utility patterns (`blog-heading`, `not-found`,
+**27 content-facing patterns** (13 existing + 14 new), plus the 3
+existing structural/utility patterns (`blog-heading`, `not-found`,
 `header-cta-button`, all `Inserter:false`, not part of the "50+
 patterns" headline count since they exist to fix an i18n gap, not to
-serve as demo content) — **30 registered patterns total.** See Step 3
-below for why this is the recommended number instead of 50+.
+serve as demo content) — **30 registered patterns total, confirmed live
+via `WP_Block_Patterns_Registry` as of Phase 10.** See Step 3 below for
+why this is the recommended number instead of 50+.
 
 Status column: `existing` (built, Phases 1–7) · `new-core` (Phase 10,
 shared across most/all niches) · `new-variant` (layout-distinct
@@ -57,7 +61,7 @@ niche, may be reused by a close sibling niche).
 | `portfolio-grid-project` | Portfolio Grid (Project) | portfolio | Architect | new-variant | One large image + stat block (location/size/year) per project, not a grid of many |
 | `gallery-categories` | Gallery Categories | portfolio | Photographer, Interior Designer | new-niche (shared by 2) | Static linked category cards (shoot types / room types) — explicitly not JS-filtered |
 | `before-after-columns` | Before & After | portfolio | Interior Designer | new-niche | Static two-column comparison (`core/columns` + `core/image`), no slider/JS — see feasibility note in `NICHE_DEMOS.md` |
-| `appointment-cta` | Appointment Info | cta | Medical | new-niche | Static "call to schedule" block — phone + hours, explicitly no booking form/CPT |
+| `new-patients-info` | New Patients Info | cta | Medical | new-niche | Static "call to schedule" block — phone + hours, explicitly no booking form/CPT. Built as `new-patients-info.php` (renamed from the `appointment-cta` working title in Phase 10 to match the "New Patients" page framing) |
 
 ## Deliberately not built (considered and rejected, so the reasoning isn't re-litigated in Phase 10+)
 
