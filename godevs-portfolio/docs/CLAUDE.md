@@ -1303,14 +1303,138 @@ convert, and building individual profile pages is Phase 13's job
 only the template that would host real profile pages is still missing,
 noted here so Phase 13 doesn't rediscover this.
 
-**Next phase (Phase 11 — Freelancer + Web Dev Studio niche demo
-content):** the lowest-risk pair, closest to the existing Agency
-baseline. Both niches' patterns are fully built and verified; Phase 11
-is pure content-and-page-assembly work (real demo copy, real Pages,
-real WXR exports for each niche) using the shared library this phase
-completed — no new patterns anticipated beyond what's already in
-`docs/PATTERN_LIBRARY.md`, though Phase 9's own discipline (verify
-before assuming) still applies if something unexpected turns up.
+**Phase 11 — Freelancer + Web Dev Studio niche demo content (complete)**
+
+Pure content-assembly, as scoped — no pattern PHP or template HTML
+touched this phase.
+
+**Architectural finding made before writing any content:** each niche's
+pages had to be built in a **genuinely empty site**, not alongside the
+existing Agency content. Trying to `wp_insert_post()` a page titled
+"Home" at slug `home` on a site that already has an Agency page at that
+exact slug would have silently produced `home-2`, not the clean slug a
+real separate niche site needs. Every niche's WXR is therefore built in
+its own destroy-and-restart wp-env pass — which also happens to be the
+cleanest possible guarantee that the 3 WXR files stay fully independent
+(they were never in the same database at the same time to interfere
+with each other in the first place, not just "tested and found not to
+interfere").
+
+**The "not a copy-paste of Agency content" instruction had a real
+technical wrinkle worth recording:** most existing patterns
+(`services-grid`, `pricing-table`, `stats-counter`, `contact-info`,
+`portfolio-grid`, `team-grid`, `logo-cloud`) have their copy hardcoded
+in the pattern's PHP file — a live `<!-- wp:pattern {"slug":"..."} /-->`
+reference always renders that one fixed copy, regardless of which page
+it's inserted into. Genuinely different niche copy for these patterns
+required **expanding** the pattern's block markup directly into each
+page's `post_content` with new text (the same technique Phase 5 already
+used for the 4 Case Study pages), not referencing the shared pattern
+slug. Patterns whose existing copy was already generic enough to reuse
+without feeling copy-pasted (`hero-freelancer`, `footer-cta`,
+`process-steps`) were referenced as-is. This distinction — expand
+patterns with business-specific claims, reference patterns that are
+already generic — is the operating rule for Phases 12–13 too, not a
+one-off decision.
+
+**A second technical wrinkle, specific to Web Development Studio's Home
+page:** `hero-agency.php`'s `is_front_page()` H1/H2 logic (Phase 4,
+generalized in Phase 10) only works through a live pattern reference —
+expanding a pattern's markup into a page freezes whatever heading level
+was true at expansion time. Since Web Dev Studio's Home page needed
+genuinely different hero copy (not Agency's "Strategy-led design..."),
+it couldn't use a live reference *and* get fresh text. **Resolved by
+hardcoding `<h1>` directly** in that one expanded instance — safe
+specifically because that exact block only ever appears once, on the
+front page, by construction. The niche's Services/Portfolio/Contact
+pages reuse the original `hero-agency.php` pattern via live reference
+(unedited copy, correctly dynamic H2) instead, matching the Agency's
+own precedent of reusing its hero pattern's default copy across
+multiple inner pages.
+
+**Freelance Designer/Developer — 6 pages built** (persona: "Riley
+Chen"): Home, About, Services, Portfolio, Pricing, Contact, all at
+clean slugs. `hero-freelancer.php` (Phase 10 H1 fix) used as the Home
+hero via live reference — **live-confirmed rendering `<h1>`**, the
+specific regression check this phase asked for.
+`portfolio-grid-simple.php` and `testimonial-spotlight.php` were both
+purpose-built in Phase 10 around a consistent "Ledger & Co." client
+narrative — reused as-is rather than rewritten, since they were never
+Agency copy to begin with. `value-props.php` used on the About page as
+a "why work with me" trust section — **not in the original Phase 9
+plan for this niche** (the pattern didn't exist yet during Phase 9
+planning); flagged here as the Phase-10-surfaced deviation the brief
+asked to note. Fresh logo-cloud client list, services list (3 items,
+solo-scoped, vs. Agency's 4), pricing tiers, stats, and contact details
+throughout — none copy-pasted from the Agency demo.
+
+**Web Development Studio — 7 pages built** (persona: "Brightloop
+Studio," founded 2017): Home, About, Services, Process, Portfolio,
+Pricing, Contact. **Confirmed accurate**: this niche needed no new or
+variant pattern file, exactly as `docs/NICHE_DEMOS.md` predicted —
+`process-steps.php` (Phase 10) already fit its dedicated Process page
+without modification. **One pattern surfaced in Phase 10 that improved
+on the original plan**, flagged per instruction: `value-props.php`
+("why work with us") used on the About page — not part of the original
+Phase 9 reuse list, added because it's a genuine trust-building fit for
+a technical studio and didn't require a new pattern file. Fresh
+services list (technical/development-scoped, distinct from Agency's
+brand/marketing list), 4 new fictional client projects (Solstice
+Outfitters, Meridian, Cobalt Logistics, Fernbrook Realty — confirmed
+live absent from the Agency's Northwind/Globex/Fabrikam/Contoso set),
+new team names, new pricing tiers, and new testimonials.
+
+**Navigation & Reading Settings, per niche:** each niche got its own
+`wp_navigation` post (6 items for Freelancer, 7 for Web Dev Studio,
+matching their own page sets) and its own Reading Settings pointing at
+its own Home page — built inside that niche's own isolated database, so
+there was never a risk of one niche's settings leaking into another's
+export.
+
+**`demo-content/README.md` rewritten** as a menu of all 3 available
+demos (file name, niche, page count, one-line description each) instead
+of describing a single fixed demo, plus an explicit "importing more
+than one demo into the same site is not supported" note and an updated
+Reading Settings step that accounts for the 2 new demos not having a
+Posts page.
+
+**Step Final — full 3-pass verification, each on a genuinely fresh
+wp-env instance:**
+1. **Agency regression check:** imported `godevs-portfolio-demo-content.xml`
+   alone, all 17 routes re-checked — identical clean result to Phase
+   10, confirming nothing drifted. Same known media-import
+   Docker-networking error reproduced again (expected, environmental,
+   documented since Phase 5).
+2. **Freelancer:** imported `godevs-portfolio-demo-freelancer.xml`
+   alone (7 items: 6 pages + 1 navigation, no media to fail on). All 6
+   pages: correct status, exactly one `<h1>` each.
+   `hero-freelancer.php` **confirmed rendering `<h1>` on this niche's
+   Home** via direct string check, not just an H1 count.
+   `portfolio-grid-simple.php`'s content **confirmed present and
+   structurally distinct** from the Agency's `portfolio-grid.php` (its
+   "Ledger & Co." project text found; Agency-only project names
+   Northwind/Globex/Fabrikam/Contoso confirmed absent).
+3. **Web Development Studio:** imported
+   `godevs-portfolio-demo-webdev-studio.xml` alone (8 items: 7 pages +
+   1 navigation). All 7 pages: correct status, exactly one `<h1>` each.
+   Confirmed the custom Home hero copy renders correctly, the
+   Process page's `process-steps.php` content is present, and the
+   niche's own fictional project names are present while the Agency's
+   are absent.
+4. `debug.log`: clean across all 3 passes (file didn't exist after
+   any of them).
+
+**Running page count: 27 of 59 total** (14 Agency + 6 Freelancer + 7
+Web Dev Studio). On track against the Phase 9 plan.
+
+**Next phase (Phase 12 — Photographer + Interior Designer +
+Architect):** the `gallery-categories.php` shared-pattern group (used
+by both Photographer and Interior Designer). Same content-assembly
+process as this phase; the "expand vs. reference" rule and the
+per-niche-isolated-database build method both carry forward unchanged.
+Architect's `portfolio-grid-project.php` and Interior Designer's
+`before-after-columns.php` are both already built and verified (Phase
+10) — this phase is content only, same as Phase 11.
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._
