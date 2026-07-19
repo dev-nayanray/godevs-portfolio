@@ -75,7 +75,23 @@ follow-up outside this environment (note explains what and why).
       (Description/Installation/FAQ/Screenshots/Changelog/Resources),
       structurally validated clean via script (all required headers,
       all 6 standard sections, correct FAQ sub-heading levels, Stable
-      tag has a matching changelog entry). Stable tag 0.3.0.
+      tag has a matching changelog entry). Stable tag 0.3.0. **Phase 8
+      found and fixed 2 real issues this item's Phase 7 sign-off
+      missed:** (1) `style.css`'s header `Description:` field was still
+      the Phase 0 placeholder text ("Placeholder description — expand
+      in Phase 5"), never synced with the real description Phase 7
+      wrote into `readme.txt` — fixed to match. (2) `readme.txt`'s
+      `Contributors: wp_nayanray` was checked against the live
+      WordPress.org profile API (`profiles.wordpress.org/wp_nayanray/`
+      → 404) and does not correspond to a real account — this value was
+      apparently invented in Phase 7 without verification. Replaced with
+      an unmissable placeholder
+      (`REPLACE_WITH_YOUR_WORDPRESS_ORG_USERNAME`) since a wrong-but-
+      real-looking username is worse than an obvious placeholder; this
+      is now a required manual step for Nayan before submission (see
+      `docs/CLAUDE.md` Phase 8 notes). Zip rebuilt and re-verified
+      (`wp theme install` + Theme Check + phpcs + readme structural
+      validation, all clean) after both fixes.
 - [x] `screenshot.png` exists at an acceptable aspect ratio — Phase 7
       replaced the placeholder with a real 1200×900 PNG captured live
       via Playwright/Chromium from the actual rendered demo home page
@@ -94,6 +110,13 @@ follow-up outside this environment (note explains what and why).
       confirmed: zero REQUIRED items were ever present across any run.
       One real WARNING (missing copyright notice) and one real INFO
       (invalid `business` tag) were found and fixed; see Step 1 below.
+- [x] Theme slug/name does not collide with an existing WordPress.org
+      theme — Phase 8: checked live against the official WordPress.org
+      Themes API (`api.wordpress.org/themes/info/1.2/`). Direct slug
+      lookup for `godevs-portfolio` → `{"error":"Theme not found"}`.
+      `wordpress.org/themes/godevs-portfolio/` → HTTP 404. Directory
+      search for both "GoDevs Portfolio" and "godevs" → zero results
+      each. Slug and name both confirmed free as of 2026-07-19.
 
 ## RECOMMENDED
 

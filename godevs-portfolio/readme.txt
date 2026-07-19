@@ -1,6 +1,6 @@
 === GoDevs Portfolio ===
 
-Contributors: wp_nayanray
+Contributors: REPLACE_WITH_YOUR_WORDPRESS_ORG_USERNAME
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4

@@ -926,17 +926,104 @@ build output, matching the repo's existing `.gitignore` convention).
 - Theme version: 0.2.0 → 0.3.0.
 - Zip: 46 files, 12 top-level paths, no `.git`/`docs/`/`.wordpress-org/`/dev-tooling.
 
-**Next phase (Phase 8 — Final Submission):** `docs/WPORG_CHECKLIST.md`
-needs a 100% sign-off pass now that packaging is complete (the two
-items that were explicitly deferred to "Phase 7 packaging" —
-`readme.txt` content and a real `screenshot.png` — are both done).
-Actual submission to the WordPress.org theme directory is a manual
-step only Nayan can do (requires his SVN/wordpress.org account
-credentials, which this environment does not have and should not
-attempt to obtain). Before submitting: resolve the Step 4 open item
-(real-host media-import test) and run the zip through WP.org's own
-readme validator web tool as a final check beyond this phase's
-script-based validation.
+**Phase 8 — Final Submission Readiness (checklist reconciliation
+complete)**
+
+**Step 1 — full checklist reconciliation performed, not rubber-stamped:**
+re-read every item in `docs/WPORG_CHECKLIST.md` and, rather than trust
+the existing ☑ marks, re-verified a cross-section of them live and
+diffed the theme's actual header fields across `style.css`/`readme.txt`/
+`functions.php` for drift. **Found and fixed 2 real, previously-uncaught
+issues** in the process (both inside items Phase 7 had already marked
+☑, which is exactly the kind of gap this reconciliation pass exists to
+catch):
+1. `style.css`'s header `Description:` field was still the literal
+   Phase 0 placeholder text ("Placeholder description — expand in
+   Phase 5") — Phase 7 wrote a real description into `readme.txt` but
+   never synced `style.css`'s own header field, which is what actually
+   shows in wp-admin's theme list/details screen. Fixed to match.
+2. `readme.txt`'s `Contributors: wp_nayanray` **does not correspond to
+   a real WordPress.org account** — checked live against
+   `profiles.wordpress.org/wp_nayanray/`, which returns HTTP 404. This
+   value was written in Phase 7 without ever being verified against
+   reality. Replaced with an unmissable placeholder
+   (`REPLACE_WITH_YOUR_WORDPRESS_ORG_USERNAME`) rather than a
+   different guessed username, since a wrong-but-plausible-looking
+   username is a worse failure mode than an obvious one — **this is
+   now a required manual step for Nayan**: he must have (or create) a
+   real wordpress.org/WordPress.com account and put its actual
+   username here before submitting, since Contributors must match the
+   submitting account.
+
+Every other item in `docs/WPORG_CHECKLIST.md` reconfirmed CONFIRMED, no
+other drift found. Full item-by-item reconciliation reported to Nayan
+in this phase's chat response (not duplicated here in full — see that
+response or re-read `docs/WPORG_CHECKLIST.md` directly, which is now
+the authoritative source of truth for status).
+
+**Exactly one item remains genuinely OPEN:** real-host (non-Docker)
+media-import verification, unchanged from Phase 7 — still blocked on
+no external host being reachable from this environment. Needs Nayan to
+test the WXR import on a real WordPress install (or explicitly accept
+the risk) before submitting.
+
+**Step 2 — pre-submission housekeeping:**
+- **Slug/name collision, checked live against the official WordPress.org
+  Themes API**, not assumed from the Phase 0 flag alone: direct slug
+  lookup (`api.wordpress.org/themes/info/1.2/?action=theme_information&request[slug]=godevs-portfolio`)
+  → `{"error":"Theme not found"}`. `wordpress.org/themes/godevs-portfolio/`
+  → HTTP 404. Directory search for "GoDevs Portfolio" and for "godevs"
+  → zero results both times. **Confirmed clear as of 2026-07-19** —
+  reconfirmed rather than trusted from however long ago Phase 0 first
+  raised it, since the prompt correctly noted real theme slugs can get
+  taken over a multi-week build.
+- **`dist/godevs-portfolio-0.3.0.zip` re-verified, and rebuilt after
+  the 2 fixes above** (so it is deliberately *not* byte-identical to
+  the zip Phase 7 originally produced — the 2 real issues found this
+  phase are now baked in). Rebuilt with the same `adm-zip` tool Phase 7
+  established as the only reliable option on this machine (51 file
+  entries, forward-slash paths, confirmed via an independent reader).
+  Re-ran the full Phase 7 Step Final gauntlet against the rebuilt zip
+  on a fresh, separate wp-env instance: `wp theme install` succeeded
+  clean on the first try, Theme Check `PASS: YES` (identical 3
+  non-blocking items as every prior run), phpcs exit 0, `readme.txt`
+  structural validation clean, `debug.log` clean (only the same
+  unrelated wp-cli/Symfony tooling noise as Phase 7). Final SHA-256:
+  `73bd8bfe3fd9d897a26bff7630e663ee27689d2a42dd82bf33ca3a99612a9b03`
+  (51 files).
+- **Minor, non-blocking note for Nayan:** `Theme URI`
+  (`https://godevs.net/themes/godevs-portfolio`) 404s — the root domain
+  `godevs.net` itself is live (HTTP 200), just not that specific
+  sub-page yet. Not a Theme Review blocker (many themes' dedicated
+  theme pages go live after acceptance), but worth building before or
+  shortly after submission so the link isn't dead indefinitely.
+- Full "Submission steps for Nayan" writeup delivered in this phase's
+  chat response: WordPress.org account creation/login, the theme
+  submission page, upload flow, and what to expect from the review
+  queue (single-theme-at-a-time, typical turnaround, common
+  even-on-clean-themes feedback categories like licensing/credit-line
+  phrasing).
+
+**Step 3 — post-submission plan, for whichever future session picks
+this up:** a reviewer requesting changes is a **normal, expected
+outcome**, not a failure state, even for a theme this thoroughly
+verified — Theme Review is manual and reviewers sometimes flag
+stylistic/phrasing preferences beyond what automated Theme Check/phpcs
+catch. When that happens: **read the reviewer's actual ticket comments
+first**, treat each one exactly like any other phase's verification
+finding in this project (root-cause it, fix it for real, re-verify live
+via wp-env — not a surface-level patch), bump the `Version` header
+again (per the Phase 6 lesson — the pattern-cache bug applies to real
+end users too), rebuild `dist/godevs-portfolio-*.zip` with the same
+`adm-zip` approach, and **reply on the existing ticket** with what
+changed. Do not create a new submission or a new theme slug — WP.org
+review tickets are iterative, not one-shot.
+
+**Project status: submission-ready, pending only Nayan's manual
+account-level steps** (creating/confirming his WordPress.org account,
+filling in the real `Contributors` username, optionally the real-host
+media-import test, and actually clicking submit — none of which this
+environment can do on his behalf).
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._
