@@ -746,19 +746,197 @@ scripts removed from the theme directory before commit. wp-env stopped.
 - Patterns: 15 registered (13 original + 2 new Phase 6 utility
   patterns), all 9 categories correctly wired.
 
-**Next phase (Phase 7 — Packaging):** `readme.txt` still has TODO
-content sections (Description/Installation/FAQ/Screenshots/Resources —
-the Resources section can now state "none" definitively per this
-phase's audit). `screenshot.png` is still the Phase 0 placeholder and
-needs a real asset (likely a composite of the demo home page across the
-3 style variations, given no real browser/screenshot tool exists in this
-environment — needs a decision on how to produce one). Webfont bundling
-decision, deferred since Phase 1, should be finally resolved or
-explicitly closed out. Final `.zip` packaging and a last theme-directory
-audit for any remaining dev-only files (this phase's scratchpad phpcs
-tooling lives outside the theme directory and was never shipped —
-confirm that's still true) round out what "ready for WordPress.org
-submission" actually requires.
+**Phase 7 — Packaging (complete)**
+
+**Step 0 — final translatable-string sweep:** grepped every
+`templates/*.html` and `parts/*.html` for literal rendered text
+(pattern `>[A-Za-z][^<]*<`, plus a check for `label`/`buttonText`/
+`placeholder`/`content` JSON attributes). Found 6 matches; 5 were
+false positives already covered by Phase 6's block-bindings work (the
+static "No posts found."/"No results found."/"All rights reserved."
+text in `.html` files is editor-fallback markup only — a block binding
+overrides it at render time, confirmed by checking the block comment's
+`metadata.bindings` on each). **The 6th was a real gap Phase 6 missed:**
+`header.html` and `header-transparent.html` both hard-coded a literal,
+un-translated "Get in Touch" button (`core/button` block, not covered
+by any binding). Fixed the same way Phase 6 fixed "Blog"/"Page not
+found" — a new `Inserter:false` pattern (`patterns/header-cta-button.php`)
+referenced via `<!-- wp:pattern {"slug":"godevs-portfolio/header-cta-button"} /-->`
+in both template parts. Re-ran `wp i18n make-pot`: 220 → 222 entries
+(2 new: the pattern's auto-extracted title/description; "Get in Touch"
+itself was already a known msgid from `footer-cta.php`, so this just
+added a second `#:` reference line, not a new string). Live-verified
+the button still renders correctly on the front end after the change.
+
+**Step 1 — version & compatibility headers, verified live, not
+guessed:** `wp core version` on a running wp-env instance reported
+**7.0.2** as the actual current stable core (confirmed independently
+against the live `api.wordpress.org/core/version-check/1.7/` response,
+which also showed 6.9.5 and 6.8.6 as the preceding release lines).
+Set `Tested up to: 7.0` (matches the confirmed live version) and
+`Requires at least: 6.7` (a realistic few-versions-back baseline, still
+comfortably above the theme's real functional floor — Block Bindings
+API needs 6.5+). `php -v` inside the container confirmed PHP 8.3.32;
+grepped `inc/` and `patterns/` for PHP 8-only syntax (nullsafe `?->`,
+`match()`, `readonly`, `enum`, attributes, named arguments) — zero
+matches (all regex hits were CSS/HTML false positives) — so
+`Requires PHP: 7.4` stays accurate. Bumped `Version` to **0.3.0** in
+`style.css`, `functions.php`, and `readme.txt`'s Stable tag, per Phase
+6's own lesson: a new pattern file was added this phase
+(`header-cta-button.php`), and the pattern-registry site-transient
+cache is keyed to the `Version` header, so skipping the bump would
+have silently broken registration again. Live-verified post-bump: all
+**16** patterns register, version confirmed via `wp_get_theme()->get('Version')`.
+
+**Also found via the live WP.org feature-tag API
+(`api.wordpress.org/themes/info/1.2/?action=feature_list`):** the
+`threaded-comments` tag was invalid for this theme specifically — not
+because the tag name doesn't exist in the taxonomy (it does), but
+because the theme has no comment-display markup anywhere (`single.html`
+has no `comment-template` block; grepped the whole theme for
+`comment-template`/`comments-query-loop`/`comment-form` block markup,
+found none — only a boilerplate `add_theme_support('html5', [...,
+'comment-form', ...])` call that doesn't itself render anything).
+Removed the tag as inaccurate rather than leave a claim the theme
+doesn't back up. Added `style-variations`, a real, verified feature
+(3 style variations, tested since Phase 1/4) that had simply been
+omitted from the original Phase 0 tag list.
+
+**Step 2 — `readme.txt`, written in full:** Contributors: `wp_nayanray`.
+Description trimmed to exactly 150 words (word-counted with a script,
+not eyeballed), reflecting `docs/PRD.md`'s differentiation thesis.
+Installation, FAQ (6 questions — the 2 minimum specified plus 4 more
+covering the no-contact-form scope decision, style-variation switching,
+and the accessibility-ready claim), Screenshots, and Resources sections
+written. **Changelog dates are real, not fabricated:** pulled from
+`git log --date=short` — every phase's commit landed on the same
+calendar day (2026-07-19), so the changelog collapses the internal
+phase history into the three version numbers that actually matter
+publicly (0.1.0 initial scaffold, 0.2.0 Phase 6 QA pass, 0.3.0 this
+packaging pass) rather than inventing distinct per-phase dates that
+don't exist. Resources section explicitly states zero third-party
+assets (placeholder images theme-original since Phase 3, system fonts
+only, no bundled code libraries) rather than leaving it to silence.
+
+**Step 2b — `screenshot.png` and `.wordpress-org/` assets, captured
+with a real browser, not mocked up:** Playwright (with its bundled
+Chromium) turned out to be available in this environment — installed
+into a scratchpad Node project, confirmed the host machine (unlike the
+`cli` Docker container) can reach `localhost:8888` directly. Captured
+`screenshot.png` as a real 1200×900 PNG of the live front page rendered
+with actual demo content (confirmed via reading the PNG header bytes,
+not just trusting the capture call). This is a genuine capability
+upgrade over every prior phase's honestly-flagged "no real
+browser/screenshot tool available" limitation — worth knowing for any
+future phase that needs visual verification. Built `icon-256x256.png` +
+`icon.svg` (a serif "G." monogram, primary/accent palette) and
+`banner-1544x500.png` + `banner-772x250.png` (asymmetric editorial
+layout echoing the PRD's differentiation thesis) as hand-written
+HTML/CSS pages styled with the exact `theme.json` token values, then
+screenshotted at exact required dimensions. All theme-original, not
+third-party. Placed at `godevs-portfolio/.wordpress-org/` — Phase 0's
+scaffold had already left a `.gitkeep` there establishing that as the
+intended location (not the repo root, which is where they were first,
+briefly, mistakenly created).
+
+**Step 3 — clean distribution zip:** staged a directory containing only
+the 12 required paths (`style.css`, `theme.json`, `functions.php`,
+`readme.txt`, `screenshot.png`, `templates/`, `parts/`, `patterns/`,
+`styles/`, `assets/`, `inc/`, `languages/`), stripped `.gitkeep`
+placeholders, explicitly excluding `docs/`, `.wordpress-org/`,
+`demo-content/` (lives at the repo root, never inside the theme
+folder), `.wp-env.json`, and any Composer/phpcs tooling (already
+correctly outside the theme directory since Phase 6). **Found and fixed
+a real, generalizable bug in the zip-building process itself:**
+PowerShell's `Compress-Archive`, and even .NET's own
+`[System.IO.Compression.ZipFile]::CreateFromDirectory()`, both wrote
+zip entries with literal **backslash** path separators
+(`godevs-portfolio\style.css`) on this Windows machine — confirmed via
+an independent Node-based zip reader (`adm-zip`), not just trusting
+either tool's own listing output. Backslash is not a valid zip-entry
+path separator per spec; on Linux (inside the Docker container),
+`ZipArchive` doesn't treat it as a directory separator at all, so it
+extracts as one bizarre flat filename with literal backslashes in it
+instead of a real nested folder — a silent, serious packaging bug that
+would have shipped a `.zip` no WordPress.org install (or any real
+Linux-hosted site) could install, only ever tested by someone unzipping
+by hand or in a GUI on Windows, which happens to hide the problem.
+**Fixed** by rebuilding with `adm-zip` (a pure-JS implementation that
+correctly writes forward slashes) instead of either Windows-native
+option. Flagging this prominently: **any future packaging on this
+machine must not use `Compress-Archive` or .NET's `ZipFile` class for
+files destined for a Linux host** — verified the fix by reading the
+zip's raw entries with a second, independent tool, not just re-running
+the same buggy tool and hoping.
+
+**Step 4 — real-host media-import verification:** could not be
+completed. No SSH/FTP credentials, deploy scripts, or reachable
+external hosting were present in this environment; the only
+plausibly-relevant integration (a WordPress.com MCP connector) requires
+an OAuth flow this non-interactive session cannot run. **Flagging as an
+explicit open item, not resolved:** whether the Phase 5 media-import
+failure was genuinely Docker-sandbox-only (as suspected, and as its own
+error message strongly implied — a `localhost:8888` DNS resolution
+failure specific to the `cli` container's network namespace) has still
+never been verified against a real, non-Docker host. Nayan should
+either test the WXR import on a real WordPress install before
+submission, or accept the risk given how specific and well-understood
+the suspected cause already is.
+
+**Step Final — full clean-install verification from the packaged `.zip`
+itself, not the dev directory:** stopped the dev wp-env instance,
+started a second, separate, minimal wp-env instance (no theme
+bind-mount) from a scratchpad config, and used `wp theme install
+<zip>` — the same code path a real WordPress.org install would use —
+rather than the dev bind-mount every prior phase relied on. **This is
+exactly where the backslash zip bug above was actually caught**: the
+first `wp theme install` attempt (before the zip fix) failed with "The
+theme is missing the style.css stylesheet," which took real debugging
+(comparing `unzip_file()`'s output against `Theme_Upgrader::run()`'s
+raw `source_files` list, discovering stale broken debris left in
+`wp-content/themes/godevs-portfolio/` from the first failed attempt was
+contaminating later attempts) to root-cause correctly rather than
+mis-diagnose. After cleaning the stale debris and fixing the zip:
+`wp theme install godevs-portfolio.zip --activate` succeeded cleanly.
+Theme Check re-run against the zip-installed theme: identical clean
+result to Phase 6 (`PASS: YES`, same 3 non-blocking items). `phpcs`
+re-run directly against the staged zip contents (not the dev directory
+— the exact bytes that got zipped): exit 0, zero errors/warnings.
+Demo content imported fresh (21 items, matching every prior phase).
+Full 17-route click-through: all expected status codes, exactly one
+`<h1>` each, including confirming the new "Get in Touch" button
+translation fix renders correctly. `debug.log` contained zero entries
+newer than an earlier `wp plugin install` command's own unrelated
+wp-cli/Symfony PHP-8.3-deprecation noise (that tooling's own internal
+code, not the theme's) — nothing from the import, Reading Settings
+change, permalink change, or the full click-through itself.
+`readme.txt` structurally validated clean via a script checking every
+required header field, all 6 standard sections, FAQ sub-heading levels,
+and that the Stable tag has a matching changelog entry — WP.org's own
+web-based readme validator should still be run once more at actual
+submission time as a final sanity check, since this script-based check
+isn't a substitute for their canonical parser. Destroyed the temporary
+verification instance and stopped the dev instance when done. Final
+verified zip copied to `dist/godevs-portfolio-0.3.0.zip` (git-ignored
+build output, matching the repo's existing `.gitignore` convention).
+
+**Exact counts, for the record:**
+- `.pot`: 222 msgid entries (was 220 after Phase 6).
+- Patterns: 16 registered (15 after Phase 6 + `header-cta-button`).
+- Theme version: 0.2.0 → 0.3.0.
+- Zip: 46 files, 12 top-level paths, no `.git`/`docs/`/`.wordpress-org/`/dev-tooling.
+
+**Next phase (Phase 8 — Final Submission):** `docs/WPORG_CHECKLIST.md`
+needs a 100% sign-off pass now that packaging is complete (the two
+items that were explicitly deferred to "Phase 7 packaging" —
+`readme.txt` content and a real `screenshot.png` — are both done).
+Actual submission to the WordPress.org theme directory is a manual
+step only Nayan can do (requires his SVN/wordpress.org account
+credentials, which this environment does not have and should not
+attempt to obtain). Before submitting: resolve the Step 4 open item
+(real-host media-import test) and run the zip through WP.org's own
+readme validator web tool as a final check beyond this phase's
+script-based validation.
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._

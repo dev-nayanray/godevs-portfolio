@@ -11,7 +11,8 @@ referenced it as if it already existed, which was an oversight; created
 as Phase 6's actual first action, before Step 0.
 
 Status legend: ☐ not yet verified · ☑ verified (note explains how) ·
-✗ not applicable (note explains why).
+✗ not applicable (note explains why) · ~ blocked, needs manual
+follow-up outside this environment (note explains what and why).
 
 ## REQUIRED
 
@@ -70,14 +71,15 @@ Status legend: ☐ not yet verified · ☑ verified (note explains how) ·
       grep for `wp_remote_get`/`wp_remote_post`/`curl_init`: zero
       matches.
 - [x] `readme.txt` has a valid WordPress.org header block and a GPL-
-      compatible license declared — present since Phase 0; Stable tag
-      and changelog updated to 0.2.0 in Phase 6 (see the theme-version
-      finding below). Content sections (Description/Installation/FAQ/
-      Screenshots) remain TODO — Phase 7 packaging task, out of this
-      phase's scope.
-- [x] `screenshot.png` exists at an acceptable aspect ratio — placeholder
-      PNG exists (Phase 0, 1200×900, correct 4:3 ratio). Real screenshot
-      content is a Phase 7 packaging task.
+      compatible license declared — Phase 7 wrote the complete file
+      (Description/Installation/FAQ/Screenshots/Changelog/Resources),
+      structurally validated clean via script (all required headers,
+      all 6 standard sections, correct FAQ sub-heading levels, Stable
+      tag has a matching changelog entry). Stable tag 0.3.0.
+- [x] `screenshot.png` exists at an acceptable aspect ratio — Phase 7
+      replaced the placeholder with a real 1200×900 PNG captured live
+      via Playwright/Chromium from the actual rendered demo home page
+      (dimensions confirmed by reading the PNG header bytes).
 - [x] Text domain in `style.css` header matches the theme slug exactly —
       confirmed (`godevs-portfolio` both places), and Theme Check's own
       INFO-level check confirms this independently ("Only one
@@ -180,20 +182,39 @@ Status legend: ☐ not yet verified · ☑ verified (note explains how) ·
 
 ## INFO / not yet applicable
 
-- [x] `.pot` file present and reasonably complete — 220 `msgid` entries
-      in `languages/godevs-portfolio.pot`, spot-checked that every
-      string fixed in this phase (`"Blog"`, `"Page not found"`,
-      `"All rights reserved."`, `"No posts found."`,
-      `"No results found."`, the aria-label strings, the new
-      `aria-label="Learn more about %s"` string) is present.
-- [x] Demo content imports cleanly — unchanged from Phase 5's two
-      documented, gracefully-degrading caveats (media re-fetch over
-      Docker's network loopback, Reading Settings not surviving WXR) —
-      neither is blocking, both are documented in
-      `demo-content/README.md`.
+- [x] `.pot` file present and reasonably complete — 222 `msgid` entries
+      as of Phase 7 (was 220 after Phase 6; +2 from the `header-cta-button`
+      pattern's auto-extracted title/description strings after Phase 7's
+      Step 0 sweep found and fixed the un-translated "Get in Touch"
+      button text).
+- [x] Demo content imports cleanly — re-confirmed in Phase 7 on a
+      completely separate wp-env instance installed from the packaged
+      `.zip` (not the dev directory) — 21 items imported, matching every
+      prior phase. Same two documented, gracefully-degrading caveats as
+      Phase 5 (media re-fetch over Docker's network loopback, Reading
+      Settings not surviving WXR) — neither is blocking, both documented
+      in `demo-content/README.md`.
+- [x] Distribution `.zip` installs cleanly via `wp theme install` (the
+      real-world install path) — Phase 7 found and fixed a serious,
+      previously-invisible packaging bug: Windows zip tools
+      (`Compress-Archive` and .NET's `ZipFile` class) wrote invalid
+      backslash path separators that silently broke installation on
+      Linux; rebuilt with a spec-compliant tool and verified the fix by
+      actually running `wp theme install` against the rebuilt zip on a
+      from-scratch wp-env instance, not just re-inspecting the zip.
+- [~] Real-host (non-Docker-sandbox) media-import verification — NOT
+      resolved. No external host was reachable from this environment.
+      Flagged as an explicit open item for Nayan in `docs/CLAUDE.md`'s
+      Phase 7 notes; covers whether the Phase 5 media-import failure
+      was genuinely Docker-networking-only (strongly suspected, not
+      independently confirmed).
 
-_All items above verified during Phase 6 (wp-env, Theme Check plugin,
-phpcs WPThemeReview, and direct grep/registry introspection — not code
-review alone). Re-confirmed clean on a second, fully fresh `wp-env`
-instance in Step Final; see `docs/CLAUDE.md` Phase 6 notes for that
-verification's exact results._
+_REQUIRED, RECOMMENDED, and ACCESSIBILITY-READY sections verified during
+Phase 6 (wp-env, Theme Check plugin, phpcs WPThemeReview, and direct
+grep/registry introspection — not code review alone) and re-verified
+during Phase 7 against the actual packaged `.zip`, not just the dev
+directory. The two items above still open (readme.txt content and
+screenshot.png, previously deferred to "Phase 7 packaging") are now
+closed; only the real-host media-import item remains genuinely open,
+requiring Nayan's manual verification since no external host exists in
+this environment. See `docs/CLAUDE.md` Phase 7 notes for full detail._
