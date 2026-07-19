@@ -54,7 +54,7 @@ $godevs_portfolio_services = array(
 				<!-- /wp:paragraph -->
 
 				<!-- wp:paragraph {"fontSize":"small"} -->
-				<p class="has-small-font-size"><a href="/services/"><?php esc_html_e( 'Learn more', 'godevs-portfolio' ); ?></a></p>
+				<p class="has-small-font-size"><a href="/services/" aria-label="<?php echo esc_attr( sprintf( /* translators: %s: service name. */ __( 'Learn more about %s', 'godevs-portfolio' ), $godevs_portfolio_service['title'] ) ); ?>"><?php esc_html_e( 'Learn more', 'godevs-portfolio' ); ?></a></p>
 				<!-- /wp:paragraph -->
 
 			</div>

@@ -1,0 +1,1007 @@
+# Copyright (C) 2026 goDevs
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: GoDevs Portfolio 0.2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/godevs-portfolio\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-07-19T08:05:59+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: godevs-portfolio\n"
+
+#. Theme Name of the theme
+#: style.css
+msgid "GoDevs Portfolio"
+msgstr ""
+
+#. Theme URI of the theme
+#: style.css
+msgid "https://godevs.net/themes/godevs-portfolio"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "A full site editing theme for agency, freelancer, and consultancy portfolios, built around a distinct editorial visual identity and a portfolio-first sales funnel. Placeholder description — expand in Phase 5."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "goDevs"
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://godevs.net"
+msgstr ""
+
+#: inc/class-block-patterns.php:48
+msgid "Portfolio: Hero"
+msgstr ""
+
+#: inc/class-block-patterns.php:52
+msgid "Portfolio: Services"
+msgstr ""
+
+#: inc/class-block-patterns.php:56
+msgid "Portfolio: Work"
+msgstr ""
+
+#: inc/class-block-patterns.php:60
+msgid "Portfolio: Team"
+msgstr ""
+
+#: inc/class-block-patterns.php:64
+msgid "Portfolio: Testimonials"
+msgstr ""
+
+#: inc/class-block-patterns.php:68
+msgid "Portfolio: Pricing"
+msgstr ""
+
+#: inc/class-block-patterns.php:72
+msgid "Portfolio: Calls to Action"
+msgstr ""
+
+#: inc/class-block-patterns.php:76
+msgid "Portfolio: Social Proof"
+msgstr ""
+
+#: inc/class-block-patterns.php:80
+msgid "Portfolio: Contact"
+msgstr ""
+
+#: inc/class-theme-setup.php:88
+msgid "Copyright Year"
+msgstr ""
+
+#: inc/class-theme-setup.php:95
+msgid "All Rights Reserved Text"
+msgstr ""
+
+#: inc/class-theme-setup.php:102
+msgid "No Posts Found Text"
+msgstr ""
+
+#: inc/class-theme-setup.php:109
+msgid "No Search Results Text"
+msgstr ""
+
+#. translators: %s: current year.
+#: inc/class-theme-setup.php:122
+#, php-format
+msgid "© %s"
+msgstr ""
+
+#: inc/class-theme-setup.php:132
+msgid "All rights reserved."
+msgstr ""
+
+#: inc/class-theme-setup.php:140
+msgid "No posts found."
+msgstr ""
+
+#: inc/class-theme-setup.php:148
+msgid "No results found."
+msgstr ""
+
+#: inc/class-theme-setup.php:175
+msgid "Primary"
+msgstr ""
+
+#: inc/class-theme-setup.php:176
+msgid "Footer"
+msgstr ""
+
+#: patterns/blog-heading.php
+msgctxt "Pattern title"
+msgid "Blog Heading"
+msgstr ""
+
+#: patterns/blog-heading.php
+msgctxt "Pattern description"
+msgid "The \"Blog\" H1 used by home.html and index.html. Not meant for manual insertion — added in Phase 6 to fix a real i18n gap: static text directly in .html templates is not picked up by `wp i18n make-pot`, only strings inside .php files are."
+msgstr ""
+
+#: patterns/blog-heading.php:15
+msgid "Blog"
+msgstr ""
+
+#: patterns/contact-info.php
+msgctxt "Pattern title"
+msgid "Contact Info"
+msgstr ""
+
+#: patterns/contact-info.php
+msgctxt "Pattern description"
+msgid "Address, phone, and email in a three-column layout. Added in Phase 3 — not part of the original 12 scaffolded patterns; docs/PRD.md's Contact row described \"contact block group\" without naming a pattern, so this fills that gap. Flagged for confirmation."
+msgstr ""
+
+#: patterns/contact-info.php:17
+msgid "Let's talk about your project"
+msgstr ""
+
+#: patterns/contact-info.php:21
+msgid "We typically reply within one business day. For new project inquiries, tell us a little about your timeline and budget up front — it helps us give you a useful answer faster."
+msgstr ""
+
+#: patterns/contact-info.php:30
+msgid "Email"
+msgstr ""
+
+#: patterns/contact-info.php:33
+msgid "hello@godevs.example"
+msgstr ""
+
+#: patterns/contact-info.php:41
+msgid "Phone"
+msgstr ""
+
+#: patterns/contact-info.php:44
+msgid "+1 (555) 555-0125"
+msgstr ""
+
+#: patterns/contact-info.php:52
+#: patterns/pricing-table.php:110
+msgid "Studio"
+msgstr ""
+
+#: patterns/contact-info.php:55
+msgid "123 Market Street, Suite 400"
+msgstr ""
+
+#: patterns/contact-info.php:55
+msgid "Portland, OR 97201"
+msgstr ""
+
+#: patterns/cta-banner.php
+msgctxt "Pattern title"
+msgid "Call to Action Banner"
+msgstr ""
+
+#: patterns/cta-banner.php
+msgctxt "Pattern description"
+msgid "Full-width closing call-to-action banner, reused across multiple templates."
+msgstr ""
+
+#: patterns/cta-banner.php:20
+msgid "Ready to start your next project?"
+msgstr ""
+
+#: patterns/cta-banner.php:24
+msgid "Tell us about your business and what you're trying to build — we'll follow up within one business day."
+msgstr ""
+
+#: patterns/cta-banner.php:30
+#: patterns/hero-agency.php:45
+msgid "Get a Quote"
+msgstr ""
+
+#: patterns/footer-cta.php
+msgctxt "Pattern title"
+msgid "Footer CTA"
+msgstr ""
+
+#: patterns/footer-cta.php
+msgctxt "Pattern description"
+msgid "Smaller, single-line call-to-action variant for use above footer.html on internal pages."
+msgstr ""
+
+#: patterns/footer-cta.php:17
+msgid "Let's build something great together."
+msgstr ""
+
+#: patterns/footer-cta.php:23
+msgid "Get in Touch"
+msgstr ""
+
+#: patterns/hero-agency.php
+msgctxt "Pattern title"
+msgid "Hero — Agency"
+msgstr ""
+
+#: patterns/hero-agency.php
+msgctxt "Pattern description"
+msgid "Asymmetric two-column hero for agency/studio pages — heading, supporting copy, two CTAs, and a side image."
+msgstr ""
+
+#: patterns/hero-agency.php:35
+msgid "Strategy-led design for brands ready to grow"
+msgstr ""
+
+#: patterns/hero-agency.php:39
+msgid "We partner with ambitious companies to design, build, and launch digital experiences that convert — from brand identity through to the finished product."
+msgstr ""
+
+#: patterns/hero-agency.php:49
+msgid "View Work"
+msgstr ""
+
+#: patterns/hero-agency.php:60
+msgid "Collage of recent agency project screens displayed on a designer's desk"
+msgstr ""
+
+#: patterns/hero-freelancer.php
+msgctxt "Pattern title"
+msgid "Hero — Freelancer"
+msgstr ""
+
+#: patterns/hero-freelancer.php
+msgctxt "Pattern description"
+msgid "Personal, portrait-oriented hero for solo freelancer/consultant pages — heading, intro copy, CTAs, and a portrait image."
+msgstr ""
+
+#: patterns/hero-freelancer.php:19
+msgid "Portrait of the freelance designer and developer at their desk"
+msgstr ""
+
+#: patterns/hero-freelancer.php:28
+msgid "I design and build websites for small businesses"
+msgstr ""
+
+#: patterns/hero-freelancer.php:32
+msgid "A freelance designer-developer helping founders launch sites they're proud of, without the agency overhead or the six-week timeline."
+msgstr ""
+
+#: patterns/hero-freelancer.php:38
+msgid "Start a Project"
+msgstr ""
+
+#: patterns/hero-freelancer.php:42
+msgid "See My Work"
+msgstr ""
+
+#: patterns/logo-cloud.php
+msgctxt "Pattern title"
+msgid "Logo Cloud"
+msgstr ""
+
+#: patterns/logo-cloud.php
+msgctxt "Pattern description"
+msgid "\"Trusted by\" row of client logo placeholders, used as social proof."
+msgstr ""
+
+#: patterns/logo-cloud.php:14
+msgid "Acme Studio"
+msgstr ""
+
+#: patterns/logo-cloud.php:15
+msgid "Northwind Traders"
+msgstr ""
+
+#: patterns/logo-cloud.php:16
+msgid "Contoso"
+msgstr ""
+
+#: patterns/logo-cloud.php:17
+msgid "Fabrikam"
+msgstr ""
+
+#: patterns/logo-cloud.php:18
+msgid "Globex"
+msgstr ""
+
+#: patterns/logo-cloud.php:25
+msgid "Trusted by teams at"
+msgstr ""
+
+#. translators: %s: client name.
+#: patterns/logo-cloud.php:34
+#, php-format
+msgid "%s logo"
+msgstr ""
+
+#: patterns/not-found.php
+msgctxt "Pattern title"
+msgid "Not Found Message"
+msgstr ""
+
+#: patterns/not-found.php
+msgctxt "Pattern description"
+msgid "The \"Page not found\" heading + message used by 404.html. Not meant for manual insertion — same i18n-gap fix as blog-heading.php."
+msgstr ""
+
+#: patterns/not-found.php:15
+msgid "Page not found"
+msgstr ""
+
+#: patterns/not-found.php:19
+msgid "The page you're looking for doesn't exist or has moved."
+msgstr ""
+
+#: patterns/portfolio-case-study.php
+msgctxt "Pattern title"
+msgid "Portfolio Case Study"
+msgstr ""
+
+#: patterns/portfolio-case-study.php
+msgctxt "Pattern description"
+msgid "Single-project case study layout — hero image, challenge/approach/result sections, results stats, and an image gallery. Intended as the primary content of a page-case-study.html page, so its own heading acts as the page's visually-prominent title."
+msgstr ""
+
+#: patterns/portfolio-case-study.php:15
+msgid "+180%"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:16
+msgid "Organic traffic"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:19
+msgid "3.2×"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:20
+msgid "Conversion rate"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:23
+msgid "6 weeks"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:24
+msgid "Concept to launch"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:31
+msgid "Brand Identity · Web Design"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:35
+#: patterns/portfolio-grid.php:29
+msgid "Northwind Rebrand"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:41
+msgid "Wide hero photo of the finished Northwind Traders brand identity and website"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:50
+msgid "The Challenge"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:53
+msgid "Northwind Traders had outgrown its decade-old identity. The brand no longer matched the quality of the work, and the website was actively losing them enterprise leads to competitors with a sharper first impression."
+msgstr ""
+
+#: patterns/portfolio-case-study.php:61
+msgid "The Approach"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:64
+msgid "We ran a two-week discovery sprint with their sales and leadership teams, then rebuilt the identity system, messaging, and website in parallel so nothing shipped out of sync with the rest."
+msgstr ""
+
+#: patterns/portfolio-case-study.php:72
+msgid "The Result"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:75
+msgid "A brand and site that finally read as enterprise-grade. Sales now leads with the website in pitch meetings instead of working around it."
+msgstr ""
+
+#: patterns/portfolio-case-study.php:103
+msgid "Northwind Traders new logo and stationery mockup"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:106
+msgid "Northwind Traders homepage shown on a laptop screen"
+msgstr ""
+
+#: patterns/portfolio-case-study.php:109
+msgid "Northwind Traders product page shown on a mobile phone"
+msgstr ""
+
+#: patterns/portfolio-grid.php
+msgctxt "Pattern title"
+msgid "Portfolio Grid"
+msgstr ""
+
+#: patterns/portfolio-grid.php
+msgctxt "Pattern description"
+msgid "Editorial, asymmetric project grid linking out to individual case study pages."
+msgstr ""
+
+#: patterns/portfolio-grid.php:17
+msgid "Selected work"
+msgstr ""
+
+#: patterns/portfolio-grid.php:26
+msgid "Screenshot of the Northwind Traders brand identity and website"
+msgstr ""
+
+#: patterns/portfolio-grid.php:32
+msgid "Brand Identity"
+msgstr ""
+
+#: patterns/portfolio-grid.php:40
+msgid "Screenshot of the Globex mobile app interface"
+msgstr ""
+
+#: patterns/portfolio-grid.php:43
+msgid "Globex Mobile App"
+msgstr ""
+
+#: patterns/portfolio-grid.php:46
+#: patterns/services-grid.php:23
+msgid "Product Design"
+msgstr ""
+
+#: patterns/portfolio-grid.php:60
+msgid "Screenshot of the Fabrikam e-commerce platform"
+msgstr ""
+
+#: patterns/portfolio-grid.php:63
+msgid "Fabrikam Commerce Platform"
+msgstr ""
+
+#: patterns/portfolio-grid.php:66
+msgid "Web Development"
+msgstr ""
+
+#: patterns/portfolio-grid.php:74
+msgid "Screenshot of the Contoso marketing website"
+msgstr ""
+
+#: patterns/portfolio-grid.php:77
+msgid "Contoso Marketing Site"
+msgstr ""
+
+#: patterns/portfolio-grid.php:80
+msgid "Web Design"
+msgstr ""
+
+#: patterns/pricing-table.php
+msgctxt "Pattern title"
+msgid "Pricing Table"
+msgstr ""
+
+#: patterns/pricing-table.php
+msgctxt "Pattern description"
+msgid "Three-tier pricing cards with a \"Most Popular\" tier — labeled with visible text, not color alone."
+msgstr ""
+
+#: patterns/pricing-table.php:17
+msgid "Simple, transparent pricing"
+msgstr ""
+
+#: patterns/pricing-table.php:28
+msgid "Starter"
+msgstr ""
+
+#: patterns/pricing-table.php:31
+msgid "$1,200"
+msgstr ""
+
+#: patterns/pricing-table.php:34
+msgid "A focused single-purpose site — perfect for validating a new offer or launching a landing page fast."
+msgstr ""
+
+#: patterns/pricing-table.php:39
+msgid "Up to 5 pages"
+msgstr ""
+
+#: patterns/pricing-table.php:42
+msgid "Mobile-responsive design"
+msgstr ""
+
+#: patterns/pricing-table.php:45
+msgid "2-week turnaround"
+msgstr ""
+
+#: patterns/pricing-table.php:52
+msgid "Get Started"
+msgstr ""
+
+#: patterns/pricing-table.php:66
+msgid "Most Popular"
+msgstr ""
+
+#: patterns/pricing-table.php:69
+msgid "Growth"
+msgstr ""
+
+#: patterns/pricing-table.php:72
+msgid "$3,800"
+msgstr ""
+
+#: patterns/pricing-table.php:75
+msgid "A full marketing site with the pages and structure a growing team actually needs."
+msgstr ""
+
+#: patterns/pricing-table.php:80
+msgid "Up to 15 pages"
+msgstr ""
+
+#: patterns/pricing-table.php:83
+msgid "Custom block patterns"
+msgstr ""
+
+#: patterns/pricing-table.php:86
+msgid "Blog & case study setup"
+msgstr ""
+
+#: patterns/pricing-table.php:89
+msgid "4-week turnaround"
+msgstr ""
+
+#: patterns/pricing-table.php:96
+msgid "Choose Growth"
+msgstr ""
+
+#: patterns/pricing-table.php:113
+msgid "Let's talk"
+msgstr ""
+
+#: patterns/pricing-table.php:116
+msgid "Ongoing design and development support, scoped around your team's roadmap."
+msgstr ""
+
+#: patterns/pricing-table.php:121
+msgid "Unlimited pages"
+msgstr ""
+
+#: patterns/pricing-table.php:124
+msgid "Dedicated project lead"
+msgstr ""
+
+#: patterns/pricing-table.php:127
+msgid "Monthly retainer"
+msgstr ""
+
+#: patterns/pricing-table.php:134
+msgid "Contact Us"
+msgstr ""
+
+#: patterns/services-grid.php
+msgctxt "Pattern title"
+msgid "Services Grid"
+msgstr ""
+
+#: patterns/services-grid.php
+msgctxt "Pattern description"
+msgid "Four-column grid presenting core service offerings, each with a heading, description, and link."
+msgstr ""
+
+#: patterns/services-grid.php:15
+msgid "Brand Strategy"
+msgstr ""
+
+#: patterns/services-grid.php:16
+msgid "Positioning, messaging, and visual identity built on research, not guesswork."
+msgstr ""
+
+#: patterns/services-grid.php:19
+msgid "Web Design & Development"
+msgstr ""
+
+#: patterns/services-grid.php:20
+msgid "Fast, accessible websites built on WordPress — designed to convert, not just look good."
+msgstr ""
+
+#: patterns/services-grid.php:24
+msgid "UI and UX for web and mobile products, from first wireframe to shipped feature."
+msgstr ""
+
+#: patterns/services-grid.php:27
+msgid "Digital Marketing"
+msgstr ""
+
+#: patterns/services-grid.php:28
+msgid "Campaigns and content that bring the right people to the site you just built."
+msgstr ""
+
+#: patterns/services-grid.php:36
+msgid "What we do"
+msgstr ""
+
+#. translators: %s: service name.
+#: patterns/services-grid.php:57
+#, php-format
+msgid "Learn more about %s"
+msgstr ""
+
+#. translators: %s: service name.
+#: patterns/services-grid.php:57
+msgid "Learn more"
+msgstr ""
+
+#: patterns/stats-counter.php
+msgctxt "Pattern title"
+msgid "Stats Counter"
+msgstr ""
+
+#: patterns/stats-counter.php
+msgctxt "Pattern description"
+msgid "Row of key metrics used as social proof (projects shipped, years active, clients served)."
+msgstr ""
+
+#: patterns/stats-counter.php:15
+msgid "120+"
+msgstr ""
+
+#: patterns/stats-counter.php:16
+msgid "Projects delivered"
+msgstr ""
+
+#: patterns/stats-counter.php:19
+msgid "98%"
+msgstr ""
+
+#: patterns/stats-counter.php:20
+msgid "Client retention"
+msgstr ""
+
+#: patterns/stats-counter.php:23
+msgid "12"
+msgstr ""
+
+#: patterns/stats-counter.php:24
+msgid "Years combined experience"
+msgstr ""
+
+#: patterns/stats-counter.php:27
+msgid "4.9/5"
+msgstr ""
+
+#: patterns/stats-counter.php:28
+msgid "Average client rating"
+msgstr ""
+
+#: patterns/team-grid.php
+msgctxt "Pattern title"
+msgid "Team Grid"
+msgstr ""
+
+#: patterns/team-grid.php
+msgctxt "Pattern description"
+msgid "Team member grid with portrait, name, role, and social links."
+msgstr ""
+
+#: patterns/team-grid.php:15
+msgid "Jordan Lee"
+msgstr ""
+
+#: patterns/team-grid.php:16
+msgid "Creative Director"
+msgstr ""
+
+#: patterns/team-grid.php:19
+msgid "Morgan Reyes"
+msgstr ""
+
+#: patterns/team-grid.php:20
+msgid "Lead Developer"
+msgstr ""
+
+#: patterns/team-grid.php:23
+msgid "Casey Kim"
+msgstr ""
+
+#: patterns/team-grid.php:24
+msgid "Brand Strategist"
+msgstr ""
+
+#: patterns/team-grid.php:27
+msgid "Amara Okafor"
+msgstr ""
+
+#: patterns/team-grid.php:28
+msgid "Project Manager"
+msgstr ""
+
+#: patterns/team-grid.php:36
+msgid "Meet the team"
+msgstr ""
+
+#. translators: 1: name, 2: role.
+#: patterns/team-grid.php:46
+#, php-format
+msgid "Portrait of %1$s, %2$s"
+msgstr ""
+
+#: patterns/testimonials-carousel-static.php
+msgctxt "Pattern title"
+msgid "Testimonials Carousel (Static)"
+msgstr ""
+
+#: patterns/testimonials-carousel-static.php
+msgctxt "Pattern description"
+msgid "Static (non-JS) three-column testimonial layout using core/columns and core/quote — no carousel library dependency."
+msgstr ""
+
+#: patterns/testimonials-carousel-static.php:15
+msgid "They rebuilt our site in six weeks and it still outperforms agencies twice their size. Communication was clear from day one to launch."
+msgstr ""
+
+#: patterns/testimonials-carousel-static.php:16
+msgid "Priya Sharma"
+msgstr ""
+
+#: patterns/testimonials-carousel-static.php:17
+msgid "Founder, Northwind Traders"
+msgstr ""
+
+#: patterns/testimonials-carousel-static.php:20
+msgid "Our conversion rate more than tripled after the redesign. They understood our customers better than we did."
+msgstr ""
+
+#: patterns/testimonials-carousel-static.php:21
+msgid "Daniel Okoye"
+msgstr ""
+
+#: patterns/testimonials-carousel-static.php:22
+msgid "Marketing Lead, Fabrikam"
+msgstr ""
+
+#: patterns/testimonials-carousel-static.php:25
+msgid "Working with a freelancer felt riskier on paper, but the process was more organized than any agency we'd hired before."
+msgstr ""
+
+#: patterns/testimonials-carousel-static.php:26
+msgid "Elena Novak"
+msgstr ""
+
+#: patterns/testimonials-carousel-static.php:27
+msgid "COO, Globex"
+msgstr ""
+
+#: patterns/testimonials-carousel-static.php:35
+msgid "What clients say"
+msgstr ""
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Page: Services"
+msgstr ""
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Page: Portfolio"
+msgstr ""
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Page: Team"
+msgstr ""
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Page: Pricing"
+msgstr ""
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Page: Contact"
+msgstr ""
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Case Study"
+msgstr ""
+
+#: theme.json
+#: styles/emerald.json
+#: styles/midnight.json
+#: styles/sandstone.json
+msgctxt "Color name"
+msgid "Background"
+msgstr ""
+
+#: theme.json
+#: styles/emerald.json
+#: styles/midnight.json
+#: styles/sandstone.json
+msgctxt "Color name"
+msgid "Surface"
+msgstr ""
+
+#: theme.json
+#: styles/emerald.json
+#: styles/midnight.json
+#: styles/sandstone.json
+msgctxt "Color name"
+msgid "Border"
+msgstr ""
+
+#: theme.json
+#: styles/emerald.json
+#: styles/midnight.json
+#: styles/sandstone.json
+msgctxt "Color name"
+msgid "Text"
+msgstr ""
+
+#: theme.json
+#: styles/emerald.json
+#: styles/midnight.json
+#: styles/sandstone.json
+msgctxt "Color name"
+msgid "Muted Text"
+msgstr ""
+
+#: theme.json
+#: styles/emerald.json
+#: styles/midnight.json
+#: styles/sandstone.json
+msgctxt "Color name"
+msgid "Primary"
+msgstr ""
+
+#: theme.json
+#: styles/emerald.json
+#: styles/midnight.json
+#: styles/sandstone.json
+msgctxt "Color name"
+msgid "Primary Contrast"
+msgstr ""
+
+#: theme.json
+#: styles/emerald.json
+#: styles/midnight.json
+#: styles/sandstone.json
+msgctxt "Color name"
+msgid "Accent"
+msgstr ""
+
+#: theme.json
+#: styles/emerald.json
+#: styles/midnight.json
+#: styles/sandstone.json
+msgctxt "Color name"
+msgid "Accent Contrast"
+msgstr ""
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Primary to Accent"
+msgstr ""
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Surface to Background"
+msgstr ""
+
+#: theme.json
+msgctxt "Duotone name"
+msgid "Ink"
+msgstr ""
+
+#: theme.json
+msgctxt "Duotone name"
+msgid "Primary Wash"
+msgstr ""
+
+#: theme.json
+msgctxt "Duotone name"
+msgid "Accent Wash"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Body (System Sans)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Heading (System Serif)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Medium"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "X-Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "XX-Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Huge"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "3X Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "2X Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "X Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "Medium"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "X Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "2X Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Shadow name"
+msgid "Natural"
+msgstr ""
+
+#: theme.json
+msgctxt "Shadow name"
+msgid "Deep"
+msgstr ""
+
+#: styles/emerald.json
+msgctxt "Style variation name"
+msgid "Emerald"
+msgstr ""
+
+#: styles/midnight.json
+msgctxt "Style variation name"
+msgid "Midnight"
+msgstr ""
+
+#: styles/sandstone.json
+msgctxt "Style variation name"
+msgid "Sandstone"
+msgstr ""

@@ -577,18 +577,188 @@ navigation menu resolved correctly (its `ref` coincidentally landed on
 the same ID as the original — not a guarantee, see above), and
 `wp-content/debug.log` was not even created — a fully clean pass.
 
-**Not yet started:** screenshot asset, readme.txt content sections,
-languages/POT file, webfont bundling decision (if revisited).
+**Not yet started (as of end of Phase 5):** screenshot asset, readme.txt
+content sections, languages/POT file, webfont bundling decision (if
+revisited).
 
-**Next phase (Phase 6 — Accessibility & QA pass):** Run the WordPress
-Theme Check plugin and `phpcs` with the WPThemeReview ruleset across the
-whole theme (per the non-negotiable rule 7 and PRD Success Criteria
-1–2, neither of which has been run yet — every prior phase's
-verification has been functional/manual, not the formal tooling this
-phase requires). Generate the `.pot` file for translation readiness.
-Use `docs/WPORG_CHECKLIST.md` as the acceptance criteria (create it if
-it doesn't exist yet, derived from the WordPress.org Theme Review
-required-item list already referenced in `docs/PRD.md` Section 3).
+**Phase 6 — Accessibility & QA pass (complete)**
+
+`docs/WPORG_CHECKLIST.md` created as this phase's actual first action
+(Phase 5's entry referenced it as if it already existed — an oversight,
+noted in the checklist file itself). Every item in it is now checked
+off with a verification note; see that file for the full item-by-item
+record. This phase's real value was **Step 0's audit surfacing genuine,
+previously-undetected bugs** — consistent with non-negotiable rule 7,
+nothing below was marked done from code review alone.
+
+**Step 0 — `inc/` audit, before/after state of all 4 files:**
+- `class-theme-setup.php` — was implemented (add_theme_support,
+  block-bindings registration, copyright-year binding) but missing
+  `load_theme_textdomain()` entirely — a real gap for a theme claiming
+  `translation-ready`. **Fixed:** added as the first line of `init()`.
+  Also extended with 3 new block-binding sources and a `render_block`
+  filter for `core/navigation` aria-labels — see the i18n finding below
+  for why.
+- `class-block-patterns.php` — was fully implemented and working (Step
+  0 confirmed all 9 pattern categories genuinely registered via
+  `WP_Block_Pattern_Categories_Registry`, not just present in code). No
+  functional fix needed; added `phpcs:disable`/`phpcs:enable` comments
+  around the category-registration calls in Step 2.
+- `class-block-styles.php` — was an **empty stale stub** (`// TODO:
+  Phase 2/3`) left over from the Phase 0 scaffold, never implemented and
+  never flagged as done in any prior phase's notes — exactly the kind of
+  gap this step was designed to catch. Nothing in `docs/PRD.md` or any
+  prior phase actually required custom block styles, so this was not a
+  missing feature — it was a stale TODO comment with no real work behind
+  it. **Fixed:** rewritten as an explicit, documented intentional no-op
+  (`init() {}`) so the file states plainly why it does nothing instead
+  of implying unfinished work.
+- `class-enqueue.php` — was fully implemented (style.css/editor.css
+  enqueue, correct versioning). No fix needed. Live-verified
+  `get_editor_stylesheets()` resolves the real URL and returns HTTP 200.
+
+**Step 1 — Theme Check plugin:** installed and run headless via
+`wp eval-file` (admin-UI-only tool, required manually requiring
+`checkbase.php`/`main.php`). Zero REQUIRED-level flags on every run.
+One real WARNING (missing copyright/license notice in `style.css`) and
+one real INFO (invalid `business` tag not in the WPORG tag whitelist) —
+both fixed. Final state, reconfirmed on the Step Final fresh instance:
+`PASS: YES`, 38 checks run, 3 non-blocking results — 1 RECOMMENDED
+(`register_block_style` not used — intentionally not implemented, no
+PRD requirement for custom block styles) and 2 pure INFO (accessibility
+review reminder, text-domain confirmation), neither actionable.
+
+**Step 2 — phpcs + WPThemeReview:** installed via Composer outside the
+theme directory (scratchpad, correctly not shipped). Real ecosystem gap
+hit and worked around: `wptrt/wpthemereview` only supports WPCS ^2.x,
+not 3.x — pinned WPCS to `^2.3`. `testVersion` had to be explicitly set
+to `7.4-` or phpcs false-flags modern PHP syntax against ancient
+defaults. Final run against `functions.php`, `inc/`, and `patterns/`:
+**exit code 0, zero errors, zero warnings.** 2 findings suppressed with
+documented inline reasons (`register_block_pattern_category()` and
+`register_block_bindings_source()` — both current WordPress-core-
+endorsed FSE practices the sniff's forbidden-function list predates).
+
+**Step 3 — Accessibility audit beyond prior phases, 2 real bugs found
+and fixed:**
+1. **Severe contrast failure** in `parts/header-transparent.html`:
+   `textColor:primary-contrast` with no background (meant to overlay a
+   hero image, per the original Phase 2 design, but that overlay
+   positioning was never actually built) rendered against the plain
+   page `background` token instead — measured ~1.0–1.1:1 across all 4
+   palettes (effectively invisible text). This had survived Phases 1–5
+   undetected because no prior verification pass specifically checked
+   that exact, unintended token pairing. Fixed with
+   `backgroundColor:primary` (an already-verified ≥5.7:1 pairing).
+2. **Generic repeated link text** in `services-grid.php` — all 4 service
+   cards said identical "Learn more" with no distinguishing context (a
+   real WCAG anti-pattern for screen-reader link-list navigation). Fixed
+   with a per-card `aria-label` ("Learn more about %s") that keeps the
+   concise visible text while making the accessible name descriptive.
+
+Also confirmed clean (no fix needed): `alt` text present and descriptive
+on every image across all 15 patterns; no `prefers-reduced-motion` gap
+(theme has zero CSS transitions/animations, confirmed by grep); no
+unlabeled form inputs (theme has no form markup at all, by design).
+
+**Step 4 — i18n audit, `.pot` generation, and a corrected prior claim:**
+`wp i18n make-pot` produced `languages/godevs-portfolio.pot` with **220
+msgid entries**. In the process, **empirically disproved a claim this
+project made in Phase 2** — that static text in `.html` block
+templates/parts is picked up by "WordPress's native block-content i18n
+system, the same mechanism core block themes use." It is not:
+`make-pot` only extracts strings from `.php` files, never from `.html`
+template/part files (confirmed by control-checking that `.php`-pattern
+strings appeared in the `.pot` while known `.html`-template strings did
+not). This is recorded here as a correction, not silently patched, per
+instruction. **Fixed** via: 2 new `Inserter:false` utility patterns
+(`blog-heading.php`, `not-found.php`) for the "Blog" and "Page not
+found" headings previously hardcoded in `home.html`/`index.html`/
+`404.html`; 3 new Block Bindings sources for small inline fragments
+("No posts found.", "No results found.", "All rights reserved.");  a
+`render_block` filter translating `core/navigation`'s `ariaLabel`
+attribute (Block Bindings doesn't support block attributes, only block
+content); and removing 2 redundant `core/search` label/buttonText
+overrides that duplicated WP core's own already-translated defaults.
+
+**A second, unrelated bug found while debugging the two new patterns:**
+they silently failed to register with no PHP error. Root-caused by
+reading WordPress core source (`WP_Theme::get_block_patterns()`):
+WordPress caches the entire `patterns/` directory scan in a **site
+transient** keyed to the theme's `Version` header, invalidated only when
+that header string changes. `style.css`'s `Version` had never been
+bumped since Phase 0 (still `0.1.0` through Phase 5), so WordPress was
+serving a stale cached pattern list. **Fixed by bumping the version**
+(`0.1.0` → `0.2.0` in `style.css`, `functions.php`, and `readme.txt`'s
+Stable tag) — immediately resolved. **Flagging as a generalizable
+lesson for every future phase, not just this one-time fix:** the
+`Version` header must be bumped whenever pattern or other cached theme
+files change, since this same stale-cache behavior would silently
+affect real end users on production sites, not just this dev
+environment.
+
+**Step 5:** `docs/WPORG_CHECKLIST.md` updated — every item marked ☑ with
+a verification note (see that file; nothing was left unchecked, every
+required/recommended/accessibility item was checkable this phase).
+
+**Step Final — genuinely fresh wp-env, not reused from Phase 5 or from
+earlier in this phase:** first attempt accidentally ran `wp-env` from
+inside `godevs-portfolio/` instead of the repo root, which has no
+`.wp-env.json` of its own — wp-env auto-detected the folder as a theme
+and spun up a *second, unconfigured* Docker instance rather than using
+the project's real config (the repo-root `.wp-env.json`, which lists
+`"themes": ["./godevs-portfolio"]`). Caught via `docker ps` (two
+differently-hashed instance groups, one holding port 8888). Destroyed
+the wrong one, then destroyed the real project's stale instance from
+Phase 5 and started genuinely fresh from the repo root
+(`c:\Users\USER\Desktop\Godevs-portfoilo`), the correct working
+directory for all `wp-env` commands in this project going forward. On
+that clean instance: Theme Check re-run — identical clean result
+(`PASS: YES`, same 3 non-blocking items). phpcs re-run — identical clean
+result (exit 0, zero errors/warnings). Editor styles and all 15 patterns
+(13 original + `blog-heading` + `not-found`) confirmed registering
+correctly with zero prior cache bias. Demo content WXR imported fresh
+(21 items, matching Phase 5's count); Reading Settings reapplied
+(same one-time manual step Phase 5 documented, not a new issue).
+Full click-through of all 17 real routes (front page, all 8 nav pages,
+4 case studies, a blog post, search, and a deliberately-broken URL) —
+**discovered mid-check** that `wp_remote_get( home_url() )` fails inside
+the `cli` container with a Docker-networking error (`localhost:8888`
+doesn't resolve to the WordPress container from the cli container's own
+network namespace) — the same class of Docker-networking quirk Phase 5
+hit with media re-import, not a theme bug. Worked around by requesting
+`http://wordpress/...` (the container's internal Docker-network
+hostname) instead. Result: **all 17 routes returned the expected status
+code with exactly one `<h1>` each.** `wp-content/debug.log` **did not
+even exist** after the full click-through — a fully clean pass, matching
+Phase 5's Pass 2 result. All `phase6-*.php` temporary debug/verification
+scripts removed from the theme directory before commit. wp-env stopped.
+
+**Exact counts, for the record:**
+- Theme Check: 0 REQUIRED (fixed: 0, none ever existed) · 1 WARNING
+  fixed (copyright notice) · 1 invalid-tag INFO fixed (`business`) · 1
+  RECOMMENDED left with reason (no custom block styles, not required) ·
+  2 pure-INFO items requiring no action.
+- phpcs WPThemeReview: 0 ERRORS on final run · 0 WARNINGS left · 2
+  findings suppressed with documented reasons during Step 2 (both
+  WordPress-core-endorsed FSE functions the sniff predates).
+- `.pot`: 220 msgid entries.
+- Patterns: 15 registered (13 original + 2 new Phase 6 utility
+  patterns), all 9 categories correctly wired.
+
+**Next phase (Phase 7 — Packaging):** `readme.txt` still has TODO
+content sections (Description/Installation/FAQ/Screenshots/Resources —
+the Resources section can now state "none" definitively per this
+phase's audit). `screenshot.png` is still the Phase 0 placeholder and
+needs a real asset (likely a composite of the demo home page across the
+3 style variations, given no real browser/screenshot tool exists in this
+environment — needs a decision on how to produce one). Webfont bundling
+decision, deferred since Phase 1, should be finally resolved or
+explicitly closed out. Final `.zip` packaging and a last theme-directory
+audit for any remaining dev-only files (this phase's scratchpad phpcs
+tooling lives outside the theme directory and was never shipped —
+confirm that's still true) round out what "ready for WordPress.org
+submission" actually requires.
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._

@@ -4,10 +4,10 @@ Contributors: godevs
 Requires at least: 6.5
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Tags: full-site-editing, block-patterns, portfolio, business, blog, one-column, two-columns, grid-layout, custom-colors, custom-menu, editor-style, featured-images, rtl-language-support, threaded-comments, translation-ready, accessibility-ready
+Tags: full-site-editing, block-patterns, portfolio, blog, one-column, two-columns, grid-layout, custom-colors, custom-menu, editor-style, featured-images, rtl-language-support, threaded-comments, translation-ready, accessibility-ready
 
 A full site editing theme for agency, freelancer, and consultancy portfolios.
 
@@ -32,6 +32,12 @@ TODO: Phase 5.
 TODO: Phase 5 — describe screenshot.png once the real asset is produced.
 
 == Changelog ==
+
+= 0.2.0 =
+* Full theme.json token set, 3 style variations, all templates/template
+  parts, all 13 patterns, demo content, and a Phase 6 accessibility/QA
+  pass (Theme Check plugin, phpcs WPThemeReview, i18n audit, WCAG AA
+  contrast verification). See docs/CLAUDE.md for the complete history.
 
 = 0.1.0 =
 * Initial scaffold: directory structure, empty theme.json (schema v3),
