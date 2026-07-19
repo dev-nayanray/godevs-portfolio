@@ -52,6 +52,24 @@ product. Do not make exceptions for convenience.
    Phase" section below to advance a phase, actually spin up `wp-env`
    and run the WordPress Theme Check plugin (and `phpcs` with
    WPThemeReview for PHP changes) against the real result.
+8. **Hero patterns with heading-level conditionals must have their
+   rendered heading level manually verified per page at build time.**
+   (Added Phase 12, resolving a Step 0 audit — see Phase 12 notes below
+   for the full mechanism explanation and evidence.) `hero-agency.php`,
+   `hero-freelancer.php`, and `hero-video.php` all decide H1 vs. H2 via
+   `godevs_portfolio_hero_heading_level()` (`is_front_page()` under the
+   hood) — but that PHP only runs for a **live**
+   `<!-- wp:pattern {"slug":"..."} /-->` reference. The instant a
+   pattern's markup is expanded/hand-written directly into a page's own
+   `post_content` (required whenever that page needs different copy
+   than the pattern's hardcoded default — see rule 5's practical
+   consequence, documented in Phase 11), the heading level is frozen at
+   whatever was true when it was written, permanently, regardless of
+   which page it ends up on. There is no automatic protection against
+   getting this wrong. Every time a niche build hand-expands one of
+   these 3 hero patterns, manually check the actual heading level in
+   the output before moving on — do not assume it's correct because the
+   pattern file "has the logic somewhere."
 
 ## File-Naming Conventions
 
@@ -1427,14 +1445,156 @@ wp-env instance:**
 **Running page count: 27 of 59 total** (14 Agency + 6 Freelancer + 7
 Web Dev Studio). On track against the Phase 9 plan.
 
-**Next phase (Phase 12 — Photographer + Interior Designer +
-Architect):** the `gallery-categories.php` shared-pattern group (used
-by both Photographer and Interior Designer). Same content-assembly
-process as this phase; the "expand vs. reference" rule and the
-per-niche-isolated-database build method both carry forward unchanged.
-Architect's `portfolio-grid-project.php` and Interior Designer's
-`before-after-columns.php` are both already built and verified (Phase
-10) — this phase is content only, same as Phase 11.
+**Phase 12 — Photographer + Interior Designer + Architect (complete)**
+
+**Step 0 — resolved before any content was built, per instruction.**
+The mechanism is **(b), not (a)**: every niche page's content was
+produced by a PHP migration script calling `wp_insert_post()` /
+`wp_update_post()` with hand-constructed block-markup strings — never
+by inserting a pattern through the block editor UI and letting
+Gutenberg detach it. The practical consequence is identical either way,
+which is the part worth remembering: the instant a pattern's markup
+exists as literal blocks in a page's own `post_content` — however it
+got there — WordPress just renders whatever static HTML is stored.
+Nothing re-invokes the pattern file's PHP, so a live
+`is_front_page()` check inside that PHP never runs for that content.
+Only an actual `<!-- wp:pattern {"slug":"..."} /-->` reference comment
+re-executes the pattern file at render time.
+
+**Audit result, checked against the real saved WXR content, not
+memory:**
+- **Agency:** 3 live `hero-agency` references (Home, Services,
+  Portfolio) + 2 live `hero-freelancer` references (Team, Contact).
+  Zero hardcoded hero text found anywhere in the file.
+- **Freelancer:** 4 live `hero-freelancer` references (Home, Services,
+  Portfolio, Contact). Zero hardcoded.
+- **Web Dev Studio:** 3 live `hero-agency` references (Services,
+  Portfolio, Contact) + exactly 1 hardcoded instance — the Home hero,
+  confirmed via the raw saved markup to carry `"level":1` and a literal
+  `<h1>` tag, matching its actual (front-page-only) usage.
+- **Conclusion:** across all 27 pages built through Phase 11, exactly
+  one hand-expanded heading-conditional instance exists, and it was
+  already correct. Nothing needed fixing — but the *process* of
+  verifying this, rather than assuming it from memory, is now
+  documented as non-negotiable rule 8 (see above), since Phase 11
+  itself never actually checked this at the time.
+- **Other patterns with the same risk:** grepping `patterns/` for
+  `is_front_page`/`is_page`/other conditional tags directly returns
+  nothing, because the logic lives centrally in
+  `godevs_portfolio_hero_heading_level()` (`functions.php`, Phase 10).
+  Exactly 3 patterns call it: `hero-agency.php`, `hero-freelancer.php`,
+  and **`hero-video.php`** — built in Phase 10, never actually used in
+  any demo page until this phase. Same caveat applies to it from first
+  use onward.
+
+**This phase deliberately minimized new hand-expanded/hardcoded hero
+instances** by using `hero-video.php` for Photographer **as a live
+reference, unedited** — its Phase 10 default copy ("Work that speaks
+for itself") already reads as generic enough for a visual-portfolio
+niche, so no expansion was needed at all, and its dynamic H1/H2 logic
+stayed fully live. Interior Designer and Architect both still needed
+genuinely different Home hero copy from `hero-agency.php`'s default, so
+both hand-expanded it with a hardcoded `<h1>` (safe for the same reason
+as Web Dev Studio's — used once, on the front page) — both **manually
+verified live**, per the new rule, not assumed.
+
+**Photographer — 6 pages built** (persona: "Maya Ortiz" of Juniper
+Lane Photography): Home, About, Galleries, Services, Testimonials,
+Contact. `hero-video.php`, `portfolio-grid-masonry.php`, and
+`gallery-categories.php` were all written in Phase 10 with photography
+specifically in mind — all three referenced live, unedited, needing no
+expansion at all. Fresh testimonials, session pricing, stats, and
+contact details throughout.
+
+**Interior Designer — 6 pages built** (persona: "Elm & Ash Interiors,"
+small studio): Home, About, Portfolio, Services, Process, Contact.
+`before-after-columns.php` was also already interior-design-appropriate
+from Phase 10 (a living-room before/after) — referenced live. Home hero
+hand-expanded with fresh copy (hardcoded H1, verified). `process-steps`
+given genuinely different step names ("Consultation → Design & Mood
+Board → Sourcing → Installation") than Web Dev Studio's
+"Discovery/Plan/Build/Deliver" (Phase 11) so the same shared pattern
+doesn't read as repetitive across niches — the operating principle
+established in Phase 11 (expand patterns with business-specific
+claims), applied here to a pattern whose *default* copy was
+niche-neutral enough to need a rewrite for genuine distinctiveness,
+not just factual accuracy. `gallery-categories.php` re-copy'd with room
+types (Living Rooms/Kitchens/Bedrooms) instead of Photographer's shoot
+types — confirmed live, mutually exclusive from Photographer's category
+names.
+
+**Architect — 6 pages built** (persona: "Thornfield Architecture,"
+founded 2010): Home, About, Projects, Services, Approach, Contact.
+`portfolio-grid-project.php` (Phase 10, already architecture-scoped)
+referenced live, unedited. Home hero hand-expanded (hardcoded H1,
+verified). `logo-cloud.php` reused as an "Awards & Recognition" section
+on the Approach page exactly as `docs/NICHE_DEMOS.md` planned — award
+names instead of client names, confirmed live. `value-props.php` used
+on the Approach page as a "how we think about that balance" section —
+**a Phase-10-surfaced pattern not in the original Phase 9 plan for this
+niche**, flagged per instruction (same pattern of deviation as
+Freelancer's and Web Dev Studio's About pages in Phase 11).
+
+**Step Final — 4 fresh wp-env passes, each a full destroy-and-restart:**
+1. **Agency regression:** all 17 routes re-checked, identical to Phase
+   10/11 — nothing drifted. Same known media-import Docker-networking
+   error reproduced again (expected).
+2. **Photographer:** clean import (7 items). All 6 pages correct.
+   Manual heading-level check: `hero-video` rendered `<h1>` on Home,
+   `<h2>` on Galleries/Services/Contact — all confirmed via direct
+   string match, not just an H1 count. Gallery/masonry content
+   confirmed present.
+3. **Interior Designer:** clean import (7 items). All 6 pages correct.
+   Hardcoded Home `<h1>` confirmed. Room-type gallery categories
+   confirmed present; Photographer's shoot-type categories confirmed
+   absent from the same page.
+4. **Architect:** clean import (7 items). All 6 pages correct.
+   Hardcoded Home `<h1>` confirmed. Project-feature content confirmed
+   present; other niches' project names confirmed absent. Awards
+   section confirmed present.
+
+`debug.log` stayed clean across all 4 passes except one unrelated,
+transient network warning from `wp plugin install`'s own WordPress.org
+API check during the Architect pass setup (same class of sandboxed-
+network noise documented since Phase 1) — nothing theme-related.
+
+**A real tooling issue hit and worked around, worth recording:**
+`wp eval-file` silently failed on the larger migration scripts (no
+output, no error shown, no fatal in `debug.log` — just a
+`strncmp(): Passing null` deprecation notice from wp-cli's own bundled
+code) specifically for files in roughly the 300+-line range with very
+long single lines. Root cause not fully diagnosed (likely a wp-cli-
+internal buffer/stream quirk, not a problem with the PHP files
+themselves — `php -l` passed clean every time). **Worked around** by
+using `wp eval 'require "/path/to/file.php";'` instead of
+`wp eval-file` for every migration script this phase — fully reliable,
+no output loss. Worth trying first if `eval-file` ever silently
+produces no output again in a future phase.
+
+**demo-content/README.md rewritten** to list all 6 available demos as
+a menu, matching Phase 11's format.
+
+**Exact counts, for the record:**
+- Pages built this phase: 18 (6 + 6 + 6).
+- **Running page count: 45 of 59 total** (14 Agency + 6 Freelancer + 7
+  Web Dev Studio + 6 Photographer + 6 Interior Designer + 6 Architect).
+- Patterns: still 30 — no new patterns needed this phase, all 6 niche-
+  specific patterns already existed from Phase 10.
+- WXR files: 6 total, each independently verified via its own
+  destroy-and-restart wp-env pass.
+
+**Next phase (Phase 13 — Medical Practice + Law Firm):** the content-
+risk-review niches — demo copy needs the fictional-only-credentials and
+no-guaranteed-outcomes discipline documented in `docs/PRD.md` Section
+8. Also the deferred `page-team-member.html` template (needed for
+`team-member-profile.php`, built Phase 10 but never yet used) — this is
+the phase that actually needs individual attorney/doctor profile
+pages, so the template can't be deferred further. Both niches reuse
+`services-grid.php` (Conditions Treated / Practice Areas) and
+`faq-list.php` as their core differentiators per `docs/NICHE_DEMOS.md`
+— no other new/variant patterns anticipated. Final running total after
+Phase 13: 45 + 14 (7 Medical + 7 Law) = 59 of 59 — the full Phase 9
+plan complete.
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._
