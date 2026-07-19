@@ -2,8 +2,8 @@
 
 **Theme slug:** `godevs-portfolio`
 **Author:** goDevs
-**Status:** Draft — Phase 0 (Scaffolding)
-**Last updated:** 2026-07-18
+**Status:** Phase 9 — Multi-Niche Expansion Planning
+**Last updated:** 2026-07-19
 
 ---
 
@@ -31,6 +31,21 @@ Secondary audience: developers and agencies who install GoDevs Portfolio as
 a client-site starting point specifically because it is pure FSE (no
 proprietary shortcodes or theme-options lock-in to migrate away from
 later).
+
+**Multi-niche scope (added Phase 9).** "Portfolio-based service
+business" is broader than creative agencies. GoDevs Portfolio ships one
+shared block-pattern library and templates powering **8 independently-
+importable niche demos**: Creative Agency (the original, fully built
+demo), Freelance Designer/Developer, Web Development Studio,
+Photographer, Architect, Interior Designer, Medical Practice, and Law
+Firm. A site owner imports exactly one niche's demo content and gets a
+site that looks purpose-built for their business — not a generic
+50-page kitchen sink they have to prune. Full per-niche page/pattern
+breakdown lives in **[docs/NICHE_DEMOS.md](NICHE_DEMOS.md)**; the full
+shared pattern library lives in
+**[docs/PATTERN_LIBRARY.md](PATTERN_LIBRARY.md)**. Both are planning
+documents from Phase 9 — read them before doing any Phase 10+ build
+work.
 
 ## 2. Differentiation Thesis
 
@@ -80,9 +95,19 @@ feature checklist.
 - **3+ style variations via `theme.json`.** Midnight, Sandstone, and
   Emerald ship as `styles/*.json` variations selectable from the Site
   Editor's built-in style switcher — never as a custom settings panel or
-  PHP branch.
-- **8–10 demo pages covering the full portfolio funnel.** See the table in
-  Section 5. Demo content must import cleanly via the standard WordPress
+  PHP branch. Style variations are niche-agnostic: any variation can
+  pair with any niche demo, since variations change color/type/spacing
+  tokens, not layout or content.
+- **A shared pattern library covering 8 portfolio-funnel niches, each
+  with its own focused demo (Phase 9+).** Originally scoped as "8–10
+  demo pages" for a single Creative Agency demo (now built, 14 pages).
+  Expanded in Phase 9 to **~27 content-facing block patterns** (13
+  existing + 14 new; see `docs/PATTERN_LIBRARY.md` for why this is the
+  recommended count rather than a padded 50+) powering **8 niche demos
+  totaling 59 demo pages** (see `docs/NICHE_DEMOS.md` for the full
+  per-niche breakdown). **Demo content ships as N separate, small WXR
+  files** — one per niche under `demo-content/` — never one combined
+  import. Each file must import cleanly via the standard WordPress
   content-import path and use only patterns bundled with the theme.
 - **WordPress.org Theme Review compliance with zero REQUIRED flags.**
   The theme must pass the [Theme Review Team's requirements](https://make.wordpress.org/themes/handbook/review/required/)
@@ -107,8 +132,22 @@ feature checklist.
   all of that already exists in the Site Editor and is driven by
   `theme.json`. If a setting can be expressed as a `theme.json` token or
   a block attribute, it does not get a custom UI.
+- **No booking/scheduling/submission mechanism of any kind, for any
+  niche (added Phase 9).** The Medical Practice and Law Firm niches are
+  explicitly informational-only: a "New Patients" or "Schedule a
+  Consultation" page states a phone number and hours, nothing more. No
+  appointment CPT, no booking form, no third-party scheduling embed.
+  Same reasoning as the existing no-contact-form decision above, applied
+  to every niche this expansion adds, not just the original one.
 
 ## 5. Demo Pages
+
+**This section covers the Creative Agency niche only** — the original,
+fully-built demo (Phases 3–7). For the other 7 niches added in Phase 9
+(Freelance Designer/Developer, Web Development Studio, Photographer,
+Architect, Interior Designer, Medical Practice, Law Firm), see the full
+page/pattern breakdown in **[docs/NICHE_DEMOS.md](NICHE_DEMOS.md)** —
+not duplicated here to avoid two documents drifting out of sync.
 
 Demo content covers the full portfolio funnel end to end: discovery,
 credibility, trust, and conversion. Each page is assembled entirely from
@@ -182,7 +221,9 @@ when *all* of the following are independently verified (see
    components) is verified for every text/background color pairing in
    `theme.json` and in each of the three style variations.
 4. **Demo content imports cleanly** on a fresh `wp-env` install with no
-   PHP notices/warnings/fatals and no missing-pattern placeholders.
+   PHP notices/warnings/fatals and no missing-pattern placeholders —
+   applies independently to **every** niche's WXR file (Phase 9+), not
+   just one combined import.
 5. **All three style variations** render the same demo content without
    layout breakage — style variations change tokens, not structure.
 6. **No hard-coded design values** (hex colors, raw px font sizes,
@@ -215,3 +256,56 @@ during day-to-day development live in `docs/CLAUDE.md`.
   direction is validated — risks bundling assets that get reworked
   later. Revisit once Phase 2/3 patterns make the visual direction
   concrete.
+
+## 8. Multi-Niche Expansion (Phase 9+)
+
+**Shared-library architecture — the one rule every future niche must
+follow.** One `patterns/` library, one `theme.json`, one set of
+templates, serving 8 niches. A niche is defined entirely by *which*
+patterns it stacks and *what copy* fills them — never by a forked CSS
+file, a niche-specific template, or a niche-specific style variation.
+Before adding a new pattern for a niche, check
+`docs/PATTERN_LIBRARY.md` first: if an existing pattern already has the
+right shape and only the copy would differ, reuse it — don't build a
+near-duplicate. This discipline is what keeps the pattern count honest
+(~27 content-facing patterns for 8 niches, not 50+ of mostly-identical
+layouts) and is exactly the same discipline already applied inside the
+Creative Agency niche (e.g. Phase 6's `services-grid.php` link-text
+fix, not a second near-identical pattern).
+
+**Demo content ships as N independent WXR files, not one.** Each niche
+gets its own small file under `demo-content/` (e.g.
+`demo-content/godevs-portfolio-photographer.xml`), each with its own
+`README.md` import instructions, following the same Reading-Settings /
+navigation-menu caveats already documented for the Creative Agency
+demo (`demo-content/README.md`, Phase 5). A site owner imports exactly
+one niche's content. This avoids a WP.org "demo content bloat" review
+flag and gives every visitor a demo that already looks like their
+business, not a 59-page tour they have to prune themselves.
+
+**Content guidelines for Medical Practice and Law Firm demo copy.**
+Both niches carry real reputational and (in spirit, even for fictional
+placeholder content) professional-conduct risk if the demo copy reads
+as making real claims:
+
+- All practice names, provider/attorney names, credentials, and
+  statistics (years in practice, patients seen, cases handled) in the
+  demo content are **fictional placeholder content**, exactly like the
+  existing placeholder images — a real site owner is expected to
+  replace all of it, not build on it as-is.
+- **No real medical claims, diagnoses, or treatment guidance** in
+  Medical Practice demo copy — describe services generically
+  ("comprehensive family care," "same-day appointments available"),
+  never specific clinical claims.
+- **No guaranteed-outcome language** in Law Firm demo copy — real
+  attorneys are ethically restricted from promising results, and
+  fictional demo copy should model that same professional restraint
+  rather than write unrealistic marketing copy ("we win every case,"
+  specific settlement figures framed as typical). Use hedged,
+  professional phrasing ("achieved a favorable resolution for our
+  client").
+- The theme makes **no compliance claims of any kind** (not HIPAA,
+  not any bar-association advertising rule, not any other regulatory
+  framework) — it is a static, no-backend WordPress theme with no
+  patient or client data handling, and `readme.txt`/demo `README.md`
+  files should not imply otherwise.

@@ -1025,5 +1025,132 @@ filling in the real `Contributors` username, optionally the real-host
 media-import test, and actually clicking submit — none of which this
 environment can do on his behalf).
 
+**Phase 9 — Multi-Niche Expansion Planning (complete, planning only —
+no patterns/templates/content built)**
+
+Produced two new planning documents:
+**[docs/NICHE_DEMOS.md](NICHE_DEMOS.md)** (final niche list, per-niche
+page/pattern breakdown) and
+**[docs/PATTERN_LIBRARY.md](PATTERN_LIBRARY.md)** (full shared pattern
+library by category, existing + new). `docs/PRD.md` Sections 1, 3, 4,
+5, 6 updated for multi-niche scope, plus a new Section 8 covering the
+shared-library architecture rule and medical/legal content guidelines.
+
+**Niche list: 8, one consolidation from the 9-item working list.**
+Merged "Marketing Firm" into "Creative Agency" — not structurally
+distinguishable from it (same page structure, same funnel, only copy
+differs), and building it separately would mean shipping a
+near-duplicate demo package, which conflicts with this project's own
+anti-duplication discipline. Flagged as a sign-off item for Nayan, with
+a documented middle-ground option (reinstate as a 9th niche with one
+genuinely new pattern, `results-metrics.php`) if he'd rather stay at 9.
+
+**Pattern count: recommending ~27 content-facing patterns (30 total
+incl. 3 existing utility patterns), not 50+.** The brief explicitly
+invited pushing back on the 50+ target if it didn't hold up — it
+doesn't, without padding. 8 well-differentiated niches, built on top of
+an already-thorough 13-pattern shared core, genuinely need roughly 14
+new patterns (8 new core + 6 niche variants) to cover every real
+structural gap identified per-niche. Getting to 50 would mean building
+near-identical siblings that differ only in copy — exactly what
+`docs/PATTERN_LIBRARY.md`'s reuse table is designed to prevent (e.g.
+Medical's "Conditions Treated" and Law's "Practice Areas" both reuse
+`services-grid.php` as-is rather than getting their own pattern; a
+would-be `awards-certifications.php` turned out to be `logo-cloud.php`
+with different copy). **Page count (59) clears 50+ comfortably** without
+this problem, since pages recombine a shared pattern set rather than
+each needing a unique pattern.
+
+**Two real architectural findings surfaced during planning, both
+required Phase 10 groundwork before any niche-specific building
+starts:**
+1. The 5 existing dedicated templates (`page-services.html`,
+   `page-portfolio.html`, `page-team.html`, `page-pricing.html`,
+   `page-contact.html`) currently hardcode the Creative Agency's
+   specific pattern stack directly in the template file — correct when
+   each was used by exactly one demo page (Phase 2's rule), but now
+   multiple niches need a "Services" page with *different* pattern
+   stacks. These need converting to generic post-content composition
+   (matching `page.html`), the same fix already applied to
+   `page-case-study.html` in Phase 5 for the same reason (it went from
+   1 page to 4). Kept as separate named templates rather than
+   collapsed into `page.html`, purely for Site Editor template-picker
+   UX once there are 59+ pages across 8 niches to organize.
+2. `front-page.html` currently hardcodes the Agency's home-page pattern
+   stack too, and each niche needs a different one. Same fix: convert
+   to post-content, and each niche's WXR ships its own "Home" Page;
+   the demo `README.md` for each niche adds the same one-time Reading
+   Settings step already documented for the Agency's Blog/posts-page
+   assignment (Phase 5 precedent) — nothing new to invent, same
+   established pattern. Also recommending `hero-agency.php`'s
+   `is_front_page() ? 1 : 2` heading-level logic (Phase 4) get
+   extracted into a shared `inc/` helper before more hero patterns
+   (`hero-video.php`, any future niche hero) each reimplement it
+   ad-hoc.
+
+**Feasibility gate findings (full reasoning in `docs/PATTERN_LIBRARY.md`
+and `docs/NICHE_DEMOS.md`):**
+- Medical's "Book Appointment" idea renamed to **"New Patients"** and
+  scoped purely informational (phone + hours + what to expect) — no
+  booking form, no appointment CPT, no scheduling plugin integration,
+  consistent with non-negotiable rule 4 and the existing no-required-
+  plugin stance. `appointment-cta.php` is a static call-to-call block,
+  nothing more.
+- The brief's "before-after-slider" idea for Interior Designer would
+  need custom JavaScript for a real draggable comparison — conflicts
+  with the project's established zero-custom-JS precedent
+  (`testimonials-carousel-static.php`, Phase 3). Recommending a static
+  `before-after-columns.php` (two `core/columns`, no JS) instead — same
+  visual idea, no interactivity risk. Flagged explicitly as a
+  brief-vs-implementation naming difference, not a silent substitution.
+- `gallery-categories.php` (Photographer, Interior Designer) must be
+  static linked category cards, not a JS-filtered single-page gallery —
+  same reasoning.
+- `location-hours.php` must use a static placeholder graphic, not a
+  live map embed — a live embed is exactly the third-party remote call
+  the REQUIRED "no remote HTTP calls" checklist item exists to prevent.
+- `newsletter-signup.php` considered and rejected outright (not
+  deferred) — any working version needs a backend, conflicting with the
+  no-required-plugin rule the same way a real contact form already
+  does.
+- Medical/Law demo copy guidelines (fictional-only credentials/stats,
+  no real clinical claims, no guaranteed-outcome legal language, no
+  implied compliance claims) now written into `docs/PRD.md` Section 8.
+
+**Proposed phase breakdown for Phase 10+ (batched so no phase builds
+20+ patterns at once, matching how every prior phase stayed scoped and
+independently verifiable):**
+
+- **Phase 10 — Shared library groundwork.** Build the 8 new core
+  patterns (`faq-list`, `process-steps`, `testimonial-spotlight`,
+  `team-member-profile`, `hero-video`, `location-hours`, `value-props`,
+  `company-timeline`) plus the required template-architecture
+  groundwork above (convert the 5 dedicated templates + `front-page.html`
+  to post-content, add the new `page-team-member.html` template, extract
+  the shared hero-heading-level helper). No niche-specific demo content
+  yet. Verification: Theme Check + phpcs + contrast re-check for every
+  new pattern, exactly like Phase 3's original 13-pattern build.
+- **Phase 11 — Niche Group A: Freelance Designer/Developer + Web
+  Development Studio.** Closest siblings to the already-built Agency
+  demo, lowest new-pattern risk (`portfolio-grid-simple` only) — a
+  deliberate warm-up group before the higher-risk niches. Builds both
+  niches' demo pages, patterns, and separate WXR exports.
+- **Phase 12 — Niche Group B: Photographer + Interior Designer +
+  Architect.** Grouped because they share `gallery-categories.php` and
+  the "visual portfolio of physical work" funnel shape. New patterns:
+  `portfolio-grid-masonry`, `portfolio-grid-project`,
+  `gallery-categories`, `before-after-columns`.
+- **Phase 13 — Niche Group C: Medical Practice + Law Firm.** Kept as
+  its own phase despite light new-pattern work (`appointment-cta` only)
+  specifically because of the content-risk review these two niches
+  need — bundling them into a bigger phase risks that review getting
+  rushed.
+- **Phase 14 — Multi-niche QA & packaging.** This expansion's version
+  of Phases 6+7 combined: Theme Check + phpcs across every new pattern
+  and niche, a full i18n sweep of the new copy, a WCAG contrast
+  re-check for any new token combinations the new patterns introduce, a
+  fresh-wp-env import test for all 8 separate WXR files (not just the
+  Agency one), updated `readme.txt`, and a final packaged `.zip`.
+
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._
