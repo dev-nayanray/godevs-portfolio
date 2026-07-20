@@ -4,7 +4,7 @@ Contributors: REPLACE_WITH_YOUR_WORDPRESS_ORG_USERNAME
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.5.1
+Stable tag: 0.6.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Tags: full-site-editing, block-patterns, style-variations, portfolio, blog, one-column, two-columns, grid-layout, custom-colors, custom-menu, editor-style, featured-images, rtl-language-support, translation-ready, accessibility-ready
@@ -57,19 +57,32 @@ does not bundle or require any plugin to render correctly.
 
 = How do I get the demo content? =
 
-Demo content ships as 8 separate, independently-importable WXR files
-under `demo-content/` in the theme's development repository — one per
-business niche (Creative Agency, Freelance Designer/Developer, Web
+The easiest way: go to Appearance -> GoDevs Portfolio in your WordPress
+admin and click "Import" on the demo that matches the kind of site
+you're building (Creative Agency, Freelance Designer/Developer, Web
 Development Studio, Photographer, Architect, Interior Designer, Medical
-Practice, Law Firm), covering 59 pages total. Import exactly one,
-matching the kind of site you're building — see `demo-content/README.md`
-for the full import steps, including two one-time manual steps the
-standard WordPress importer doesn't automate (setting the front page /
-posts page under Settings -> Reading, and reselecting the imported
-navigation menu). The Medical Practice and Law Firm demos are
-illustrative placeholder content only — see the warning at the top of
-`demo-content/README.md` before using either as a starting point for a
-real practice or firm.
+Practice, or Law Firm). Import exactly one — importing a second demo
+onto the same site is not supported (you'll get an explicit warning if
+you try). After importing, one manual step still needs doing yourself:
+set the new Home page under Settings -> Reading, since WordPress
+doesn't automate that for any import method.
+
+If you're working from the theme's development repository instead, the
+same 8 demos are also available as separate WXR files under
+`demo-content/` for the standard Tools -> Import screen — see
+`demo-content/README.md` there for full details. The Medical Practice
+and Law Firm demos are illustrative placeholder content only — replace
+all of it with real, reviewed information before publishing either as
+a real practice or firm's site.
+
+= Does the "GoDevs Portfolio" admin page change how my site looks? =
+
+No. That page (Appearance -> GoDevs Portfolio) is informational and
+one-click-demo-import only — it has no color, typography, layout,
+header, or footer controls of any kind, and nothing on it is a design
+setting. All design and style changes happen in the Site Editor, the
+same as every other WordPress block theme; this theme works completely
+normally whether or not you ever visit that page.
 
 = Does this theme have a working contact form? =
 
@@ -100,6 +113,20 @@ WordPress.org Theme Review itself.
    content, in the default "Studio" style variation.
 
 == Changelog ==
+
+= 0.6.0 - 2026-07-20 =
+* New: a "GoDevs Portfolio" onboarding page under Appearance. It is
+  informational and one-click-demo-import only — no color, typography,
+  layout, header, or footer controls of any kind; all design and style
+  changes still happen exclusively in the Site Editor, exactly as
+  before. The page has a short welcome section, a card for each of the
+  8 niche demos with a one-click "Import" button, and a Support &
+  documentation section. Importing a second demo onto a site that
+  already has one shows an explicit warning and requires confirmation
+  first — it is never silent, since demos are not designed to coexist
+  on the same site (see the FAQ). One-click import uses only WordPress
+  core APIs (no bundled or required plugin) and needs no separate
+  content download.
 
 = 0.5.1 - 2026-07-20 =
 * Bug fix: some niche demo pages could render two `<h1>` headings

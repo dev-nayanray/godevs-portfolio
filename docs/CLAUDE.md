@@ -2243,6 +2243,205 @@ immediately before submitting, and the real-host media-import
 verification that has never been possible in this sandboxed
 environment.
 
+**Phase 16 — Onboarding dashboard + one-click demo import (complete)**
+
+**Scope correction acknowledged up front, per instruction:** a
+"settings panel" admin page with color/typography/layout/header/footer
+controls is explicitly prohibited by rule 6 above and by
+`docs/WPORG_CHECKLIST.md`'s "No settings page duplicating Site
+Editor/Customizer" REQUIRED item. This phase built something different
+in kind, not degree: a purely informational **Appearance → GoDevs
+Portfolio** page (`add_theme_page()`) whose only two capabilities are
+linking to the Site Editor and importing bundled demo content — no
+design-affecting control of any kind, verified explicitly (Step 2
+below), not just avoided by intent.
+
+**Step 1 — the dashboard page.** `inc/class-dashboard.php` (new
+`Dashboard` class, wired into `functions.php`'s existing boot sequence
+alongside `Theme_Setup`/`Block_Patterns`/`Block_Styles`/`Enqueue`).
+Contents: a welcome section explicitly stating "All design and style
+changes happen in the Site Editor, not here" with a direct link; an
+8-card demo grid (one per niche, each with a short description and an
+"Import [Niche] Demo Content" button); a Support & Documentation
+section linking to `readme.txt`. A small dedicated stylesheet
+(`assets/css/admin-dashboard.css`, enqueued only on this one admin
+screen) handles the card grid layout — admin UI chrome, not a
+front-end design token, so rule 1's "no hard-coded values in patterns/
+templates/parts" doesn't apply to it (that rule scopes to the rendered
+site, not admin screens).
+
+**Import flow — redirect-after-POST, GET-param-driven notices, exactly
+one nonce action:** submitting a niche's form runs on `admin_init`
+(before any HTML output, so it can `wp_safe_redirect()` cleanly), then
+redirects back to the same page with a result flag
+(`godevs_imported`, `godevs_confirm_needed`, or `godevs_error`) that
+drives which notice renders on the next load — no session/transient
+state needed. **The "already imported" warning is a genuine two-step
+confirmation, not a single click:** the first submission for a second
+niche, when existing demo content is detected, redirects to a
+warning-plus-"Import Anyway"-button state instead of importing
+anything; only a second, explicit submission (with a `godevs_confirm`
+flag) actually imports. Verified live, not just by reading the code —
+see Step Final below.
+
+**"Already has content" detection** uses one small bookkeeping option,
+`godevs_portfolio_imported_demos` (an array of which niche slugs this
+dashboard has imported), with a live fallback (published page count
+> 2) for content imported some other way (e.g. `Tools → Import`
+directly, per `demo-content/README.md`'s existing documented path).
+This is content bookkeeping, not a design setting — see Step 2's grep
+confirmation.
+
+**A real, hard architecture problem discovered mid-phase, not
+assumed away:** the first working version of this feature bundled the
+existing `demo-content/*.xml` WXR exports directly inside the theme
+package and drove WordPress's own `WP_Import` class (from the separate
+WordPress Importer plugin) to run them — reusing WordPress's own
+importer exactly as instructed, no custom WXR parser anywhere. Running
+Theme Check against that version (Step Final, first pass) surfaced a
+genuine REQUIRED-level flag never encountered in 15 prior phases:
+**"XML file found. This file must not be in the production version of
+the theme."** WordPress.org Theme Review disallows `.xml` files in a
+theme package outright. This is exactly why the instruction said to
+verify Theme Check rather than assume a common pattern (theme
+onboarding dashboards) is automatically compliant — it caught a real,
+specific violation this particular implementation had.
+
+**Resolved by converting the demo content itself, not by weakening the
+feature:** wrote a one-time authoring tool
+(`scratchpad/wxr-to-php.php`, not part of the repository or shipped
+theme) that parses each niche's existing, already-reviewed WXR export
+via PHP's `SimpleXML` and generates a plain-PHP equivalent — one file
+per niche in the theme's own `demo-content/` directory (e.g.
+`medical.php`), each defining a single function
+(`godevs_portfolio_import_demo_medical()`, etc.) that creates that
+niche's pages and navigation directly via `wp_insert_post()` /
+`update_post_meta()`. This is not "a custom WXR parser shipped in the
+theme" — there is no WXR involved in the shipped code at all, no
+parsing of any format at runtime; it's the same kind of direct content
+construction the original Phase 11–13 migration scripts already did,
+just packaged as reusable functions. This resolved the REQUIRED flag
+completely (re-confirmed clean on the next Theme Check pass, see Step
+Final) and, as a real side benefit, removed the WordPress Importer
+plugin as a dependency for this feature altogether — one-click import
+now needs only WordPress core APIs, which is a strictly stronger
+position than "reuse the plugin's API if available" for the "no
+required plugin dependency" goal this project has held since Phase 0.
+
+**Two more real bugs found and fixed during this conversion, worth
+recording:**
+1. The WXR-to-PHP converter's first pass only captured
+   `_wp_page_template` postmeta, silently dropping the Phase 15 fix's
+   `_godevs_hero_*` postmeta entirely — meaning every dashboard-
+   imported copy of the 5 niches Phase 15 fixed would have silently
+   fallen back to `hero-agency.php`'s own Agency-flavored default
+   copy instead of that niche's actual reviewed hero text. Caught by
+   actually checking a live-imported Medical page's rendered `<h1>`
+   text against the expected copy, not by assuming the conversion was
+   complete — it showed Agency's "Strategy-led design for brands ready
+   to grow" instead of Medical's own heading. Fixed by capturing every
+   `_godevs_hero_*` key generically, not just the one meta key this
+   theme happened to have before Phase 15.
+2. The exported WXR content's image `src` attributes contained the
+   literal dev-environment URL (`http://localhost:8888/...`) baked in
+   at original export time, not a portable placeholder — every
+   dashboard-imported page would have shipped with hardcoded dev-only
+   image URLs. Fixed by replacing that literal host+path prefix with a
+   `GODEVS_URI` placeholder token across all 8 generated files, which
+   `run_import()`'s existing `str_replace()` call already resolves to
+   the real site's own theme URI at import time.
+
+**Step 2 — guardrails, explicitly verified, not assumed:**
+- `grep -n "set_theme_mod\|update_option\|add_option" inc/class-dashboard.php`
+  → exactly one match, the `godevs_portfolio_imported_demos`
+  bookkeeping option (which niches have been imported) — zero calls
+  writing any color/typography/spacing/layout value.
+- No "Save Changes" button or persisted design state anywhere in the
+  file (grep-confirmed).
+- Only `add_theme_page()` is used — no `add_menu_page()` /
+  `add_submenu_page()` / `add_options_page()` — so this doesn't
+  register a new top-level admin menu that could be mistaken for a
+  required setup step. The theme works fully whether or not anyone
+  ever visits this page (nothing else in the theme reads
+  `godevs_portfolio_imported_demos` or depends on this page having
+  been visited).
+
+**Step 3 — i18n + code quality.** phpcs WPThemeReview against
+`inc/class-dashboard.php`, `functions.php`, and all 8 new
+`demo-content/*.php` files: 3 findings fixed (2 false-positive
+"use get_template_part()" warnings on legitimate `require`/
+`require_once` calls loading non-template PHP, suppressed with
+documented `phpcs:ignore` reasons matching this codebase's existing
+pattern; 1 real "WordPress" capitalization fix in a URL query string).
+Final state: **exit 0, zero errors, zero warnings**, both against the
+dev directory and (Step Final) the packaged zip's actual bytes. Fresh
+`.pot`: **391 msgid entries** (up from Phase 15's 351 — the new
+strings, spot-checked present: "GoDevs Portfolio", "Choose your
+demo", "Import %s Demo Content", etc.).
+
+**Step Final — verification, in full, including the pivot's
+re-verification:**
+1. Fresh wp-env, theme activated: the dashboard page rendered
+   correctly (200, all 8 import buttons, Site Editor link present)
+   with **zero pre-existing demo content imported** — confirmed via
+   both a direct render-method call and, after the WXR-to-PHP pivot,
+   a genuine authenticated HTTP request (curl with real login cookies
+   and a scraped nonce — closer to "from the dashboard UI itself"
+   than a wp-cli simulation, and it sidestepped an unrelated wp-cli
+   bootstrap-context quirk hit while testing the original WP_Import-
+   based version, documented and then made moot by the pivot away
+   from WP_Import entirely).
+2. **Sequential 2-niche import via real HTTP POST, exactly as
+   instructed:** Medical imported cleanly on the first request (no
+   existing content) — 7 pages, correct hero copy live-verified via
+   the rendered `<h1>`. Law Firm's **first** attempt (no confirmation)
+   correctly redirected to the warning state and created **zero**
+   pages (verified: `practice-areas` did not exist yet) — confirming
+   the "never silently allow a second import" requirement holds in
+   practice, not just in the code's intent. Law Firm's **second**
+   attempt (with `godevs_confirm=1`) then imported successfully — 7
+   pages, with the expected cross-niche slug collisions on shared
+   slugs (`home-2`, `team-2`, etc.), matching Phase 14/15's
+   already-documented single-demo-only behavior exactly. Both niches'
+   full page sets re-verified via click-through afterward: 14/14
+   pages, 200, exactly one `<h1>` each.
+3. **Theme Check, the critical check:** first pass (WXR/WP_Import
+   version) — **FAIL**, 1 REQUIRED ("XML file found"). After the
+   pivot to PHP-based demo content — **PASS: YES, 0 REQUIRED, 0
+   WARNING**, identical 3 non-blocking items as every prior phase.
+   Confirms the new admin page itself introduces nothing Theme Review
+   flags, once the bundling approach was corrected.
+4. `debug.log` stayed clean (no file present) throughout every pass.
+5. wp-env stopped.
+
+**Exact counts, for the record:**
+- New admin page: 1 (`Appearance → GoDevs Portfolio`).
+- New theme_mod/option writes: 0 design-affecting; 1 bookkeeping
+  (`godevs_portfolio_imported_demos`).
+- New bundled demo-content files: 8 (`demo-content/*.php` inside the
+  theme, generated from the existing reviewed WXR content — no `.xml`
+  files anywhere in the shipped package).
+- phpcs: 0 errors, 0 warnings across the new/changed files and the
+  full theme sweep, both dev directory and packaged zip.
+- `.pot`: 391 msgid entries (+40 from Phase 15's 351).
+- Theme Check: 0 REQUIRED · 0 WARNING · 1 RECOMMENDED (unchanged) · 2
+  INFO (unchanged) — after the pivot; 1 REQUIRED before it (recorded
+  above as a real finding, not silently corrected away).
+- Version: 0.5.1 → **0.6.0** (new feature, not a bugfix — matches this
+  project's existing minor-bump convention for user-facing additions).
+- Distribution zip: `dist/godevs-portfolio-0.6.0.zip`, 76 files
+  (up from 0.5.1's 66 — the 8 new `demo-content/*.php` files plus 2
+  more from `assets/css/admin-dashboard.css` and
+  `inc/class-dashboard.php`), verified forward-slash paths.
+
+**Submission-readiness status: unchanged from Phase 15's assessment,
+now at 0.6.0.** The theme is submission-ready pending only the same
+manual, non-automatable items on record since Phase 8 — Nayan's own
+WordPress.org account/username, a final slug-collision recheck
+immediately before submitting, and the real-host (non-Docker-sandbox)
+media-import verification that has never been possible in this
+sandboxed environment. Nothing this phase added changes that list.
+
 **Next phase, if pursued:** no further phases are currently planned.
 Any future phase would be scoped fresh based on Nayan's actual
 submission experience or new requirements.

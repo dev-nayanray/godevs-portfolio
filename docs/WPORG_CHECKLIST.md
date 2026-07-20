@@ -338,5 +338,51 @@ cross-niche link-collision limitation unchanged. Theme Check and phpcs
 were both re-confirmed clean against the fix. Version bumped 0.5.0 →
 0.5.1.
 
-_All sections above remain accurate as of Phase 15 (v0.5.1). Only the
+## Phase 16 update (onboarding dashboard + one-click demo import, v0.6.0)
+
+- [x] **No settings page duplicating Site Editor/Customizer** —
+      re-verified against the new `Appearance → GoDevs Portfolio` page
+      specifically, not just re-asserted: grepped
+      `inc/class-dashboard.php` for `set_theme_mod`/`update_option`/
+      `add_option` — exactly one match, a bookkeeping option recording
+      which demo(s) have been imported (not a color/typography/
+      spacing/layout value); confirmed only `add_theme_page()` is used
+      (no `add_menu_page()`/`add_options_page()`, so no new top-level
+      admin menu); confirmed no "Save Changes"-style persisted design
+      state anywhere on the page. The theme works fully whether or not
+      this page is ever visited.
+- [x] **No `.xml` files in the theme package** — a REQUIRED item not
+      previously listed here because no prior phase had ever bundled a
+      non-`.php`/`.css`/`.json`/`.png`/`.txt` file type in the package.
+      **Found the hard way, not assumed:** this phase's first working
+      version of the demo-import feature bundled the existing
+      `demo-content/*.xml` WXR exports directly inside the theme
+      package, and Theme Check flagged it immediately — "XML file
+      found. This file must not be in the production version of the
+      theme." Fixed by converting the bundled demo content to plain
+      PHP functions (`demo-content/*.php`, generated once from the
+      same reviewed WXR content) that call `wp_insert_post()` directly
+      — no XML, no WXR parsing, anywhere in the shipped theme.
+      Re-confirmed clean on the next Theme Check pass. Added as its
+      own checklist line so this specific constraint isn't
+      rediscovered the hard way again in a future phase.
+- [x] **No required plugin dependency** — re-confirmed for this new
+      feature specifically: one-click demo import uses only
+      `wp_insert_post()`/`update_post_meta()`/core APIs, no plugin of
+      any kind (the original approach considered using the WordPress
+      Importer plugin's own `WP_Import` class was abandoned entirely
+      as part of resolving the `.xml`-in-package issue above — a
+      strictly stronger position for this goal, not just a workaround).
+- [x] **Theme Check full re-run** — `PASS: YES`, 38 checks, identical 3
+      non-blocking items as every prior phase, confirmed after the fix
+      above (and confirmed **failing** with 1 REQUIRED before it, for
+      the record — this item genuinely caught something).
+- [x] **phpcs WPThemeReview** — exit 0, zero errors, zero warnings
+      across `inc/class-dashboard.php`, `functions.php`, and all 8 new
+      `demo-content/*.php` files, both dev directory and the packaged
+      `.zip`'s actual extracted bytes.
+- [x] **`.pot` file** — 391 msgid entries (up from Phase 15's 351),
+      new dashboard strings spot-checked present.
+
+_All sections above remain accurate as of Phase 16 (v0.6.0). Only the
 real-host media-import item (Phase 7) is still genuinely open._

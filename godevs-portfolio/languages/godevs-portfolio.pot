@@ -2,20 +2,23 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: GoDevs Portfolio 0.4.0\n"
+"Project-Id-Version: GoDevs Portfolio 0.5.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/godevs-portfolio\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-19T16:52:04+00:00\n"
+"POT-Creation-Date: 2026-07-20T09:25:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: godevs-portfolio\n"
 
 #. Theme Name of the theme
 #: style.css
+#: inc/class-dashboard.php:49
+#: inc/class-dashboard.php:50
+#: inc/class-dashboard.php:380
 msgid "GoDevs Portfolio"
 msgstr ""
 
@@ -83,45 +86,212 @@ msgstr ""
 msgid "Portfolio: Process"
 msgstr ""
 
-#: inc/class-theme-setup.php:88
+#: inc/class-dashboard.php:93
+msgid "Creative Agency"
+msgstr ""
+
+#: inc/class-dashboard.php:94
+msgid "The full portfolio funnel: services, case studies, team, pricing, and a blog. 14 pages."
+msgstr ""
+
+#: inc/class-dashboard.php:98
+msgid "Freelance Designer/Developer"
+msgstr ""
+
+#: inc/class-dashboard.php:99
+msgid "A lean, solo-practitioner site with a focused portfolio and simple pricing. 6 pages."
+msgstr ""
+
+#: inc/class-dashboard.php:103
+msgid "Web Development Studio"
+msgstr ""
+
+#: inc/class-dashboard.php:104
+msgid "A small technical studio, including a dedicated page explaining how engagements run. 7 pages."
+msgstr ""
+
+#: inc/class-dashboard.php:108
+msgid "Photographer"
+msgstr ""
+
+#: inc/class-dashboard.php:109
+msgid "A solo photographer's site with a video hero and an image-forward masonry gallery. 6 pages."
+msgstr ""
+
+#: inc/class-dashboard.php:113
+msgid "Interior Designer"
+msgstr ""
+
+#: inc/class-dashboard.php:114
+msgid "A small design studio with room-type galleries and a before/after comparison. 6 pages."
+msgstr ""
+
+#: inc/class-dashboard.php:118
+msgid "Architect"
+msgstr ""
+
+#: inc/class-dashboard.php:119
+msgid "A small architecture firm with large single-project features and an awards section. 6 pages."
+msgstr ""
+
+#: inc/class-dashboard.php:123
+msgid "Medical Practice"
+msgstr ""
+
+#: inc/class-dashboard.php:124
+msgid "A multi-provider practice with informational-only new-patient details. 7 pages. Placeholder content — see the notice after import."
+msgstr ""
+
+#: inc/class-dashboard.php:128
+msgid "Law Firm"
+msgstr ""
+
+#: inc/class-dashboard.php:129
+msgid "A multi-practice-area firm with practice areas and a results page. 7 pages. Placeholder content — see the notice after import."
+msgstr ""
+
+#: inc/class-dashboard.php:262
+#: inc/class-dashboard.php:419
+msgid "This demo's content file could not be found in the theme package."
+msgstr ""
+
+#: inc/class-dashboard.php:269
+msgid "One-click import needs the free \"WordPress Importer\" plugin. Install and activate it, then try again — or use Tools > Import directly with the file from the theme's demo-content folder."
+msgstr ""
+
+#. translators: %s: niche name, e.g. "Medical Practice".
+#: inc/class-dashboard.php:388
+#, php-format
+msgid "%s demo content imported."
+msgstr ""
+
+#: inc/class-dashboard.php:394
+msgid "One manual step is still needed: set this as your homepage under Settings > Reading."
+msgstr ""
+
+#: inc/class-dashboard.php:395
+msgid "Go to Settings > Reading"
+msgstr ""
+
+#: inc/class-dashboard.php:398
+msgid "View the imported Home page"
+msgstr ""
+
+#: inc/class-dashboard.php:403
+msgid "Placeholder content notice:"
+msgstr ""
+
+#: inc/class-dashboard.php:404
+msgid "this demo's names, credentials, and copy are entirely fictional. Replace all of it with real, professionally-reviewed information before publishing."
+msgstr ""
+
+#: inc/class-dashboard.php:416
+msgid "One-click import needs the free \"WordPress Importer\" plugin. Install and activate it, then try again."
+msgstr ""
+
+#: inc/class-dashboard.php:422
+msgid "That demo could not be recognized. Please try again."
+msgstr ""
+
+#: inc/class-dashboard.php:425
+msgid "The import could not be completed."
+msgstr ""
+
+#: inc/class-dashboard.php:429
+msgid "Find the WordPress Importer plugin"
+msgstr ""
+
+#: inc/class-dashboard.php:437
+msgid "This page is informational only. All design and style changes — colors, fonts, layout, header, and footer — happen in the Site Editor, not here."
+msgstr ""
+
+#: inc/class-dashboard.php:438
+msgid "Open the Site Editor"
+msgstr ""
+
+#: inc/class-dashboard.php:442
+msgid "Choose your demo"
+msgstr ""
+
+#: inc/class-dashboard.php:444
+msgid "Import exactly one demo, matching the kind of site you're building. Importing more than one demo onto the same site is not supported — each demo assumes it is the only content present, and internal links between demos will not resolve correctly."
+msgstr ""
+
+#: inc/class-dashboard.php:456
+msgid "It looks like this site already has demo content on it. Importing another demo's pages here is not supported — page links between the two demos will not resolve correctly (see the theme's demo-content/README.md for details). Import anyway?"
+msgstr ""
+
+#: inc/class-dashboard.php:465
+msgid "Import Anyway"
+msgstr ""
+
+#: inc/class-dashboard.php:467
+msgid "Cancel"
+msgstr ""
+
+#. translators: %s: niche name, e.g. "Medical Practice".
+#: inc/class-dashboard.php:478
+#, php-format
+msgid "Import %s Demo Content"
+msgstr ""
+
+#: inc/class-dashboard.php:487
+msgid "This demo could not be imported — see the notice above."
+msgstr ""
+
+#: inc/class-dashboard.php:493
+msgid "Support & documentation"
+msgstr ""
+
+#. translators: %s: link to the theme's readme.txt.
+#: inc/class-dashboard.php:498
+#, php-format
+msgid "Full setup notes, FAQ, and changelog live in the theme's %s."
+msgstr ""
+
+#: inc/class-theme-setup.php:103
 msgid "Copyright Year"
 msgstr ""
 
-#: inc/class-theme-setup.php:95
+#: inc/class-theme-setup.php:110
 msgid "All Rights Reserved Text"
 msgstr ""
 
-#: inc/class-theme-setup.php:102
+#: inc/class-theme-setup.php:117
 msgid "No Posts Found Text"
 msgstr ""
 
-#: inc/class-theme-setup.php:109
+#: inc/class-theme-setup.php:124
 msgid "No Search Results Text"
 msgstr ""
 
+#: inc/class-theme-setup.php:131
+msgid "Hero Field"
+msgstr ""
+
 #. translators: %s: current year.
-#: inc/class-theme-setup.php:122
+#: inc/class-theme-setup.php:145
 #, php-format
 msgid "© %s"
 msgstr ""
 
-#: inc/class-theme-setup.php:132
+#: inc/class-theme-setup.php:155
 msgid "All rights reserved."
 msgstr ""
 
-#: inc/class-theme-setup.php:140
+#: inc/class-theme-setup.php:163
 msgid "No posts found."
 msgstr ""
 
-#: inc/class-theme-setup.php:148
+#: inc/class-theme-setup.php:171
 msgid "No results found."
 msgstr ""
 
-#: inc/class-theme-setup.php:175
+#: inc/class-theme-setup.php:268
 msgid "Primary"
 msgstr ""
 
-#: inc/class-theme-setup.php:176
+#: inc/class-theme-setup.php:269
 msgid "Footer"
 msgstr ""
 
@@ -285,7 +455,7 @@ msgid "Tell us about your business and what you're trying to build — we'll fol
 msgstr ""
 
 #: patterns/cta-banner.php:30
-#: patterns/hero-agency.php:41
+#: patterns/hero-agency.php:58
 msgid "Get a Quote"
 msgstr ""
 
@@ -413,19 +583,19 @@ msgctxt "Pattern description"
 msgid "Asymmetric two-column hero for agency/studio pages — heading, supporting copy, two CTAs, and a side image."
 msgstr ""
 
-#: patterns/hero-agency.php:31
+#: patterns/hero-agency.php:48
 msgid "Strategy-led design for brands ready to grow"
 msgstr ""
 
-#: patterns/hero-agency.php:35
+#: patterns/hero-agency.php:52
 msgid "We partner with ambitious companies to design, build, and launch digital experiences that convert — from brand identity through to the finished product."
 msgstr ""
 
-#: patterns/hero-agency.php:45
+#: patterns/hero-agency.php:62
 msgid "View Work"
 msgstr ""
 
-#: patterns/hero-agency.php:56
+#: patterns/hero-agency.php:73
 msgid "Collage of recent agency project screens displayed on a designer's desk"
 msgstr ""
 

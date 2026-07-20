@@ -8,6 +8,16 @@ depending on which kind of site you're building. See
 [docs/NICHE_DEMOS.md](../docs/NICHE_DEMOS.md) for the full multi-niche
 plan.
 
+**On a real WordPress install, the easiest way to get any of these 8
+demos is Appearance → GoDevs Portfolio in wp-admin** (Phase 16) — a
+one-click "Import" button per niche, no file download or Tools →
+Import step needed. This directory's WXR files remain the source of
+truth (the dashboard's own bundled copy, `godevs-portfolio/
+demo-content/*.php`, is generated from these — see that directory's own
+README.md and `docs/CLAUDE.md`'s Phase 16 notes) and are still the
+right path for a developer working directly from this repository via
+`Tools → Import`, documented below.
+
 > **⚠️ Medical Practice and Law Firm demos are illustrative placeholder
 > content only.** The provider/attorney names, credentials, bios,
 > statistics, and case summaries in these two demos are entirely
