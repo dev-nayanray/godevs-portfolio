@@ -241,3 +241,80 @@ screenshot.png, previously deferred to "Phase 7 packaging") are now
 closed; only the real-host media-import item remains genuinely open,
 requiring Nayan's manual verification since no external host exists in
 this environment. See `docs/CLAUDE.md` Phase 7 notes for full detail._
+
+## Phase 14 re-verification (multi-niche expansion, 8 demos / 59 pages)
+
+Every REQUIRED/RECOMMENDED/ACCESSIBILITY-READY item above was
+re-verified from scratch against the current, much larger codebase (30
+registered patterns vs. Phase 6/7's 15, 7 custom templates vs. 5) — not
+assumed to still hold just because it held at a smaller scale:
+
+- **Theme Check:** `PASS: YES`, 38 checks, identical 3 non-blocking
+  items as every prior phase (1 RECOMMENDED — no `register_block_style`,
+  still intentionally not implemented — and 2 pure-INFO items). Re-run
+  twice: once against the dev directory, once against a theme installed
+  from the packaged `.zip` on a completely separate, minimal wp-env
+  instance with no dev bind-mount. Identical result both times.
+- **phpcs WPThemeReview:** exit 0, zero errors, zero warnings across
+  all 35 PHP files (`functions.php`, 4 `inc/` files, all 30
+  `patterns/*.php`). Re-run against the extracted `.zip` contents
+  specifically (not the dev directory) with an identical clean result.
+  A real, transient tooling problem was hit and fixed during this
+  phase, worth recording: the Composer-installed `squizlabs/
+  php_codesniffer` package's own bundled `Generic` standard (referenced
+  internally by `WPThemeReview`'s ruleset) went missing mid-session —
+  `Generic/ruleset.xml` was absent from `vendor/` even though the
+  `Generic/` directory itself still existed, most likely from a partial
+  extraction during the original `composer require`. Fixed by removing
+  and reinstalling just that one package (`composer install` after
+  deleting `vendor/squizlabs`) — not a finding about the theme's code.
+- **`.pot` file:** 351 `msgid` entries (up from Phase 7's 222), and
+  confirmed **byte-identical** to the already-shipped file — the
+  existing `.pot` was already fully current from Phase 10 onward, no
+  drift had crept in. Fresh grep audit for hardcoded English strings
+  across all `patterns/`, `inc/`, and `.html` templates/parts (the
+  known `make-pot`-can't-scan-`.html` gap from Phase 6): zero hits
+  anywhere.
+- **Alt text:** re-confirmed across all 30 patterns (up from 15) —
+  every single `<img>` tag's `alt=` count matches the file's `<img>`
+  count exactly, zero empty/missing alt text anywhere.
+- **Meaningful link text:** re-confirmed across all 59 shipped demo
+  pages (not just the pattern source) — every "Learn more" instance in
+  every WXR file has a matching `aria-label="Learn more about..."`;
+  zero generic "click here"/"read more" text found anywhere.
+- **Contrast:** every unique `textColor`+`backgroundColor`/`gradient`
+  pairing actually used across all 30 patterns (3 total: `primary`/
+  `primary-contrast`, and `primary-to-accent` gradient/`primary-
+  contrast`) computed against all 4 style variations (Studio, Midnight,
+  Sandstone, Emerald) — all 12 combinations pass WCAG AA with real
+  margin (minimum 5.72:1 against a 4.5:1 requirement). Zero hardcoded
+  hex colors found anywhere outside `theme.json`/`styles/*.json`
+  (grep-confirmed).
+- **Keyboard/focus:** zero `<script>` tags, zero `onclick`/`onkeydown`
+  handlers, zero `tabindex="-1"` traps anywhere in `patterns/`,
+  `templates/`, or `parts/` — the zero-custom-JS discipline held
+  through all of Phases 10–13's additions. `:focus-visible` CSS
+  unchanged since Phase 1. `faq-list.php` confirmed still using native
+  `core/details`.
+
+**New: the sequential multi-demo import test (never run before this
+phase).** Importing all 8 niche WXR files onto a single site — a
+scenario `demo-content/README.md` already documented as unsupported,
+but had never actually been executed — confirms that assessment and
+surfaces exactly what breaks: page-slug collisions cause every
+pattern's hardcoded internal links to silently point at whichever demo
+happened to import first (not 404s — silent misdirection), only one of
+the resulting 8 navigation menus can be active in the header at a time,
+Reading Settings can only point at one demo's Home page, and any other
+demo's Home page — if it uses a hand-expanded (not live-referenced)
+hero pattern — then renders through the generic page template instead
+of `front-page.html`, producing an unintended second `<h1>` on that
+page. This is a confirmed consequence of importing content designed to
+be single-demo-only, not a defect in the shipped single-demo experience
+(re-verified separately, per demo, in Phases 11–13 and again in this
+phase's Agency/Medical/Law Firm fresh-import passes) — but it's now
+documented with specifics in `demo-content/README.md` instead of just
+asserted. See `docs/CLAUDE.md` Phase 14 notes for the full investigation.
+
+_All sections above remain accurate as of Phase 14. Only the real-host
+media-import item (Phase 7) is still genuinely open._

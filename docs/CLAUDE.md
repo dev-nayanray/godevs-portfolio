@@ -1747,15 +1747,345 @@ switched to running the bare command with an explicit `echo
 - WXR files: 8 total (all niches), each independently verified via
   its own destroy-and-restart wp-env pass.
 
-**Next phase (Phase 14 — Multi-niche QA + packaging):** all 8 niches'
-content is now built and verified individually. Phase 14 shifts to
-cross-cutting release-readiness work: Theme Check / phpcs run across
-the theme files and all 8 WXR files, a final pattern-count
-reconciliation against `docs/PATTERN_LIBRARY.md` (confirm the
-documented 30-pattern count matches what's actually in `patterns/`,
-and that every pattern's documented niche-usage list is accurate now
-that all 8 demos exist), and a version bump ahead of WordPress.org
-directory submission.
+**Phase 14 — Multi-niche QA + packaging (complete)**
+
+**Step 0 — Law Firm Results page content fix.** Rewrote the page's
+copy from a case-narrative structure (a specific past-tense outcome:
+"Achieved a favorable resolution for our client through...") to a
+general-approach structure (no implied specific past matter at all):
+kicker unchanged ("Business Litigation"), heading changed to "How We
+Approach Business Disputes," the three columns reframed from
+Situation/Strategy/Outcome to The Challenge/Our Approach/What Clients
+Can Expect (all written in general, timeless present tense — "We help
+clients pursue negotiated resolutions where litigation isn't the right
+fit, reserving formal proceedings for situations where they're
+genuinely necessary"), and the closing stat row replaced from
+case-specific values ("Negotiated Settlement" / "7 months") to general
+practice characteristics ("Negotiation-First" / "Typical Approach",
+"Direct Access" / "To Your Attorney"). The existing disclaimer sentence
+("Past results do not guarantee similar outcomes in future matters...")
+was kept verbatim, per instruction, since it's good practice
+independent of whether the copy above it is case-specific or general.
+Rebuilt on a fresh wp-env instance (the existing Law Firm page ID had
+to be deleted and recreated — the migration script's `get_page_by_path`
+skip-if-exists guard meant simply re-running it against stale content
+silently kept the old copy the first time; caught by checking the
+actual post_content, not just trusting a clean script run), re-ran the
+click-through/heading-level check (all 7 pages still pass, Home's
+hardcoded `<h1>` still confirmed) and the content-risk grep (still
+clean — the sole flag is the disclaimer's own use of the word
+"guarantee," a confirmed false positive, same as before the rewrite),
+and re-exported `demo-content/godevs-portfolio-demo-law-firm.xml`.
+
+**Step 1 — full pattern-count reconciliation, done by direct
+verification, not assumption.** Every one of the 30 registered patterns
+was checked against the actual shipped WXR content: grepped for live
+`wp:pattern` references first, then — for patterns that get
+hand-expanded rather than referenced live — grepped for a structural
+fingerprint unique to that pattern's markup (a distinctive class
+combination, aria-label pattern, or heading text unlikely to appear
+elsewhere), never assumed from `docs/PATTERN_LIBRARY.md`'s original
+Phase 9 plan. Result: **27 of 30 patterns are actively used across the
+59 demo pages.** Found and fixed 3 real doc/reality mismatches left
+over from in-the-moment substitutions in Phases 11–13 that were never
+backported to the docs:
+- `hero-freelancer.php` was documented as used by Photographer; it
+  isn't — Photographer's build used `hero-video.php` live everywhere
+  instead, since it was already photography-scoped out of the box.
+- `testimonial-spotlight.php` was documented as used by Photographer;
+  it isn't — Photographer's Testimonials page expanded
+  `testimonials-carousel-static.php` instead (a multi-quote grid suits
+  a photographer's larger client base better than one spotlight quote).
+- `value-props.php`'s "used by: most niches" was tightened to the 3
+  niches actually confirmed via grep (Freelancer, Web Dev Studio,
+  Architect).
+
+**3 patterns are registered but never used by any of the 59 shipped
+pages** (`team-member-profile.php` + its `page-team-member.html`
+template, `location-hours.php`, `company-timeline.php`). Per
+instruction, each was either used somewhere sensible or explicitly
+documented as an intentional general-purpose pattern — none were
+silently dropped:
+- `team-member-profile.php` was built and end-to-end verified in Phase
+  13 (a real temporary page, checked live, then deleted before export)
+  specifically to avoid inflating either niche's page count past the
+  pre-committed 45 + 14 = 59 total. Kept as a genuine, functional
+  capability for any site owner who wants individual profile pages,
+  not filler.
+- `location-hours.php` and `company-timeline.php` were both built in
+  Phase 10 for niches that, when actually built in Phases 11–13, found
+  simpler existing patterns (`contact-info.php`, `stats-counter.php`)
+  sufficient for the same need. Kept as available, functional patterns
+  for a real site owner's own use, not used by any current demo.
+
+Full reasoning for all 3 recorded in `docs/PATTERN_LIBRARY.md`'s new
+"Built but not tied to a specific demo page" section, so it isn't
+re-litigated in a future phase.
+
+**Step 2 — full Theme Check + phpcs re-run against the current, much
+larger codebase (30 patterns, 7 templates, not the Phase 6/10 scale):**
+- **Theme Check:** installed and run headless the same way as every
+  prior phase (`wp eval` requiring `checkbase.php` and calling
+  `run_themechecks_against_theme()` directly, capturing every check's
+  `getError()` output rather than the admin-UI-only display). Result:
+  **`PASS: YES`, 38 checks, 0 REQUIRED, 0 WARNING**, the identical 3
+  non-blocking items as every prior phase (1 RECOMMENDED — no
+  `register_block_style`, still intentionally not implemented — and 2
+  pure-INFO items). Re-confirmed identically against a theme installed
+  from the packaged `.zip` on a separate, minimal wp-env instance (see
+  Step Final).
+- **phpcs WPThemeReview:** installed via Composer in the scratchpad
+  (same as every prior phase, correctly never shipped in the theme).
+  **35 files scanned (`functions.php`, 4 `inc/` files, all 30
+  `patterns/*.php`): exit 0, zero errors, zero warnings.** Hit and
+  fixed a real, transient tooling problem: WPCS 2.x's
+  `PrefixAllGlobalsSniff` aborts processing under PHP 8.1+ due to a
+  `trim()`-on-`null` deprecation the sniff itself doesn't guard
+  against — worked around by invoking phpcs with
+  `-d error_reporting="E_ALL & ~E_DEPRECATED"` (a phpcs-vs-PHP-version
+  issue, not a finding about this theme's code, consistent with the
+  same class of issue Phase 6 already documented for this exact
+  sniff). Separately hit and fixed a **corrupted Composer package**:
+  mid-session, `squizlabs/php_codesniffer`'s own bundled `Generic`
+  standard stopped being recognized (`Generic/ruleset.xml` missing
+  from `vendor/` even though the `Generic/` directory itself still
+  existed) — fixed by removing and reinstalling just that one package.
+
+**Step 3 — i18n re-check.** Fresh `wp i18n make-pot`: **351 msgid
+entries** (up from Phase 6's 220 for 15 patterns — a proportionate
+increase for roughly double the pattern count, not suspiciously low).
+Diffed the msgid set against the `.pot` file already on disk in the
+working directory: **identical set of translatable strings, zero
+missing or extra.** Checking this phase's work against *git history*
+(not just the working directory) surfaced something separate worth
+recording: the last **committed** `.pot` was badly stale — still
+`Project-Id-Version: ...0.2.0` with the old Phase-0 placeholder
+`style.css` description text — meaning an earlier phase (likely Phase
+10, since the working-directory copy's content lines up with a
+post-Phase-10 pattern set) regenerated the file locally but never
+actually committed it, and it sat as an uncommitted drift for several
+phases without being caught. This phase's regeneration and commit
+closes that gap for good — the file now committed to git matches the
+real content set generated fresh from the current codebase, not a
+snapshot from several phases ago. Grepped fresh for
+hardcoded English strings across every `patterns/*.php` and `inc/*.php`
+file (both bare text between HTML tags and literal text in
+`alt`/`aria-label`/`title`/`placeholder` attributes): zero hits. Also
+re-confirmed the Phase 6 finding still holds with no regression: zero
+hardcoded text anywhere in `templates/*.html` or `parts/*.html`
+(including the new `page-team-member.html`, which has no static text
+at all — pure `post-title`/`post-content`/template-part composition).
+
+**Step 4 — accessibility re-check across all 8 niches.**
+- **Contrast:** identified every unique `textColor`+
+  `backgroundColor`/`gradient` pairing actually used across all 30
+  patterns (only 3 distinct pairings exist: `primary`/`primary-
+  contrast`, `primary-contrast`/`primary`, and the `primary-to-accent`
+  gradient against `primary-contrast`) and computed WCAG contrast
+  ratios for each against all 4 style variations (Studio, Midnight,
+  Sandstone, Emerald) — **all 12 combinations pass AA with real
+  margin** (minimum 5.72:1 against the 4.5:1 requirement for normal
+  text). Zero hardcoded hex colors found anywhere outside
+  `theme.json`/`styles/*.json` (grep-confirmed). Live per-page spot
+  checks (confirming the actual rendered HTML carries the expected
+  gradient/text classes, not just that the token math works out) were
+  folded into Step Final's sequential-import pass rather than done
+  separately, since style variations only change CSS custom property
+  *values*, not block markup/classes — one live check per niche
+  confirms the right classes are present; the token-value math (done
+  here) confirms those classes pass contrast in every variation.
+- **Meaningful link text:** grepped all 8 WXR files — every "Learn
+  more" instance has a matching `aria-label="Learn more about..."`;
+  zero generic "click here"/"read more" text anywhere.
+- **Alt text:** every pattern file's `<img>` count matches its `alt=`
+  count exactly (re-confirmed across all 30 patterns, up from Phase
+  6/7's 15); every value is a real, descriptive, non-empty string.
+- **Keyboard/focus:** zero `<script>` tags, zero `onclick`/`onkeydown`
+  handlers, zero `tabindex="-1"` traps anywhere in `patterns/`,
+  `templates/`, or `parts/` — confirmed no regression across Phases
+  10–13's additions. `:focus-visible` CSS unchanged since Phase 1.
+  `faq-list.php` confirmed still using native `core/details`.
+
+**Step 5 — version bump + changelog.** `0.4.0` → **`0.5.0`** in
+`style.css`, `functions.php`'s `GODEVS_PORTFOLIO_VERSION` constant, and
+`readme.txt`'s Stable tag — bumped *before* Step 6/Step Final's
+testing, not after, per the Phase 6 pattern-cache lesson (WordPress
+caches the `patterns/` directory scan keyed to the `Version` header).
+`readme.txt` changelog entry written summarizing the full multi-niche
+expansion (8 demos, 59 pages, the 27/30 pattern reconciliation). Also
+updated `readme.txt`'s short description, main description, and the
+"How do I get the demo content?" FAQ entry, all of which were stale
+from the original single-demo (14-page) release and never updated
+across Phases 9–13.
+
+**Step 6 — final packaging.** Rebuilt with `adm-zip` (not
+`Compress-Archive`/.NET `ZipFile`, per the Phase 7 backslash-path-
+separator lesson) — a fresh Node script, verified via its own
+independent re-read of the output zip (not just trusting the write):
+**66 files, all forward-slash entry paths, all required top-level
+files present at the correct nested path.** Same 12-path include list
+as Phase 7 (`style.css`, `theme.json`, `functions.php`, `readme.txt`,
+`screenshot.png`, `templates/`, `parts/`, `patterns/`, `styles/`,
+`assets/`, `inc/`, `languages/`), same exclusions (`docs/`,
+`.wordpress-org/`, `demo-content/`, `.wp-env.json`, Composer/phpcs
+tooling). Output: `dist/godevs-portfolio-0.5.0.zip`.
+
+**Step Final — the real verification, in 2 parts:**
+
+**Part 1 — zip-only clean install.** Started a second, genuinely
+separate wp-env instance from a scratchpad config with **no theme
+bind-mount at all** (not even the dev directory), so `wp theme install`
+exercises the actual packaged zip bytes, not a live-mounted dev copy —
+the same discipline Phase 7 established. `wp theme install
+godevs-portfolio-0.5.0.zip --activate` succeeded cleanly on the first
+try (`wp theme list` confirms version 0.5.0 active). Theme Check
+re-run against this zip-installed instance: identical clean result.
+phpcs re-run directly against the zip's own extracted bytes (not the
+dev directory — the exact code that got shipped): exit 0, zero
+errors/warnings.
+
+**Part 2 — the sequential 8-WXR import test, never done before this
+phase.** Imported all 8 niche WXR files, in order, onto the single
+zip-verify instance from Part 1 (Agency, Freelancer, Web Dev Studio,
+Photographer, Interior Designer, Architect, Medical, Law Firm) —
+deliberately *not* setting Reading Settings or reselecting navigation
+between imports, to observe the realistic raw state of someone
+exploring multiple demos before picking one, exactly as instructed.
+**Confirmed, concrete findings, not assumptions:**
+1. **Slug collisions, resolved by WordPress's importer in the normal
+   way:** every demo's common slugs (`home`, `about`, `services`,
+   `contact`, `team`, `portfolio`, `pricing`, `testimonials`) collide
+   across demos, since each was independently built assuming it would
+   be the only content on the site. The first-imported demo (Agency)
+   keeps every clean slug; every later demo gets auto-suffixed
+   (`contact-2` through `contact-8`, `team-2`, `team-3`, etc.). Total
+   page count after all 8: 60 (59 demo pages + 2 leftover default
+   WordPress pages not cleaned up for this test).
+2. **The real bug: internal links silently misdirect, not 404.** Every
+   pattern hardcodes its internal buttons/cards as literal relative
+   URLs (`href="/team/"`, `href="/contact/"`, `href="/services/"`),
+   never dynamic permalink lookups. Once a later-imported demo's own
+   page lands on a suffixed slug, that demo's own hardcoded links keep
+   pointing at the clean slug — which now belongs to whichever demo
+   claimed it first. **Confirmed concretely, not theorized:** Medical's
+   Home page "Meet Our Team" button (`/team/`) and all 4 of its
+   services-grid card links (`/services/`) resolve to Agency's Team
+   and Services pages, not Medical's own (`team-2`, `services-7`).
+   Law Firm's Home page "Schedule a Consultation" button (`/contact/`)
+   resolves to Agency's Contact page, not Law Firm's own
+   (`contact-8`). This is silent — no error, no 404 — which is worse
+   than a visible failure.
+3. **Navigation:** all 8 demos' "Primary Navigation" posts get created
+   (8 total, identically named, indistinguishable in the admin list
+   without opening each one). Only one can be the header's active
+   navigation at a time; in this test the header fell back to Agency's
+   (the first-imported), meaning every other demo's own curated nav
+   items (Medical's "New Patients," Law Firm's "Practice Areas"/
+   "Results," etc.) are not reachable via the header at all once
+   multiple demos coexist — an amplification of the single-demo
+   limitation already documented in `demo-content/README.md`, not a
+   new category of platform behavior.
+4. **Reading Settings:** stayed at WordPress's default (`show_on_front:
+   posts`) throughout, since the importer never sets this (already
+   documented) and — critically — with 8 demos' Home pages competing
+   for the single `page_on_front` slot, there's no way to correctly
+   configure it for more than one demo anyway. The front page shows
+   the default (near-empty) posts archive, not any demo's actual
+   homepage.
+5. **A genuinely new, previously-undetected finding:** any demo whose
+   Home page uses a **hand-expanded** hero (hardcoded `<h1>`, per rule
+   8 — Web Dev Studio, Interior Designer, Architect, Medical, Law
+   Firm) shows **2 `<h1>` elements** when visited while it is *not*
+   the site's configured front page: `page.html`'s own `post-title`
+   "eyebrow" renders as H1 (since `front-page.html` only activates once
+   `page_on_front` correctly points to that page), *and* the
+   hand-expanded hero's hardcoded H1 renders too, since expanded
+   markup doesn't re-run the `is_front_page()`-aware PHP that would
+   otherwise downgrade it to H2. **Live-referenced heroes are immune**
+   (Agency's `hero-agency`, Freelancer's `hero-freelancer`,
+   Photographer's `hero-video` all correctly self-downgrade to H2 via
+   the same live PHP check, confirmed by their Home pages showing
+   exactly 1 H1 in this exact same test). This is technically a
+   pre-existing characteristic of the architecture, not something
+   Phase 14 introduced — but it was never actually observed before,
+   because every single-niche verification pass in Phases 11–13 always
+   set Reading Settings *before* checking H1 counts, which masks
+   exactly this state. In the single-demo-only usage this theme is
+   designed for, it's a narrow pre-configuration window that closes as
+   soon as the site owner completes the documented one-time Reading
+   Settings step; in the (unsupported) multi-demo scenario, it's
+   permanent for every demo except whichever one is actually
+   configured as the front page. Not fixed this phase (would mean
+   reworking the hand-expanded-hero architecture established in Phase
+   12's rule 8, out of scope for a QA/packaging phase) — flagged here
+   and in `docs/WPORG_CHECKLIST.md` for awareness.
+
+None of this is a defect in the shipped single-demo experience, which
+Phases 11–13 already verified per-niche in complete isolation and this
+phase re-verified again for Agency/Medical/Law Firm specifically (see
+below) — it's the confirmed, now-evidenced consequence of doing
+something `demo-content/README.md` already said not to do.
+`demo-content/README.md`'s existing "importing more than one demo is
+not supported" warning has been strengthened with these specific,
+concrete findings instead of just the prior general assertion.
+
+**debug.log stayed clean throughout both Step Final parts** — the only
+lines present were the same benign WP.org-connectivity and WP-Cron
+"Automatic updates" noise documented since Phase 1, zero theme-related
+errors, warnings, or notices from any of the 8 imports or the packaged
+zip install.
+
+**A real infrastructure incident during Step Final, handled and
+recovered, not glossed over:** Docker Desktop's engine went down
+entirely mid-import (after niche #2 of 8) — `docker version`/
+`docker ps` both failed with a pipe-connection error, not the usual
+transient container-level panic seen earlier in this project. Waited
+for it to recover rather than assuming data loss; confirmed recovery
+after several minutes, then found the wp-env instance's containers had
+survived (stopped, not removed — `docker ps -a` showed them `Exited
+(255)` with all volumes intact). Reattached with a plain `npx
+@wordpress/env start` from the same scratchpad directory (no rebuild
+needed) and confirmed both the zip-installed theme (still v0.5.0,
+still active) and Agency's already-imported 14 pages survived
+completely intact before resuming the sequential import exactly where
+it left off.
+
+**Exact counts, for the record:**
+- Patterns: still 30 registered; **27 of 30 actively used** across the
+  59 demo pages (3 general-purpose, documented, not filler).
+- Theme Check: 0 REQUIRED · 0 WARNING · 1 RECOMMENDED (unchanged,
+  intentional) · 2 INFO (unchanged) — identical dev-directory and
+  zip-installed results.
+- phpcs WPThemeReview: 0 errors · 0 warnings across 35 files —
+  identical dev-directory and zip-extracted results.
+- `.pot`: 351 msgid entries, byte-identical to the pre-existing shipped
+  file.
+- Version: 0.4.0 → 0.5.0 across `style.css`, `functions.php`,
+  `readme.txt`.
+- Distribution zip: `dist/godevs-portfolio-0.5.0.zip`, 66 files,
+  verified forward-slash paths.
+- Sequential 8-WXR import test: run for the first time this phase;
+  confirmed the existing "single demo only" guidance is correct and
+  necessary, with concrete findings now documented rather than
+  asserted.
+
+**Submission-readiness status:** the theme is submission-ready pending
+only the manual, non-automatable items already on record from Phase 8
+— Nayan's own WordPress.org account/username (the
+`REPLACE_WITH_YOUR_WORDPRESS_ORG_USERNAME` placeholder in `readme.txt`
+still needs a real, verified username), a final slug-collision
+recheck immediately before submitting (Phase 8's check was live but
+time-sensitive — someone else could register `godevs-portfolio` in the
+interim), and the real-host (non-Docker-sandbox) media-import
+verification that has never been possible in this sandboxed
+environment. Nothing else remains open.
+
+**Next phase (Phase 15, if pursued):** no further phases are currently
+planned — the Phase 9 multi-niche expansion plan is fully built (59/59
+pages), fully QA'd (this phase), and packaged. Any future phase would
+be scoped fresh based on Nayan's actual submission experience or new
+requirements, not a pre-committed backlog item like every phase through
+14 has been.
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._

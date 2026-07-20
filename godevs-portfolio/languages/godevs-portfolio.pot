@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: GoDevs Portfolio 0.2.0\n"
+"Project-Id-Version: GoDevs Portfolio 0.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/godevs-portfolio\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-19T09:39:58+00:00\n"
+"POT-Creation-Date: 2026-07-19T16:52:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: godevs-portfolio\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #. Description of the theme
 #: style.css
-msgid "A full site editing theme for agency, freelancer, and consultancy portfolios, built around a distinct editorial visual identity and a portfolio-first sales funnel. Placeholder description — expand in Phase 5."
+msgid "A full site editing theme for agencies, freelancers, consultants, and creative studios who need a credible portfolio site without a page builder plugin. Every layout is a block pattern and every design decision a theme.json token. Three style variations (Midnight, Sandstone, Emerald) each pair a distinct color palette with its own type and spacing scale, and patterns favor asymmetric, editorial layouts over the centered-box template most portfolio themes default to."
 msgstr ""
 
 #. Author of the theme
@@ -75,6 +75,14 @@ msgstr ""
 msgid "Portfolio: Contact"
 msgstr ""
 
+#: inc/class-block-patterns.php:84
+msgid "Portfolio: FAQ"
+msgstr ""
+
+#: inc/class-block-patterns.php:88
+msgid "Portfolio: Process"
+msgstr ""
+
 #: inc/class-theme-setup.php:88
 msgid "Copyright Year"
 msgstr ""
@@ -117,6 +125,36 @@ msgstr ""
 msgid "Footer"
 msgstr ""
 
+#: patterns/before-after-columns.php
+msgctxt "Pattern title"
+msgid "Before & After"
+msgstr ""
+
+#: patterns/before-after-columns.php
+msgctxt "Pattern description"
+msgid "Static two-column Before/After image comparison (core/columns + core/image, stacks on mobile). Deliberately not a draggable JS slider — see docs/NICHE_DEMOS.md's feasibility note: a real comparison slider needs custom JavaScript, which conflicts with this theme's established zero-custom-JS discipline."
+msgstr ""
+
+#: patterns/before-after-columns.php:17
+msgid "Before & after"
+msgstr ""
+
+#: patterns/before-after-columns.php:26
+msgid "Living room before the renovation"
+msgstr ""
+
+#: patterns/before-after-columns.php:26
+msgid "Before"
+msgstr ""
+
+#: patterns/before-after-columns.php:34
+msgid "Living room after the renovation"
+msgstr ""
+
+#: patterns/before-after-columns.php:34
+msgid "After"
+msgstr ""
+
 #: patterns/blog-heading.php
 msgctxt "Pattern title"
 msgid "Blog Heading"
@@ -129,6 +167,53 @@ msgstr ""
 
 #: patterns/blog-heading.php:15
 msgid "Blog"
+msgstr ""
+
+#: patterns/company-timeline.php
+msgctxt "Pattern title"
+msgid "Company Timeline"
+msgstr ""
+
+#: patterns/company-timeline.php
+msgctxt "Pattern description"
+msgid "Dated milestone history (year + event) for an About page — distinct from process-steps' undated, sequential how-we-work shape."
+msgstr ""
+
+#: patterns/company-timeline.php:15
+msgid "2015"
+msgstr ""
+
+#: patterns/company-timeline.php:16
+msgid "Founded with a single client and a shared workspace desk."
+msgstr ""
+
+#: patterns/company-timeline.php:19
+msgid "2018"
+msgstr ""
+
+#: patterns/company-timeline.php:20
+msgid "Moved into our first dedicated studio space and grew to a full team."
+msgstr ""
+
+#: patterns/company-timeline.php:23
+#: patterns/portfolio-grid-project.php:24
+msgid "2021"
+msgstr ""
+
+#: patterns/company-timeline.php:24
+msgid "Recognized with our first industry award for client work."
+msgstr ""
+
+#: patterns/company-timeline.php:27
+msgid "Today"
+msgstr ""
+
+#: patterns/company-timeline.php:28
+msgid "Still taking on projects we are proud to put our name on."
+msgstr ""
+
+#: patterns/company-timeline.php:36
+msgid "Our story so far"
 msgstr ""
 
 #: patterns/contact-info.php
@@ -162,6 +247,7 @@ msgid "Phone"
 msgstr ""
 
 #: patterns/contact-info.php:44
+#: patterns/new-patients-info.php:25
 msgid "+1 (555) 555-0125"
 msgstr ""
 
@@ -171,10 +257,12 @@ msgid "Studio"
 msgstr ""
 
 #: patterns/contact-info.php:55
+#: patterns/location-hours.php:47
 msgid "123 Market Street, Suite 400"
 msgstr ""
 
 #: patterns/contact-info.php:55
+#: patterns/location-hours.php:47
 msgid "Portland, OR 97201"
 msgstr ""
 
@@ -197,8 +285,54 @@ msgid "Tell us about your business and what you're trying to build — we'll fol
 msgstr ""
 
 #: patterns/cta-banner.php:30
-#: patterns/hero-agency.php:45
+#: patterns/hero-agency.php:41
 msgid "Get a Quote"
+msgstr ""
+
+#: patterns/faq-list.php
+msgctxt "Pattern title"
+msgid "FAQ List"
+msgstr ""
+
+#: patterns/faq-list.php
+msgctxt "Pattern description"
+msgid "Frequently asked questions built on the native core/details block — real HTML5 details/summary accordion behavior, zero custom JavaScript, keyboard- and screen-reader-accessible by default."
+msgstr ""
+
+#: patterns/faq-list.php:15
+msgid "How do I schedule a consultation?"
+msgstr ""
+
+#: patterns/faq-list.php:16
+msgid "Call our office directly using the number on this page, or use the contact details below — we will find a time that works for you."
+msgstr ""
+
+#: patterns/faq-list.php:19
+msgid "What should I bring to my first appointment?"
+msgstr ""
+
+#: patterns/faq-list.php:20
+msgid "A photo ID and any paperwork relevant to your situation. We will let you know if anything else is needed when you schedule."
+msgstr ""
+
+#: patterns/faq-list.php:23
+msgid "How long does a first visit typically take?"
+msgstr ""
+
+#: patterns/faq-list.php:24
+msgid "Most first visits run 30 to 60 minutes, depending on what brings you in. We will give you a clearer estimate when you schedule."
+msgstr ""
+
+#: patterns/faq-list.php:27
+msgid "Do you offer an initial consultation?"
+msgstr ""
+
+#: patterns/faq-list.php:28
+msgid "Yes — reach out using the contact information on this page and we can talk through whether we are a good fit before you commit to anything."
+msgstr ""
+
+#: patterns/faq-list.php:36
+msgid "Frequently asked questions"
 msgstr ""
 
 #: patterns/footer-cta.php
@@ -217,7 +351,46 @@ msgstr ""
 
 #: patterns/footer-cta.php:23
 #: patterns/header-cta-button.php:17
+#: patterns/hero-video.php:39
 msgid "Get in Touch"
+msgstr ""
+
+#: patterns/gallery-categories.php
+msgctxt "Pattern title"
+msgid "Gallery Categories"
+msgstr ""
+
+#: patterns/gallery-categories.php
+msgctxt "Pattern description"
+msgid "Static linked category cards (shoot types, room types, or similar) — explicitly not a JS-filtered single-page gallery. Shared by the Photographer and Interior Designer niches with different copy/images, not a separate pattern per niche."
+msgstr ""
+
+#: patterns/gallery-categories.php:15
+msgid "Weddings"
+msgstr ""
+
+#: patterns/gallery-categories.php:19
+msgid "Portraits"
+msgstr ""
+
+#: patterns/gallery-categories.php:23
+msgid "Events"
+msgstr ""
+
+#: patterns/gallery-categories.php:32
+msgid "Browse by category"
+msgstr ""
+
+#. translators: %s: gallery category name.
+#: patterns/gallery-categories.php:41
+#, php-format
+msgid "View the %s gallery"
+msgstr ""
+
+#. translators: %s: gallery category name.
+#: patterns/gallery-categories.php:41
+#, php-format
+msgid "Preview image for the %s gallery"
 msgstr ""
 
 #: patterns/header-cta-button.php
@@ -240,19 +413,19 @@ msgctxt "Pattern description"
 msgid "Asymmetric two-column hero for agency/studio pages — heading, supporting copy, two CTAs, and a side image."
 msgstr ""
 
-#: patterns/hero-agency.php:35
+#: patterns/hero-agency.php:31
 msgid "Strategy-led design for brands ready to grow"
 msgstr ""
 
-#: patterns/hero-agency.php:39
+#: patterns/hero-agency.php:35
 msgid "We partner with ambitious companies to design, build, and launch digital experiences that convert — from brand identity through to the finished product."
 msgstr ""
 
-#: patterns/hero-agency.php:49
+#: patterns/hero-agency.php:45
 msgid "View Work"
 msgstr ""
 
-#: patterns/hero-agency.php:60
+#: patterns/hero-agency.php:56
 msgid "Collage of recent agency project screens displayed on a designer's desk"
 msgstr ""
 
@@ -266,24 +439,92 @@ msgctxt "Pattern description"
 msgid "Personal, portrait-oriented hero for solo freelancer/consultant pages — heading, intro copy, CTAs, and a portrait image."
 msgstr ""
 
-#: patterns/hero-freelancer.php:19
+#: patterns/hero-freelancer.php:32
 msgid "Portrait of the freelance designer and developer at their desk"
 msgstr ""
 
-#: patterns/hero-freelancer.php:28
+#: patterns/hero-freelancer.php:41
 msgid "I design and build websites for small businesses"
 msgstr ""
 
-#: patterns/hero-freelancer.php:32
+#: patterns/hero-freelancer.php:45
 msgid "A freelance designer-developer helping founders launch sites they're proud of, without the agency overhead or the six-week timeline."
 msgstr ""
 
-#: patterns/hero-freelancer.php:38
+#: patterns/hero-freelancer.php:51
 msgid "Start a Project"
 msgstr ""
 
-#: patterns/hero-freelancer.php:42
+#: patterns/hero-freelancer.php:55
 msgid "See My Work"
+msgstr ""
+
+#: patterns/hero-video.php
+msgctxt "Pattern title"
+msgid "Hero — Video"
+msgstr ""
+
+#: patterns/hero-video.php
+msgctxt "Pattern description"
+msgid "Asymmetric hero using core/video in place of a static image — for niches (photography, architecture) where a showreel makes a stronger first impression. Ships with no bundled video file, only a poster frame using the existing placeholder image, same convention as every image pattern shipping a placeholder graphic instead of a real photo."
+msgstr ""
+
+#: patterns/hero-video.php:29
+msgid "Work that speaks for itself"
+msgstr ""
+
+#: patterns/hero-video.php:33
+msgid "A short look at recent work — replace this with your own showreel or walkthrough video."
+msgstr ""
+
+#: patterns/hero-video.php:50
+msgid "Replace with your own video — no file is bundled with the theme."
+msgstr ""
+
+#: patterns/location-hours.php
+msgctxt "Pattern title"
+msgid "Location & Hours"
+msgstr ""
+
+#: patterns/location-hours.php
+msgctxt "Pattern description"
+msgid "Map-forward layout with prominent hours, for a \"visit us\" section — distinct from contact-info's 3-column email/phone/address cards. Uses a static placeholder graphic in place of a map, not a live embed, so the theme makes no third-party remote calls."
+msgstr ""
+
+#: patterns/location-hours.php:15
+msgid "Monday – Friday"
+msgstr ""
+
+#: patterns/location-hours.php:16
+msgid "9:00 AM – 5:00 PM"
+msgstr ""
+
+#: patterns/location-hours.php:19
+msgid "Saturday"
+msgstr ""
+
+#: patterns/location-hours.php:20
+msgid "10:00 AM – 2:00 PM"
+msgstr ""
+
+#: patterns/location-hours.php:23
+msgid "Sunday"
+msgstr ""
+
+#: patterns/location-hours.php:24
+msgid "Closed"
+msgstr ""
+
+#: patterns/location-hours.php:34
+msgid "Map placeholder — replace with your own map embed or image"
+msgstr ""
+
+#: patterns/location-hours.php:43
+msgid "Visit us"
+msgstr ""
+
+#: patterns/location-hours.php:51
+msgid "Hours"
 msgstr ""
 
 #: patterns/logo-cloud.php
@@ -324,6 +565,28 @@ msgstr ""
 #: patterns/logo-cloud.php:34
 #, php-format
 msgid "%s logo"
+msgstr ""
+
+#: patterns/new-patients-info.php
+msgctxt "Pattern title"
+msgid "New Patients Info"
+msgstr ""
+
+#: patterns/new-patients-info.php
+msgctxt "Pattern description"
+msgid "Static \"call to schedule\" block — phone number and office hours only. Renamed from the original \"appointment-cta\" working title in Phase 10 to match the \"New Patients\" page framing in docs/NICHE_DEMOS.md. Explicitly not a booking form, not a booking CPT, not a third-party scheduling integration — informational only, per the non-negotiable no-required-plugin rule."
+msgstr ""
+
+#: patterns/new-patients-info.php:17
+msgid "New patients welcome"
+msgstr ""
+
+#: patterns/new-patients-info.php:21
+msgid "Call our office to schedule your first visit — our team will help you find a time that works and let you know what to bring."
+msgstr ""
+
+#: patterns/new-patients-info.php:29
+msgid "Office hours: Monday–Friday, 9:00 AM–5:00 PM"
 msgstr ""
 
 #: patterns/not-found.php
@@ -425,6 +688,135 @@ msgstr ""
 
 #: patterns/portfolio-case-study.php:109
 msgid "Northwind Traders product page shown on a mobile phone"
+msgstr ""
+
+#: patterns/portfolio-grid-masonry.php
+msgctxt "Pattern title"
+msgid "Portfolio Grid (Masonry)"
+msgstr ""
+
+#: patterns/portfolio-grid-masonry.php
+msgctxt "Pattern description"
+msgid "True staggered image grid with no captions — the photography itself is the pitch. Staggering is achieved with plain core/columns holding an uneven number of stacked images per column (a CSS-only masonry effect), not JavaScript reflow. Distinct from portfolio-grid's text-plus-image editorial layout."
+msgstr ""
+
+#: patterns/portfolio-grid-masonry.php:15
+msgid "Portrait session, natural light"
+msgstr ""
+
+#: patterns/portfolio-grid-masonry.php:16
+msgid "Golden hour outdoor portrait"
+msgstr ""
+
+#: patterns/portfolio-grid-masonry.php:19
+msgid "Candid engagement session"
+msgstr ""
+
+#: patterns/portfolio-grid-masonry.php:20
+msgid "Studio portrait, black background"
+msgstr ""
+
+#: patterns/portfolio-grid-masonry.php:21
+msgid "Detail shot, editorial style"
+msgstr ""
+
+#: patterns/portfolio-grid-masonry.php:24
+msgid "Wedding ceremony moment"
+msgstr ""
+
+#: patterns/portfolio-grid-masonry.php:25
+msgid "Family portrait session"
+msgstr ""
+
+#: patterns/portfolio-grid-masonry.php:33
+#: patterns/portfolio-grid-simple.php:28
+msgid "Recent work"
+msgstr ""
+
+#: patterns/portfolio-grid-project.php
+msgctxt "Pattern title"
+msgid "Portfolio Grid (Project)"
+msgstr ""
+
+#: patterns/portfolio-grid-project.php
+msgctxt "Pattern description"
+msgid "A small number of large, detailed project features (one big image plus a location/size/year stat row each) — distinct from portfolio-grid's denser card grid and portfolio-grid-masonry's image-only wall. Built for architecture-style portfolios where each project warrants its own feature."
+msgstr ""
+
+#: patterns/portfolio-grid-project.php:15
+msgid "Fairview Residence"
+msgstr ""
+
+#: patterns/portfolio-grid-project.php:16
+msgid "Portland, OR"
+msgstr ""
+
+#: patterns/portfolio-grid-project.php:17
+msgid "3,200 sq ft"
+msgstr ""
+
+#: patterns/portfolio-grid-project.php:18
+msgid "2023"
+msgstr ""
+
+#: patterns/portfolio-grid-project.php:21
+msgid "Harborview Office Building"
+msgstr ""
+
+#: patterns/portfolio-grid-project.php:22
+msgid "Seattle, WA"
+msgstr ""
+
+#: patterns/portfolio-grid-project.php:23
+msgid "48,000 sq ft"
+msgstr ""
+
+#: patterns/portfolio-grid-project.php:32
+msgid "Selected projects"
+msgstr ""
+
+#. translators: %s: project title.
+#: patterns/portfolio-grid-project.php:40
+#, php-format
+msgid "Exterior photograph of %s"
+msgstr ""
+
+#. translators: 1: location, 2: size, 3: year.
+#: patterns/portfolio-grid-project.php:60
+#, php-format
+msgid "%1$s · %2$s · %3$s"
+msgstr ""
+
+#: patterns/portfolio-grid-simple.php
+msgctxt "Pattern title"
+msgid "Portfolio Grid (Simple)"
+msgstr ""
+
+#: patterns/portfolio-grid-simple.php
+msgctxt "Pattern description"
+msgid "2-3 large, personal signature-project cards for a solo practitioner — distinct from portfolio-grid's denser, multi-project editorial layout built for a team-sized body of work."
+msgstr ""
+
+#: patterns/portfolio-grid-simple.php:15
+msgid "Ledger & Co. Rebrand"
+msgstr ""
+
+#: patterns/portfolio-grid-simple.php:16
+msgid "A full brand and website refresh for a boutique accounting firm — new identity, new site, launched in five weeks."
+msgstr ""
+
+#: patterns/portfolio-grid-simple.php:19
+msgid "Harbor Supply Co. Website"
+msgstr ""
+
+#: patterns/portfolio-grid-simple.php:20
+msgid "A fast, accessible e-commerce rebuild that cut page load time in half and lifted conversion the following quarter."
+msgstr ""
+
+#. translators: %s: project title.
+#: patterns/portfolio-grid-simple.php:37
+#, php-format
+msgid "Screenshot of the %s project"
 msgstr ""
 
 #: patterns/portfolio-grid.php
@@ -588,6 +980,68 @@ msgstr ""
 msgid "Contact Us"
 msgstr ""
 
+#: patterns/process-steps.php
+msgctxt "Pattern title"
+msgid "Process Steps"
+msgstr ""
+
+#: patterns/process-steps.php
+msgctxt "Pattern description"
+msgid "Numbered sequential steps describing how an engagement runs from first contact to delivery — distinct from company-timeline's dated-history shape."
+msgstr ""
+
+#: patterns/process-steps.php:15
+msgid "01"
+msgstr ""
+
+#: patterns/process-steps.php:16
+msgid "Discovery"
+msgstr ""
+
+#: patterns/process-steps.php:17
+msgid "We start with a conversation about your goals, timeline, and budget so the plan fits the real project, not a generic template."
+msgstr ""
+
+#: patterns/process-steps.php:20
+msgid "02"
+msgstr ""
+
+#: patterns/process-steps.php:21
+msgid "Plan & Design"
+msgstr ""
+
+#: patterns/process-steps.php:22
+msgid "We map out the approach and share concepts early, so there are no surprises once work is underway."
+msgstr ""
+
+#: patterns/process-steps.php:25
+msgid "03"
+msgstr ""
+
+#: patterns/process-steps.php:26
+msgid "Build"
+msgstr ""
+
+#: patterns/process-steps.php:27
+msgid "We execute against the agreed plan with regular check-ins, so you always know where things stand."
+msgstr ""
+
+#: patterns/process-steps.php:30
+msgid "04"
+msgstr ""
+
+#: patterns/process-steps.php:31
+msgid "Deliver"
+msgstr ""
+
+#: patterns/process-steps.php:32
+msgid "We hand off a finished result — and stay reachable afterward for questions or follow-up work."
+msgstr ""
+
+#: patterns/process-steps.php:40
+msgid "How we work"
+msgstr ""
+
 #: patterns/services-grid.php
 msgctxt "Pattern title"
 msgid "Services Grid"
@@ -735,6 +1189,70 @@ msgstr ""
 msgid "Portrait of %1$s, %2$s"
 msgstr ""
 
+#: patterns/team-member-profile.php
+msgctxt "Pattern title"
+msgid "Team Member Profile"
+msgstr ""
+
+#: patterns/team-member-profile.php
+msgctxt "Pattern description"
+msgid "Single-person detailed bio with portrait, credentials, and a longer background paragraph — for an individual attorney/doctor/team-member page, distinct from team-grid's grid-of-many. Needs its own dedicated template (page-team-member.html) before individual profile pages can be built; not part of this phase's scope, see docs/CLAUDE.md Phase 10 notes."
+msgstr ""
+
+#: patterns/team-member-profile.php:19
+msgid "Portrait of Dr. Avery Bennett"
+msgstr ""
+
+#: patterns/team-member-profile.php:32
+msgid "Dr. Avery Bennett"
+msgstr ""
+
+#: patterns/team-member-profile.php:36
+msgid "Family Medicine"
+msgstr ""
+
+#: patterns/team-member-profile.php:40
+msgid "Credentials (placeholder — replace with real details)"
+msgstr ""
+
+#: patterns/team-member-profile.php:46
+msgid "Board Certified, Family Medicine"
+msgstr ""
+
+#: patterns/team-member-profile.php:49
+msgid "M.D., Fictional State University School of Medicine"
+msgstr ""
+
+#: patterns/team-member-profile.php:52
+msgid "10+ years in practice"
+msgstr ""
+
+#: patterns/team-member-profile.php:58
+msgid "Dr. Bennett focuses on whole-person, preventive care and takes time to make sure every visit answers the questions that brought you in. Outside the office, they volunteer with the local community health clinic."
+msgstr ""
+
+#: patterns/testimonial-spotlight.php
+msgctxt "Pattern title"
+msgid "Testimonial Spotlight"
+msgstr ""
+
+#: patterns/testimonial-spotlight.php
+msgctxt "Pattern description"
+msgid "One large client quote with a portrait, for solo practitioners where a single strong endorsement reads more credibly than a rotating multi-client grid."
+msgstr ""
+
+#: patterns/testimonial-spotlight.php:22
+msgid "Portrait of the client giving this testimonial"
+msgstr ""
+
+#: patterns/testimonial-spotlight.php:32
+msgid "Working with them felt less like hiring a vendor and more like adding a teammate. They asked better questions about our business than agencies twice their size, and the result showed it."
+msgstr ""
+
+#: patterns/testimonial-spotlight.php:34
+msgid "Sam Whitfield — Founder, Ledger & Co."
+msgstr ""
+
 #: patterns/testimonials-carousel-static.php
 msgctxt "Pattern title"
 msgid "Testimonials Carousel (Static)"
@@ -785,6 +1303,44 @@ msgstr ""
 msgid "What clients say"
 msgstr ""
 
+#: patterns/value-props.php
+msgctxt "Pattern title"
+msgid "Value Props"
+msgstr ""
+
+#: patterns/value-props.php
+msgctxt "Pattern description"
+msgid "Plain, unboxed title/description trust-builder grid with no per-item link — distinct from services-grid's linked, surface-background cards. For an About-page \"why choose us\" section, not a services list."
+msgstr ""
+
+#: patterns/value-props.php:15
+msgid "Straightforward communication"
+msgstr ""
+
+#: patterns/value-props.php:16
+msgid "No jargon, no surprises — you always know what is happening and why."
+msgstr ""
+
+#: patterns/value-props.php:19
+msgid "Real experience"
+msgstr ""
+
+#: patterns/value-props.php:20
+msgid "Years of hands-on work, not a template applied to every situation the same way."
+msgstr ""
+
+#: patterns/value-props.php:23
+msgid "You come first"
+msgstr ""
+
+#: patterns/value-props.php:24
+msgid "Every recommendation is made with your specific goals in mind, not a one-size-fits-all approach."
+msgstr ""
+
+#: patterns/value-props.php:32
+msgid "Why work with us"
+msgstr ""
+
 #: theme.json
 msgctxt "Custom template name"
 msgid "Page: Services"
@@ -813,6 +1369,11 @@ msgstr ""
 #: theme.json
 msgctxt "Custom template name"
 msgid "Case Study"
+msgstr ""
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Team Member Profile"
 msgstr ""
 
 #: theme.json

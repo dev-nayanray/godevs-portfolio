@@ -138,6 +138,35 @@ share page IDs, slugs are only guaranteed unique *within* a single
 demo, and only one Reading Settings / navigation menu can be active at
 a time).
 
+**What actually happens if you import more than one anyway (tested in
+Phase 14, so this isn't a guess):** every demo assumes it's the only
+content on the site, so every demo reuses the same common page slugs
+(`home`, `about`, `services`, `contact`, `team`, `portfolio`,
+`pricing`, `testimonials`). WordPress's importer resolves the
+resulting collisions the normal way — whichever demo you import
+*first* keeps the clean slugs, and every later import gets
+auto-suffixed (`contact-2`, `contact-3`, and so on). That part is
+cosmetic. The real problem is that **every pattern's internal
+buttons and links are hardcoded to the clean slug** (e.g. a "Meet Our
+Team" button always points to `/team/`, never to the page's own
+actual URL) — so once a later-imported demo's own page lands on a
+suffixed slug, that demo's own buttons silently start pointing at
+*whichever demo got there first* instead of its own content. This
+doesn't error or 404 — it just quietly sends visitors to the wrong
+business's page. Separately, only one of the resulting navigation
+menus can ever be active in the header at a time, so every demo
+after the first loses its own curated nav items to whichever menu the
+header falls back to, and Reading Settings can only point at one
+demo's Home page — every other demo's Home page then renders through
+the generic page template instead of the front-page template, which
+[due to a template-selection edge case](../docs/CLAUDE.md) can add a
+second, unintended `<h1>` to that page. None of this is a bug in the
+sense of something to file and fix — it's the direct, now-confirmed
+consequence of importing content that was deliberately built and
+verified as single-demo-only. If you want to explore more than one
+demo, do it on separate fresh installs (or destroy-and-reimport
+between each one), not side by side on the same site.
+
 ## Known limitation: the Navigation menu after import
 
 Every demo's `header.html` and `header-transparent.html` template parts

@@ -13,7 +13,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'GODEVS_PORTFOLIO_VERSION', '0.4.0' );
+define( 'GODEVS_PORTFOLIO_VERSION', '0.5.0' );
 define( 'GODEVS_PORTFOLIO_DIR', get_template_directory() );
 define( 'GODEVS_PORTFOLIO_URI', get_template_directory_uri() );
 

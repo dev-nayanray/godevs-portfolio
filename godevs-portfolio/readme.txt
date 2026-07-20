@@ -4,20 +4,25 @@ Contributors: REPLACE_WITH_YOUR_WORDPRESS_ORG_USERNAME
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.4.0
+Stable tag: 0.5.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Tags: full-site-editing, block-patterns, style-variations, portfolio, blog, one-column, two-columns, grid-layout, custom-colors, custom-menu, editor-style, featured-images, rtl-language-support, translation-ready, accessibility-ready
 
-A full site editing theme for agency, freelancer, and consultancy portfolios.
+A full site editing theme for portfolio-based service businesses — agencies, freelancers, and more.
 
 == Description ==
 
-GoDevs Portfolio is a full site editing theme for agencies, freelancers,
-consultants, and creative studios who need a credible portfolio site
-without a page builder plugin. Every layout is a block pattern, every
-design decision a theme.json token — no Customizer panel, nothing to
-configure outside the Site Editor.
+GoDevs Portfolio is a full site editing theme for portfolio-based service
+businesses — agencies, freelancers, consultants, creative studios,
+photographers, architects, interior designers, medical practices, and law
+firms — who need a credible site without a page builder plugin. One
+shared block-pattern library and template set powers 8 independently-
+importable demo packages, so a site owner imports exactly the one demo
+that matches their business rather than pruning a generic kitchen sink.
+Every layout is a block pattern, every design decision a theme.json
+token — no Customizer panel, nothing to configure outside the Site
+Editor.
 
 Three style variations (Midnight, Sandstone, Emerald) each pair a
 distinct color palette with its own type and spacing scale, so switching
@@ -52,12 +57,19 @@ does not bundle or require any plugin to render correctly.
 
 = How do I get the demo content? =
 
-Demo content (14 pages, 5 blog posts, and a navigation menu) ships as a
-WXR file at `demo-content/godevs-portfolio-demo-content.xml` in the
-theme's development repository. See `demo-content/README.md` for the
-full import steps, including two one-time manual steps the standard
-WordPress importer doesn't automate (setting the front page / posts page
-under Settings -> Reading, and reselecting the imported navigation menu).
+Demo content ships as 8 separate, independently-importable WXR files
+under `demo-content/` in the theme's development repository — one per
+business niche (Creative Agency, Freelance Designer/Developer, Web
+Development Studio, Photographer, Architect, Interior Designer, Medical
+Practice, Law Firm), covering 59 pages total. Import exactly one,
+matching the kind of site you're building — see `demo-content/README.md`
+for the full import steps, including two one-time manual steps the
+standard WordPress importer doesn't automate (setting the front page /
+posts page under Settings -> Reading, and reselecting the imported
+navigation menu). The Medical Practice and Law Firm demos are
+illustrative placeholder content only — see the warning at the top of
+`demo-content/README.md` before using either as a starting point for a
+real practice or firm.
 
 = Does this theme have a working contact form? =
 
@@ -88,6 +100,26 @@ WordPress.org Theme Review itself.
    content, in the default "Studio" style variation.
 
 == Changelog ==
+
+= 0.5.0 - 2026-07-19 =
+* Multi-niche expansion complete: 8 independently-importable demo
+  packages (Creative Agency, Freelance Designer/Developer, Web
+  Development Studio, Photographer, Architect, Interior Designer,
+  Medical Practice, Law Firm) totaling 59 demo pages, all sharing one
+  pattern library, one theme.json, and one set of templates. Added a
+  Team Member Profile template for individual attorney/doctor-style
+  profile pages. 27 of the theme's 30 registered block patterns are
+  used across the 8 demos; the remaining 3 are verified, general-
+  purpose patterns not tied to a specific demo page (see
+  `docs/PATTERN_LIBRARY.md` for the full reconciliation). Full QA pass
+  for the larger codebase: Theme Check (zero required-level flags),
+  phpcs with WPThemeReview (zero errors), a refreshed .pot (351
+  translatable strings), and a repeated accessibility audit (contrast,
+  meaningful link text, alt text, keyboard/focus) across every niche.
+  The Medical Practice and Law Firm demos use entirely fictional
+  placeholder content, written with explicit no-medical-claims and
+  no-guaranteed-outcome discipline, and are flagged as such both in
+  the demo content itself and in `demo-content/README.md`.
 
 = 0.4.0 - 2026-07-19 =
 * Shared pattern library expansion (multi-niche groundwork): 8 new
