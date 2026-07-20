@@ -4,7 +4,7 @@ Contributors: REPLACE_WITH_YOUR_WORDPRESS_ORG_USERNAME
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.5.0
+Stable tag: 0.5.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Tags: full-site-editing, block-patterns, style-variations, portfolio, blog, one-column, two-columns, grid-layout, custom-colors, custom-menu, editor-style, featured-images, rtl-language-support, translation-ready, accessibility-ready
@@ -100,6 +100,28 @@ WordPress.org Theme Review itself.
    content, in the default "Studio" style variation.
 
 == Changelog ==
+
+= 0.5.1 - 2026-07-20 =
+* Bug fix: some niche demo pages could render two `<h1>` headings
+  instead of one, specifically on a Home page that used a hero pattern
+  with copy hand-written directly into the page (rather than inserted
+  as a live, reusable pattern) and that had not yet been set as the
+  site's homepage under Settings -> Reading. Affected the Web
+  Development Studio, Interior Designer, Architect, Medical Practice,
+  and Law Firm demos' Home pages; did not affect Creative Agency,
+  Freelance Designer/Developer, or Photographer, whose Home heroes
+  were already inserted as live patterns. Root cause: a hand-written
+  hero's heading level is fixed at whatever it was when it was
+  written, so it couldn't respond to the page not yet being configured
+  as the homepage. Fixed by making every niche's Home hero a live
+  pattern again, with its per-niche heading, subtext, buttons, and
+  image caption now supplied through a new block binding
+  (`godevs-portfolio/hero-field`) instead of being hard-coded — the
+  pattern now correctly renders as an H1 only when the page is
+  actually configured as the site's front page, and as an H2
+  everywhere else, exactly as intended. No visible change to the
+  Creative Agency demo. Demo content files for the five affected
+  niches were regenerated and re-exported.
 
 = 0.5.0 - 2026-07-19 =
 * Multi-niche expansion complete: 8 independently-importable demo

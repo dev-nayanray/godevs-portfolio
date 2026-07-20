@@ -79,6 +79,21 @@ class Theme_Setup {
 	 * user content, so losing it on theme switch is expected, not a
 	 * functionality regression. The Block Bindings API postdates this
 	 * sniff's forbidden-functions list.
+	 *
+	 * godevs-portfolio/hero-field (Phase 15) is a different kind of
+	 * binding from the four above: those four are fixed, global values;
+	 * this one is per-page, reading `_godevs_hero_{field}` post meta on
+	 * whichever page is rendering patterns/hero-agency.php. It exists
+	 * specifically so that pattern can stay a LIVE `wp:pattern`
+	 * reference on every niche's Home page instead of being
+	 * hand-expanded with baked-in copy — hand-expansion was the actual
+	 * root cause of a real bug (see get_hero_field()'s docblock and
+	 * docs/CLAUDE.md's Phase 15 notes): a hand-expanded hero's heading
+	 * level is frozen at whatever was true when it was expanded, so it
+	 * can't respond to Reading Settings not yet being configured,
+	 * producing two <h1> elements on that page. A live reference
+	 * re-runs godevs_portfolio_hero_heading_level() on every request
+	 * and always gets it right.
 	 */
 	public static function register_block_bindings() {
 		// phpcs:disable WPThemeReview.PluginTerritory.ForbiddenFunctions.editor_blocks_register_block_bindings_source
@@ -108,6 +123,14 @@ class Theme_Setup {
 			array(
 				'label'              => __( 'No Search Results Text', 'godevs-portfolio' ),
 				'get_value_callback' => array( __CLASS__, 'get_no_results_text' ),
+			)
+		);
+		register_block_bindings_source(
+			'godevs-portfolio/hero-field',
+			array(
+				'label'              => __( 'Hero Field', 'godevs-portfolio' ),
+				'get_value_callback' => array( __CLASS__, 'get_hero_field' ),
+				'uses_context'       => array( 'postId' ),
 			)
 		);
 		// phpcs:enable WPThemeReview.PluginTerritory.ForbiddenFunctions.editor_blocks_register_block_bindings_source
@@ -146,6 +169,76 @@ class Theme_Setup {
 	 */
 	public static function get_no_results_text() {
 		return esc_html__( 'No results found.', 'godevs-portfolio' );
+	}
+
+	/**
+	 * Block binding value callback for hero-agency.php's per-page
+	 * overridable fields (Phase 15).
+	 *
+	 * Reads a `_godevs_hero_{$field}` post meta value on the CURRENT
+	 * page being rendered. Returning null (not an empty string) is
+	 * deliberate: per WP_Block::process_block_bindings(), a null return
+	 * leaves the block's own literal attribute value untouched, so a
+	 * page that never sets this meta (Agency's Home, or any future
+	 * live reference of this pattern) renders hero-agency.php's own
+	 * hardcoded copy exactly as before this phase — this binding is
+	 * purely additive, not a required override.
+	 *
+	 * Escaping is chosen per field kind rather than uniformly, matching
+	 * how each field's attribute is actually used: `content` bindings
+	 * (heading/subtext/button text) get esc_html(), `url` bindings get
+	 * esc_url(), the image `alt` binding gets esc_attr() — the same
+	 * per-context escaping already used by hand elsewhere in this
+	 * theme's patterns, applied here too rather than trusting the
+	 * Block Bindings pipeline's own escaping implicitly.
+	 *
+	 * @param array  $source_args    Contains 'field', set per-binding in
+	 *                               hero-agency.php's block markup.
+	 * @param object $block_instance A WP_Block instance; used for its
+	 *                               declared 'postId' context, falling
+	 *                               back to the main loop's current post
+	 *                               (get_the_ID()) when context isn't
+	 *                               populated (e.g. a live pattern
+	 *                               reference rendered directly inside
+	 *                               the_content(), which is this
+	 *                               pattern's actual usage).
+	 * @param string $attribute_name Unused; the target block attribute.
+	 * @return string|null
+	 */
+	public static function get_hero_field( $source_args, $block_instance, $attribute_name ) {
+		unset( $attribute_name );
+
+		$field = isset( $source_args['field'] ) ? $source_args['field'] : '';
+		if ( '' === $field ) {
+			return null;
+		}
+
+		$post_id = 0;
+		if ( isset( $block_instance->context['postId'] ) ) {
+			$post_id = (int) $block_instance->context['postId'];
+		}
+		if ( ! $post_id ) {
+			$post_id = get_the_ID();
+		}
+		if ( ! $post_id ) {
+			return null;
+		}
+
+		$value = get_post_meta( $post_id, '_godevs_hero_' . $field, true );
+		if ( '' === $value ) {
+			return null;
+		}
+
+		$url_fields = array( 'cta_primary_url', 'cta_secondary_url' );
+		if ( in_array( $field, $url_fields, true ) ) {
+			return esc_url( $value );
+		}
+
+		if ( 'image_alt' === $field ) {
+			return esc_attr( $value );
+		}
+
+		return esc_html( $value );
 	}
 
 	/**

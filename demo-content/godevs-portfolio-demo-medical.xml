@@ -17,13 +17,13 @@
  7. WordPress will then import each of the posts, pages, comments, categories, etc.
     contained in this file into your site.
 -->
-<!-- generator="WordPress/7.0.2" created="2026-07-19 15:12" -->
+<!-- generator="WordPress/7.0.2" created="2026-07-20 08:20" -->
 <rss version="2.0" xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:wp="http://wordpress.org/export/1.2/">
   <channel>
 <title>Godevs-portfoilo</title>
 <link>http://localhost:8888</link>
 <description/>
-<pubDate>Sun, 19 Jul 2026 15:12:50 +0000</pubDate>
+<pubDate>Mon, 20 Jul 2026 08:20:42 +0000</pubDate>
 <language>en-US</language>
 <wp:wxr_version>1.2</wp:wxr_version>
 <wp:base_site_url>http://localhost:8888</wp:base_site_url>
@@ -45,43 +45,17 @@
 <item>
   <title><![CDATA[Home]]></title>
   <link>http://localhost:8888/</link>
-  <pubDate>Sun, 19 Jul 2026 15:08:57 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:18:42 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/home/</guid>
   <description/>
   <content:encoded><![CDATA[<!-- Demo content only — replace with real, reviewed practice information before publishing. -->
 
-<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|l","left":"var:preset|spacing|xl"}}}} -->
-<div class="wp-block-columns alignwide">
-<!-- wp:column {"width":"58%","verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:58%">
-<!-- wp:heading {"level":1,"fontSize":"huge"} -->
-<h1 class="wp-block-heading has-huge-font-size">Comprehensive care for your whole family</h1>
-<!-- /wp:heading -->
-<!-- wp:paragraph {"fontSize":"large","textColor":"text-muted"} -->
-<p class="has-text-muted-color has-text-color has-large-font-size">Willowbrook Family Medicine provides same-day appointments, preventive care, and ongoing health management for patients of all ages.</p>
-<!-- /wp:paragraph -->
-<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|xs"}}} -->
-<div class="wp-block-buttons">
-<!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/new-patients/">New Patients</a></div>
-<!-- /wp:button -->
-<!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/team/">Meet Our Team</a></div>
-<!-- /wp:button -->
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/hero-agency"} /-->
 </div>
-<!-- /wp:buttons -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column {"width":"42%"} -->
-<div class="wp-block-column" style="flex-basis:42%">
-<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="http://localhost:8888/wp-content/themes/godevs-portfolio/assets/images/placeholder-wide.png" alt="Photograph of the Willowbrook Family Medicine waiting room"/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
+<!-- /wp:group -->
 
 <!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide">
@@ -299,10 +273,10 @@
 <!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>4</wp:post_id>
-  <wp:post_date>2026-07-19 15:08:57</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:08:57</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:08:57</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:08:57</wp:post_modified_gmt>
+  <wp:post_date>2026-07-20 08:18:42</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:18:42</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:19:30</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:19:30</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>home</wp:post_name>
@@ -312,11 +286,39 @@
   <wp:post_type>page</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_heading</wp:meta_key>
+    <wp:meta_value><![CDATA[Comprehensive care for your whole family]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_subtext</wp:meta_key>
+    <wp:meta_value><![CDATA[Willowbrook Family Medicine provides same-day appointments, preventive care, and ongoing health management for patients of all ages.]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_cta_primary_label</wp:meta_key>
+    <wp:meta_value><![CDATA[New Patients]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_cta_primary_url</wp:meta_key>
+    <wp:meta_value><![CDATA[/new-patients/]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_cta_secondary_label</wp:meta_key>
+    <wp:meta_value><![CDATA[Meet Our Team]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_cta_secondary_url</wp:meta_key>
+    <wp:meta_value><![CDATA[/team/]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_image_alt</wp:meta_key>
+    <wp:meta_value><![CDATA[Photograph of the Willowbrook Family Medicine waiting room]]></wp:meta_value>
+  </wp:postmeta>
 </item>
 <item>
   <title><![CDATA[About]]></title>
   <link>http://localhost:8888/about/</link>
-  <pubDate>Sun, 19 Jul 2026 15:08:57 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:18:42 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/about/</guid>
   <description/>
@@ -392,10 +394,10 @@
 <!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>5</wp:post_id>
-  <wp:post_date>2026-07-19 15:08:57</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:08:57</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:08:57</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:08:57</wp:post_modified_gmt>
+  <wp:post_date>2026-07-20 08:18:42</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:18:42</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:18:42</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:18:42</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>about</wp:post_name>
@@ -409,7 +411,7 @@
 <item>
   <title><![CDATA[Services]]></title>
   <link>http://localhost:8888/services/</link>
-  <pubDate>Sun, 19 Jul 2026 15:08:57 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:18:42 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/services/</guid>
   <description/>
@@ -502,10 +504,10 @@
 <!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>6</wp:post_id>
-  <wp:post_date>2026-07-19 15:08:57</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:08:57</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:08:57</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:08:57</wp:post_modified_gmt>
+  <wp:post_date>2026-07-20 08:18:42</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:18:42</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:18:42</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:18:42</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>services</wp:post_name>
@@ -523,7 +525,7 @@
 <item>
   <title><![CDATA[Team]]></title>
   <link>http://localhost:8888/team/</link>
-  <pubDate>Sun, 19 Jul 2026 15:08:57 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:18:42 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/team/</guid>
   <description/>
@@ -616,10 +618,10 @@
 <!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>7</wp:post_id>
-  <wp:post_date>2026-07-19 15:08:57</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:08:57</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:08:57</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:08:57</wp:post_modified_gmt>
+  <wp:post_date>2026-07-20 08:18:42</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:18:42</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:18:42</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:18:42</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>team</wp:post_name>
@@ -637,7 +639,7 @@
 <item>
   <title><![CDATA[FAQ]]></title>
   <link>http://localhost:8888/faq/</link>
-  <pubDate>Sun, 19 Jul 2026 15:08:57 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:18:42 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/faq/</guid>
   <description/>
@@ -686,10 +688,10 @@
 <!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>8</wp:post_id>
-  <wp:post_date>2026-07-19 15:08:57</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:08:57</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:08:57</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:08:57</wp:post_modified_gmt>
+  <wp:post_date>2026-07-20 08:18:42</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:18:42</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:18:42</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:18:42</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>faq</wp:post_name>
@@ -703,7 +705,7 @@
 <item>
   <title><![CDATA[New Patients]]></title>
   <link>http://localhost:8888/new-patients/</link>
-  <pubDate>Sun, 19 Jul 2026 15:08:57 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:18:42 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/new-patients/</guid>
   <description/>
@@ -766,10 +768,10 @@
 <!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>9</wp:post_id>
-  <wp:post_date>2026-07-19 15:08:57</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:08:57</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:08:57</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:08:57</wp:post_modified_gmt>
+  <wp:post_date>2026-07-20 08:18:42</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:18:42</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:18:42</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:18:42</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>new-patients</wp:post_name>
@@ -783,7 +785,7 @@
 <item>
   <title><![CDATA[Contact]]></title>
   <link>http://localhost:8888/contact/</link>
-  <pubDate>Sun, 19 Jul 2026 15:08:57 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:18:42 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/contact/</guid>
   <description/>
@@ -841,10 +843,10 @@
 <!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>10</wp:post_id>
-  <wp:post_date>2026-07-19 15:08:57</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:08:57</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:08:57</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:08:57</wp:post_modified_gmt>
+  <wp:post_date>2026-07-20 08:18:42</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:18:42</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:18:42</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:18:42</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>contact</wp:post_name>
@@ -862,9 +864,9 @@
 <item>
   <title><![CDATA[Primary Navigation]]></title>
   <link>http://localhost:8888/primary-navigation/</link>
-  <pubDate>Sun, 19 Jul 2026 15:10:26 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:18:58 +0000</pubDate>
   <dc:creator/>
-  <guid isPermaLink="false">http://localhost:8888/primary-navigation/</guid>
+  <guid isPermaLink="false">http://localhost:8888/2026/07/20/primary-navigation/</guid>
   <description/>
   <content:encoded><![CDATA[<!-- wp:navigation-link {"label":"Home","url":"/","kind":"custom"} /-->
 <!-- wp:navigation-link {"label":"About","url":"/about/","kind":"custom"} /-->
@@ -874,11 +876,11 @@
 <!-- wp:navigation-link {"label":"New Patients","url":"/new-patients/","kind":"custom"} /-->
 <!-- wp:navigation-link {"label":"Contact","url":"/contact/","kind":"custom"} /-->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
-  <wp:post_id>12</wp:post_id>
-  <wp:post_date>2026-07-19 15:10:26</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:10:26</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:10:26</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:10:26</wp:post_modified_gmt>
+  <wp:post_id>11</wp:post_id>
+  <wp:post_date>2026-07-20 08:18:58</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:18:58</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:18:58</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:18:58</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>primary-navigation</wp:post_name>

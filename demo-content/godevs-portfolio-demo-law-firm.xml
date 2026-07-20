@@ -17,13 +17,13 @@
  7. WordPress will then import each of the posts, pages, comments, categories, etc.
     contained in this file into your site.
 -->
-<!-- generator="WordPress/7.0.2" created="2026-07-19 16:42" -->
+<!-- generator="WordPress/7.0.2" created="2026-07-20 08:29" -->
 <rss version="2.0" xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:wp="http://wordpress.org/export/1.2/">
   <channel>
 <title>Godevs-portfoilo</title>
 <link>http://localhost:8888</link>
 <description/>
-<pubDate>Sun, 19 Jul 2026 16:42:15 +0000</pubDate>
+<pubDate>Mon, 20 Jul 2026 08:29:47 +0000</pubDate>
 <language>en-US</language>
 <wp:wxr_version>1.2</wp:wxr_version>
 <wp:base_site_url>http://localhost:8888</wp:base_site_url>
@@ -45,43 +45,17 @@
 <item>
   <title><![CDATA[Home]]></title>
   <link>http://localhost:8888/</link>
-  <pubDate>Sun, 19 Jul 2026 15:22:22 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:27:41 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/home/</guid>
   <description/>
   <content:encoded><![CDATA[<!-- Demo content only — replace with real, reviewed practice information before publishing. -->
 
-<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|l","left":"var:preset|spacing|xl"}}}} -->
-<div class="wp-block-columns alignwide">
-<!-- wp:column {"width":"58%","verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:58%">
-<!-- wp:heading {"level":1,"fontSize":"huge"} -->
-<h1 class="wp-block-heading has-huge-font-size">Practical legal guidance for individuals and businesses</h1>
-<!-- /wp:heading -->
-<!-- wp:paragraph {"fontSize":"large","textColor":"text-muted"} -->
-<p class="has-text-muted-color has-text-color has-large-font-size">Ashgrove &amp; Pierce provides representation across family, business, and estate matters — straightforward advice, no legal jargon.</p>
-<!-- /wp:paragraph -->
-<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|xs"}}} -->
-<div class="wp-block-buttons">
-<!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/contact/">Schedule a Consultation</a></div>
-<!-- /wp:button -->
-<!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/practice-areas/">Our Practice Areas</a></div>
-<!-- /wp:button -->
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/hero-agency"} /-->
 </div>
-<!-- /wp:buttons -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column {"width":"42%"} -->
-<div class="wp-block-column" style="flex-basis:42%">
-<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="http://localhost:8888/wp-content/themes/godevs-portfolio/assets/images/placeholder-wide.png" alt="Photograph of the Ashgrove and Pierce office conference room"/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
+<!-- /wp:group -->
 
 <!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide">
@@ -299,10 +273,10 @@
 <!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>4</wp:post_id>
-  <wp:post_date>2026-07-19 15:22:22</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:22:22</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:22:22</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:22:22</wp:post_modified_gmt>
+  <wp:post_date>2026-07-20 08:27:41</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:27:41</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:28:31</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:28:31</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>home</wp:post_name>
@@ -312,11 +286,39 @@
   <wp:post_type>page</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_heading</wp:meta_key>
+    <wp:meta_value><![CDATA[Practical legal guidance for individuals and businesses]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_subtext</wp:meta_key>
+    <wp:meta_value><![CDATA[Ashgrove & Pierce provides representation across family, business, and estate matters — straightforward advice, no legal jargon.]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_cta_primary_label</wp:meta_key>
+    <wp:meta_value><![CDATA[Schedule a Consultation]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_cta_primary_url</wp:meta_key>
+    <wp:meta_value><![CDATA[/contact/]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_cta_secondary_label</wp:meta_key>
+    <wp:meta_value><![CDATA[Our Practice Areas]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_cta_secondary_url</wp:meta_key>
+    <wp:meta_value><![CDATA[/practice-areas/]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_godevs_hero_image_alt</wp:meta_key>
+    <wp:meta_value><![CDATA[Photograph of the Ashgrove and Pierce office conference room]]></wp:meta_value>
+  </wp:postmeta>
 </item>
 <item>
   <title><![CDATA[About]]></title>
   <link>http://localhost:8888/about/</link>
-  <pubDate>Sun, 19 Jul 2026 15:22:22 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:27:41 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/about/</guid>
   <description/>
@@ -392,10 +394,10 @@
 <!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>5</wp:post_id>
-  <wp:post_date>2026-07-19 15:22:22</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:22:22</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:22:22</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:22:22</wp:post_modified_gmt>
+  <wp:post_date>2026-07-20 08:27:41</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:27:41</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:27:41</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:27:41</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>about</wp:post_name>
@@ -409,7 +411,7 @@
 <item>
   <title><![CDATA[Practice Areas]]></title>
   <link>http://localhost:8888/practice-areas/</link>
-  <pubDate>Sun, 19 Jul 2026 15:22:23 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:27:42 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/practice-areas/</guid>
   <description/>
@@ -502,10 +504,10 @@
 <!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>6</wp:post_id>
-  <wp:post_date>2026-07-19 15:22:23</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:22:23</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:22:23</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:22:23</wp:post_modified_gmt>
+  <wp:post_date>2026-07-20 08:27:42</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:27:42</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:27:42</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:27:42</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>practice-areas</wp:post_name>
@@ -519,7 +521,7 @@
 <item>
   <title><![CDATA[Team]]></title>
   <link>http://localhost:8888/team/</link>
-  <pubDate>Sun, 19 Jul 2026 15:22:23 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:27:42 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/team/</guid>
   <description/>
@@ -612,10 +614,10 @@
 <!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>7</wp:post_id>
-  <wp:post_date>2026-07-19 15:22:23</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:22:23</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:22:23</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:22:23</wp:post_modified_gmt>
+  <wp:post_date>2026-07-20 08:27:42</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:27:42</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:27:42</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:27:42</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>team</wp:post_name>
@@ -631,184 +633,9 @@
   </wp:postmeta>
 </item>
 <item>
-  <title><![CDATA[FAQ]]></title>
-  <link>http://localhost:8888/faq/</link>
-  <pubDate>Sun, 19 Jul 2026 15:22:23 +0000</pubDate>
-  <dc:creator/>
-  <guid isPermaLink="false">http://localhost:8888/faq/</guid>
-  <description/>
-  <content:encoded><![CDATA[<!-- Demo content only — replace with real, reviewed practice information before publishing. -->
-
-<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignwide">
-<!-- wp:heading {"level":2,"fontSize":"xx-large"} -->
-<h2 class="wp-block-heading has-xx-large-font-size">Frequently asked questions</h2>
-<!-- /wp:heading -->
-<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|xs"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group">
-<!-- wp:details -->
-<details class="wp-block-details"><summary>How much does an initial consultation cost?</summary>
-<!-- wp:paragraph {"textColor":"text-muted"} -->
-<p class="has-text-muted-color has-text-color">Initial consultations are free. We'll discuss your situation and let you know whether we're a good fit before any fees apply.</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details -->
-<!-- wp:details -->
-<details class="wp-block-details"><summary>What should I bring to my consultation?</summary>
-<!-- wp:paragraph {"textColor":"text-muted"} -->
-<p class="has-text-muted-color has-text-color">Any documents related to your matter — contracts, correspondence, or court paperwork, if applicable. We'll let you know if anything else would help.</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details -->
-<!-- wp:details -->
-<details class="wp-block-details"><summary>Do you handle cases outside your listed practice areas?</summary>
-<!-- wp:paragraph {"textColor":"text-muted"} -->
-<p class="has-text-muted-color has-text-color">If your matter falls outside our practice areas, we're happy to provide a referral to an attorney who focuses on that area.</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details -->
-<!-- wp:details -->
-<details class="wp-block-details"><summary>How long does a typical matter take?</summary>
-<!-- wp:paragraph {"textColor":"text-muted"} -->
-<p class="has-text-muted-color has-text-color">It depends entirely on the complexity of your situation — we'll give you a realistic estimate once we understand the details.</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details -->
-</div>
-<!-- /wp:group -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group">
-<!-- wp:pattern {"slug":"godevs-portfolio/footer-cta"} /-->
-</div>
-<!-- /wp:group -->]]></content:encoded>
-  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
-  <wp:post_id>9</wp:post_id>
-  <wp:post_date>2026-07-19 15:22:23</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:22:23</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:22:23</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:22:23</wp:post_modified_gmt>
-  <wp:comment_status>closed</wp:comment_status>
-  <wp:ping_status>closed</wp:ping_status>
-  <wp:post_name>faq</wp:post_name>
-  <wp:status>publish</wp:status>
-  <wp:post_parent>0</wp:post_parent>
-  <wp:menu_order>0</wp:menu_order>
-  <wp:post_type>page</wp:post_type>
-  <wp:post_password/>
-  <wp:is_sticky>0</wp:is_sticky>
-</item>
-<item>
-  <title><![CDATA[Contact]]></title>
-  <link>http://localhost:8888/contact/</link>
-  <pubDate>Sun, 19 Jul 2026 15:22:23 +0000</pubDate>
-  <dc:creator/>
-  <guid isPermaLink="false">http://localhost:8888/contact/</guid>
-  <description/>
-  <content:encoded><![CDATA[<!-- Demo content only — replace with real, reviewed practice information before publishing. -->
-
-<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignwide">
-<!-- wp:heading {"level":2,"fontSize":"xx-large"} -->
-<h2 class="wp-block-heading has-xx-large-font-size">Schedule a consultation</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph {"fontSize":"large","textColor":"text-muted"} -->
-<p class="has-text-muted-color has-text-color has-large-font-size">We typically reply within one business day. Tell us a bit about your situation up front — it helps us give you a useful answer faster.</p>
-<!-- /wp:paragraph -->
-<!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|m","left":"var:preset|spacing|m"}}}} -->
-<div class="wp-block-columns">
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:heading {"level":3,"fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em"}}} -->
-<h3 class="wp-block-heading has-small-font-size" style="text-transform:uppercase;letter-spacing:0.08em">Email</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p><a href="mailto:hello@ashgrovepierce.example">hello@ashgrovepierce.example</a></p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:heading {"level":3,"fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em"}}} -->
-<h3 class="wp-block-heading has-small-font-size" style="text-transform:uppercase;letter-spacing:0.08em">Phone</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p><a href="tel:+15555550159">+1 (555) 555-0159</a></p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:heading {"level":3,"fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em"}}} -->
-<h3 class="wp-block-heading has-small-font-size" style="text-transform:uppercase;letter-spacing:0.08em">Office</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>780 Courthouse Square, Suite 500<br/>Raleigh, NC 27601</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group">
-<!-- wp:pattern {"slug":"godevs-portfolio/footer-cta"} /-->
-</div>
-<!-- /wp:group -->]]></content:encoded>
-  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
-  <wp:post_id>10</wp:post_id>
-  <wp:post_date>2026-07-19 15:22:23</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:22:23</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:22:23</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:22:23</wp:post_modified_gmt>
-  <wp:comment_status>closed</wp:comment_status>
-  <wp:ping_status>closed</wp:ping_status>
-  <wp:post_name>contact</wp:post_name>
-  <wp:status>publish</wp:status>
-  <wp:post_parent>0</wp:post_parent>
-  <wp:menu_order>0</wp:menu_order>
-  <wp:post_type>page</wp:post_type>
-  <wp:post_password/>
-  <wp:is_sticky>0</wp:is_sticky>
-  <wp:postmeta>
-    <wp:meta_key>_wp_page_template</wp:meta_key>
-    <wp:meta_value><![CDATA[page-contact.html]]></wp:meta_value>
-  </wp:postmeta>
-</item>
-<item>
-  <title><![CDATA[Primary Navigation]]></title>
-  <link>http://localhost:8888/primary-navigation/</link>
-  <pubDate>Sun, 19 Jul 2026 15:22:45 +0000</pubDate>
-  <dc:creator/>
-  <guid isPermaLink="false">http://localhost:8888/2026/07/19/primary-navigation/</guid>
-  <description/>
-  <content:encoded><![CDATA[<!-- wp:navigation-link {"label":"Home","url":"/","kind":"custom"} /-->
-<!-- wp:navigation-link {"label":"About","url":"/about/","kind":"custom"} /-->
-<!-- wp:navigation-link {"label":"Practice Areas","url":"/practice-areas/","kind":"custom"} /-->
-<!-- wp:navigation-link {"label":"Team","url":"/team/","kind":"custom"} /-->
-<!-- wp:navigation-link {"label":"Results","url":"/results/","kind":"custom"} /-->
-<!-- wp:navigation-link {"label":"FAQ","url":"/faq/","kind":"custom"} /-->
-<!-- wp:navigation-link {"label":"Contact","url":"/contact/","kind":"custom"} /-->]]></content:encoded>
-  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
-  <wp:post_id>11</wp:post_id>
-  <wp:post_date>2026-07-19 15:22:45</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 15:22:45</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 15:22:45</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 15:22:45</wp:post_modified_gmt>
-  <wp:comment_status>closed</wp:comment_status>
-  <wp:ping_status>closed</wp:ping_status>
-  <wp:post_name>primary-navigation</wp:post_name>
-  <wp:status>publish</wp:status>
-  <wp:post_parent>0</wp:post_parent>
-  <wp:menu_order>0</wp:menu_order>
-  <wp:post_type>wp_navigation</wp:post_type>
-  <wp:post_password/>
-  <wp:is_sticky>0</wp:is_sticky>
-</item>
-<item>
   <title><![CDATA[Results]]></title>
   <link>http://localhost:8888/results/</link>
-  <pubDate>Sun, 19 Jul 2026 16:39:58 +0000</pubDate>
+  <pubDate>Mon, 20 Jul 2026 08:27:42 +0000</pubDate>
   <dc:creator/>
   <guid isPermaLink="false">http://localhost:8888/results/</guid>
   <description/>
@@ -925,11 +752,11 @@
 </div>
 <!-- /wp:group -->]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
-  <wp:post_id>12</wp:post_id>
-  <wp:post_date>2026-07-19 16:39:58</wp:post_date>
-  <wp:post_date_gmt>2026-07-19 16:39:58</wp:post_date_gmt>
-  <wp:post_modified>2026-07-19 16:39:58</wp:post_modified>
-  <wp:post_modified_gmt>2026-07-19 16:39:58</wp:post_modified_gmt>
+  <wp:post_id>8</wp:post_id>
+  <wp:post_date>2026-07-20 08:27:42</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:27:42</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:27:42</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:27:42</wp:post_modified_gmt>
   <wp:comment_status>closed</wp:comment_status>
   <wp:ping_status>closed</wp:ping_status>
   <wp:post_name>results</wp:post_name>
@@ -937,6 +764,181 @@
   <wp:post_parent>0</wp:post_parent>
   <wp:menu_order>0</wp:menu_order>
   <wp:post_type>page</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+</item>
+<item>
+  <title><![CDATA[FAQ]]></title>
+  <link>http://localhost:8888/faq/</link>
+  <pubDate>Mon, 20 Jul 2026 08:27:42 +0000</pubDate>
+  <dc:creator/>
+  <guid isPermaLink="false">http://localhost:8888/faq/</guid>
+  <description/>
+  <content:encoded><![CDATA[<!-- Demo content only — replace with real, reviewed practice information before publishing. -->
+
+<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide">
+<!-- wp:heading {"level":2,"fontSize":"xx-large"} -->
+<h2 class="wp-block-heading has-xx-large-font-size">Frequently asked questions</h2>
+<!-- /wp:heading -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|xs"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:details -->
+<details class="wp-block-details"><summary>How much does an initial consultation cost?</summary>
+<!-- wp:paragraph {"textColor":"text-muted"} -->
+<p class="has-text-muted-color has-text-color">Initial consultations are free. We'll discuss your situation and let you know whether we're a good fit before any fees apply.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+<!-- wp:details -->
+<details class="wp-block-details"><summary>What should I bring to my consultation?</summary>
+<!-- wp:paragraph {"textColor":"text-muted"} -->
+<p class="has-text-muted-color has-text-color">Any documents related to your matter — contracts, correspondence, or court paperwork, if applicable. We'll let you know if anything else would help.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+<!-- wp:details -->
+<details class="wp-block-details"><summary>Do you handle cases outside your listed practice areas?</summary>
+<!-- wp:paragraph {"textColor":"text-muted"} -->
+<p class="has-text-muted-color has-text-color">If your matter falls outside our practice areas, we're happy to provide a referral to an attorney who focuses on that area.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+<!-- wp:details -->
+<details class="wp-block-details"><summary>How long does a typical matter take?</summary>
+<!-- wp:paragraph {"textColor":"text-muted"} -->
+<p class="has-text-muted-color has-text-color">It depends entirely on the complexity of your situation — we'll give you a realistic estimate once we understand the details.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/footer-cta"} /-->
+</div>
+<!-- /wp:group -->]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>9</wp:post_id>
+  <wp:post_date>2026-07-20 08:27:42</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:27:42</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:27:42</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:27:42</wp:post_modified_gmt>
+  <wp:comment_status>closed</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>faq</wp:post_name>
+  <wp:status>publish</wp:status>
+  <wp:post_parent>0</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>page</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+</item>
+<item>
+  <title><![CDATA[Contact]]></title>
+  <link>http://localhost:8888/contact/</link>
+  <pubDate>Mon, 20 Jul 2026 08:27:42 +0000</pubDate>
+  <dc:creator/>
+  <guid isPermaLink="false">http://localhost:8888/contact/</guid>
+  <description/>
+  <content:encoded><![CDATA[<!-- Demo content only — replace with real, reviewed practice information before publishing. -->
+
+<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide">
+<!-- wp:heading {"level":2,"fontSize":"xx-large"} -->
+<h2 class="wp-block-heading has-xx-large-font-size">Schedule a consultation</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"fontSize":"large","textColor":"text-muted"} -->
+<p class="has-text-muted-color has-text-color has-large-font-size">We typically reply within one business day. Tell us a bit about your situation up front — it helps us give you a useful answer faster.</p>
+<!-- /wp:paragraph -->
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|m","left":"var:preset|spacing|m"}}}} -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":3,"fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em"}}} -->
+<h3 class="wp-block-heading has-small-font-size" style="text-transform:uppercase;letter-spacing:0.08em">Email</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p><a href="mailto:hello@ashgrovepierce.example">hello@ashgrovepierce.example</a></p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":3,"fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em"}}} -->
+<h3 class="wp-block-heading has-small-font-size" style="text-transform:uppercase;letter-spacing:0.08em">Phone</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p><a href="tel:+15555550159">+1 (555) 555-0159</a></p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":3,"fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em"}}} -->
+<h3 class="wp-block-heading has-small-font-size" style="text-transform:uppercase;letter-spacing:0.08em">Office</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>780 Courthouse Square, Suite 500<br/>Raleigh, NC 27601</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"godevs-portfolio/footer-cta"} /-->
+</div>
+<!-- /wp:group -->]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>10</wp:post_id>
+  <wp:post_date>2026-07-20 08:27:42</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:27:42</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:27:42</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:27:42</wp:post_modified_gmt>
+  <wp:comment_status>closed</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>contact</wp:post_name>
+  <wp:status>publish</wp:status>
+  <wp:post_parent>0</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>page</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:postmeta>
+    <wp:meta_key>_wp_page_template</wp:meta_key>
+    <wp:meta_value><![CDATA[page-contact.html]]></wp:meta_value>
+  </wp:postmeta>
+</item>
+<item>
+  <title><![CDATA[Primary Navigation]]></title>
+  <link>http://localhost:8888/primary-navigation/</link>
+  <pubDate>Mon, 20 Jul 2026 08:27:59 +0000</pubDate>
+  <dc:creator/>
+  <guid isPermaLink="false">http://localhost:8888/2026/07/20/primary-navigation/</guid>
+  <description/>
+  <content:encoded><![CDATA[<!-- wp:navigation-link {"label":"Home","url":"/","kind":"custom"} /-->
+<!-- wp:navigation-link {"label":"About","url":"/about/","kind":"custom"} /-->
+<!-- wp:navigation-link {"label":"Practice Areas","url":"/practice-areas/","kind":"custom"} /-->
+<!-- wp:navigation-link {"label":"Team","url":"/team/","kind":"custom"} /-->
+<!-- wp:navigation-link {"label":"Results","url":"/results/","kind":"custom"} /-->
+<!-- wp:navigation-link {"label":"FAQ","url":"/faq/","kind":"custom"} /-->
+<!-- wp:navigation-link {"label":"Contact","url":"/contact/","kind":"custom"} /-->]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>11</wp:post_id>
+  <wp:post_date>2026-07-20 08:27:59</wp:post_date>
+  <wp:post_date_gmt>2026-07-20 08:27:59</wp:post_date_gmt>
+  <wp:post_modified>2026-07-20 08:27:59</wp:post_modified>
+  <wp:post_modified_gmt>2026-07-20 08:27:59</wp:post_modified_gmt>
+  <wp:comment_status>closed</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>primary-navigation</wp:post_name>
+  <wp:status>publish</wp:status>
+  <wp:post_parent>0</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>wp_navigation</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
 </item>

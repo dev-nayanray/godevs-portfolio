@@ -2080,12 +2080,172 @@ interim), and the real-host (non-Docker-sandbox) media-import
 verification that has never been possible in this sandboxed
 environment. Nothing else remains open.
 
-**Next phase (Phase 15, if pursued):** no further phases are currently
-planned — the Phase 9 multi-niche expansion plan is fully built (59/59
-pages), fully QA'd (this phase), and packaged. Any future phase would
-be scoped fresh based on Nayan's actual submission experience or new
-requirements, not a pre-committed backlog item like every phase through
-14 has been.
+**Phase 15 — Fix the latent double-H1 defect (complete)**
+
+**Root cause, confirmed exactly as diagnosed going in:** every niche
+whose Home hero was hand-expanded (baked as literal blocks into
+`post_content`, including a literal `<h1>`) permanently carries
+whatever heading level was true at the moment it was expanded. Before
+Reading Settings designates a front page, that page renders through
+`page.html` (which adds its own `core/post-title` `<h1>` — the small
+muted "eyebrow" convention used across every dedicated template), so a
+hand-expanded hero's baked-in `<h1>` produces two H1 elements on that
+page. This was invisible in every verification pass through Phase 14
+because every single-niche build always configured Reading Settings
+*before* checking heading counts — masking exactly the state where the
+bug is visible.
+
+**Step 1 — affected pages, confirmed by grep, not assumed:** grepped
+all 8 WXR files for `hero-agency`'s hand-expanded structural
+fingerprint (a literal `<h1 class="wp-block-heading has-huge-font-size">`
+inside a hero block, as opposed to a live `wp:pattern` reference,
+whose markup never appears in a WXR's raw `post_content` at all).
+Result matched the brief's own list exactly: **Web Dev Studio,
+Interior Designer, Architect, Medical, Law Firm** — one Home page each,
+5 total. Agency, Freelancer, and Photographer confirmed unaffected (0
+matches) — their Home heroes were already live references
+(`hero-agency`, `hero-freelancer`, and `hero-video` respectively),
+which is exactly why they never showed the bug.
+
+**Step 2 — the actual fix, chosen deliberately over hand-expansion-
+with-a-checklist-item.** `hero-agency.php` had no existing per-call
+content-override mechanism — its heading, subtext, both buttons, and
+image alt were 100% hardcoded PHP strings. Rather than accept that as
+a reason to keep hand-expanding (the brief's explicit fallback, only
+"as a last resort"), built a small, generic parameterization using the
+**Block Bindings API** (already established in this theme since Phase
+6 for the copyright-year/all-rights-reserved/no-posts/no-results
+fragments):
+- New block binding source `godevs-portfolio/hero-field`
+  (`inc/class-theme-setup.php`'s `Theme_Setup::register_block_bindings()`
+  / `get_hero_field()`), reading a `_godevs_hero_{field}` post meta key
+  on whichever page is currently rendering the pattern (via the
+  binding's declared `postId` context, falling back to `get_the_ID()`
+  for this pattern's actual live-in-`the_content()` usage). Returning
+  `null` when no meta is set is deliberate — per
+  `WP_Block::process_block_bindings()`, a null return leaves the
+  block's own literal attribute untouched, so any page that never sets
+  this meta (Agency's Home included) renders `hero-agency.php`'s own
+  hardcoded copy exactly as before this phase. Escaping is chosen per
+  field kind (`esc_html()` for text, `esc_url()` for the two button
+  URLs, `esc_attr()` for the image alt), matching this theme's existing
+  per-context escaping discipline rather than trusting the bindings
+  pipeline implicitly.
+- `hero-agency.php` itself: added `metadata.bindings` to the heading's
+  and paragraph's `content` attribute, both buttons' `text`+`url`
+  attributes, and the image's `alt` attribute — six bindings total, all
+  pointing at `godevs-portfolio/hero-field` with a different
+  `args.field` value each. The heading *level* itself needed no
+  binding at all — it was never the actual bug; `godevs_portfolio_
+  hero_heading_level()`'s existing `is_front_page()` check already
+  works correctly for any live reference, which is exactly why moving
+  every affected niche back to a live reference is the fix.
+- Each of the 5 affected niches' Home page: hand-expanded hero block
+  replaced with the same `<!-- wp:pattern {"slug":"godevs-portfolio/
+  hero-agency"} /-->` reference already used elsewhere on those exact
+  pages (Services/Portfolio/Contact etc. already referenced this
+  pattern live — only Home was ever the hand-expanded exception), plus
+  7 `_godevs_hero_*` post meta values set to that niche's exact
+  existing copy (heading, subtext, both button labels/URLs, image alt)
+  — extracted programmatically from each niche's already-shipped WXR
+  content, not retyped by hand, to guarantee byte-fidelity with the
+  copy that had already gone through Phase 11–13's content review.
+
+**A real process mistake made and caught mid-phase, worth recording:**
+the first rebuild attempt (Web Dev Studio) reused a wp-env instance
+that had only been `stop`ped, not `destroy`ed, after this same phase's
+earlier work — carrying over stale Law Firm content from a prior step
+(a leftover `contact` page, and Law Firm's own "Schedule a
+Consultation" button text bleeding into what should have been a
+Web Dev Studio-only render). Caught by noticing button text that
+didn't belong to the niche being tested, not by trusting a clean
+script run. Fixed by re-destroying and rebuilding genuinely fresh, and
+followed the correct `destroy`-between-every-niche discipline (never
+just `stop`) for the remaining 4 niches without incident. Flagging
+this as a reminder for future phases: `stop` preserves the database;
+only `destroy` actually guarantees isolation between per-niche builds,
+and this project's own established methodology already said so — this
+phase just didn't follow it once, briefly.
+
+**Step 3 — re-export.** All 5 affected niches' WXR files
+re-exported after the fix (`godevs-portfolio-demo-webdev-studio.xml`,
+`-interior-designer.xml`, `-architect.xml`, `-medical.xml`,
+`-law-firm.xml`). Confirmed via grep that every re-exported file
+contains the live `wp:pattern` reference and the `_godevs_hero_heading`
+meta key. Medical's and Law Firm's "Demo content only" disclosure
+comment, and Law Firm's Phase 14 Step 0 Results-page rewrite, were both
+independently re-confirmed present after the rebuild — this fix only
+touches the Home page's hero section, nothing else.
+
+**Step Final — verification, both scenarios that matter, exactly as
+instructed:**
+
+1. **The before/after-Reading-Settings test — the specific check that
+   was missing before, run on 2 of the 5 affected niches via a fresh
+   WXR import (not the dev-build instance):**
+   - **Medical:** BEFORE Reading Settings — `/home/` (the page's own
+     permalink) rendered exactly **1 H1**, text `"Home"` (the hero
+     correctly self-downgraded to H2, confirming the live reference
+     works). AFTER configuring Reading Settings to point at that page
+     — `/` rendered exactly **1 H1**, text `"Comprehensive care for
+     your whole family"` (the hero's own heading, now correctly H1, no
+     `post-title` competing).
+   - **Law Firm:** identical pattern — BEFORE: 1 H1, `"Home"`. AFTER:
+     1 H1, `"Practical legal guidance for individuals and businesses"`.
+   - Both niches pass exactly as designed. `debug.log` clean on both
+     passes.
+2. **The sequential 8-WXR import test, re-run from scratch (not
+   assumed from Phase 14's prior result):** all 8 demos imported in
+   the same order as Phase 14, Reading Settings deliberately left
+   unconfigured throughout, matching Phase 14's exact methodology.
+   **Result: all 8 niches' Home pages now render exactly 1 H1 each**
+   (previously 5 of 8 — Web Dev Studio, Interior Designer, Architect,
+   Medical, Law Firm — showed 2; Agency, Freelancer, and Photographer
+   were already fine and remain fine). The **separate** cross-niche
+   link-collision issue was independently re-confirmed **unchanged**:
+   `/team/` still resolves to Agency's own Team page (the
+   first-imported demo), exactly as `demo-content/README.md` already
+   documents — this fix touches only the hero's heading-level
+   correctness, not the pre-existing, deliberately-out-of-scope
+   internal-link-hardcoding issue that the "one demo per site" rule
+   already correctly addresses.
+3. **Theme Check + phpcs, fast re-check:** Theme Check — `PASS: YES`,
+   38 checks, identical 3 non-blocking items as every prior phase.
+   phpcs WPThemeReview against `functions.php`, `inc/`, and
+   `patterns/`: exit 0, zero errors, zero warnings — the new
+   `get_hero_field()` method and `hero-agency.php`'s new binding
+   metadata introduced nothing new to flag.
+4. `debug.log` stayed clean (no file present) across every pass in
+   this phase.
+5. wp-env stopped.
+
+**Exact counts, for the record:**
+- Pages fixed: 5 (one Home page each — Web Dev Studio, Interior
+  Designer, Architect, Medical, Law Firm).
+- New code: 1 new block binding source (`godevs-portfolio/hero-field`)
+  + 1 new callback method (`get_hero_field()`) in
+  `inc/class-theme-setup.php`; 6 new `metadata.bindings` entries added
+  to `patterns/hero-agency.php`'s existing blocks — no new pattern
+  files, no new templates.
+- WXR files re-exported: 5.
+- Theme Check: 0 REQUIRED · 0 WARNING · 1 RECOMMENDED (unchanged) · 2
+  INFO (unchanged).
+- phpcs WPThemeReview: 0 errors · 0 warnings.
+- Version: 0.5.0 → 0.5.1 (bugfix, not a feature — no minor bump).
+- Distribution zip: `dist/godevs-portfolio-0.5.1.zip`, 66 files,
+  verified forward-slash paths.
+
+**Submission-readiness status: unchanged from Phase 14's assessment,
+now at 0.5.1.** The theme is submission-ready pending only the same
+manual, non-automatable items on record since Phase 8 — Nayan's own
+WordPress.org account/username, a final slug-collision recheck
+immediately before submitting, and the real-host media-import
+verification that has never been possible in this sandboxed
+environment.
+
+**Next phase, if pursued:** no further phases are currently planned.
+Any future phase would be scoped fresh based on Nayan's actual
+submission experience or new requirements.
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._

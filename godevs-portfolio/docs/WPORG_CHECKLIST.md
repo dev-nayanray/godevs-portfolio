@@ -316,5 +316,27 @@ phase's Agency/Medical/Law Firm fresh-import passes) — but it's now
 documented with specifics in `demo-content/README.md` instead of just
 asserted. See `docs/CLAUDE.md` Phase 14 notes for the full investigation.
 
-_All sections above remain accurate as of Phase 14. Only the real-host
-media-import item (Phase 7) is still genuinely open._
+## Phase 15 update (double-H1 defect fixed, v0.5.1)
+
+The "Correct heading hierarchy, no skipped levels" ACCESSIBILITY-READY
+item above was re-verified specifically, not just re-asserted: a real
+latent bug was found (5 of the theme's demo niches could render two
+`<h1>` elements on their Home page, specifically before Reading
+Settings had been configured to point at that page — see
+`docs/CLAUDE.md` Phase 15 notes for the full root-cause and fix). Fixed
+by making every niche's Home hero pattern a live `wp:pattern` reference
+again (driven by a new `godevs-portfolio/hero-field` block binding
+source for per-niche copy) instead of hand-expanded static markup — a
+live reference's heading level responds correctly to
+`is_front_page()` on every request, a hand-expanded one cannot. Two
+niches (Medical, Law Firm) were explicitly tested via fresh WXR import
+in both the pre- and post-Reading-Settings state, confirming exactly
+one `<h1>` in each state; the sequential 8-demo import test from Phase
+14 was re-run from scratch and confirmed all 8 niches now show exactly
+one `<h1>`, with the separate (and already correctly documented)
+cross-niche link-collision limitation unchanged. Theme Check and phpcs
+were both re-confirmed clean against the fix. Version bumped 0.5.0 →
+0.5.1.
+
+_All sections above remain accurate as of Phase 15 (v0.5.1). Only the
+real-host media-import item (Phase 7) is still genuinely open._
