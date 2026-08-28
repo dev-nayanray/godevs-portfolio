@@ -2631,12 +2631,22 @@ environment). All three must be re-run manually before claiming Phase
 - Template part count: unchanged, 4.
 - Style variation count: unchanged, 3 + base Studio.
 - phpcs: not run.
-- `.pot`: not regenerated (expected ~393 entries).
+- `.pot`: 393 entries, Ghost/Elevated labels present. Header updated from
+  `0.5.1` to `0.7.0` (commit `8c1af2b`) — the initial `.pot` committed in
+  Phase 17 still carried the Phase 15 version string.
 - Theme Check: not run (expected 0 REQUIRED, 0 WARNING,
   0 RECOMMENDED, 2 INFO).
 - Version: 0.6.0 → **0.7.0**.
-- Distribution zip: `dist/godevs-portfolio-0.7.0.zip`, 81 files
-  (up from 0.6.0's 76).
+- Distribution zip: `dist/godevs-portfolio-0.7.0.zip`, 73 files, 539 KB,
+  12 top-level paths. Rebuilt in post-Phase-17 housekeeping session to
+  fix two packaging issues: (1) `.pot` Project-Id-Version was stale
+  `0.5.1`, (2) the initial zip was built with `zip -r .` which
+  included `demo-content/`, `.wordpress-org/`, and `.gitkeep` files
+  (99 entries) instead of the Phase-7-established 12-path allowlist.
+  Rebuilt using explicit path arguments + `-x '*.gitkeep'`.
+  Note: `dist/` is `.gitignore`d — the zip is a local submission
+  artifact, not tracked in git. After running `wp i18n make-pot`
+  locally, rebuild the zip using the same 12-path allowlist.
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._

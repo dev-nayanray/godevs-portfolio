@@ -145,7 +145,7 @@ WordPress.org Theme Review itself.
   content download.
 
 = 0.5.1 - 2026-07-20 =
-* Bug fix: some niche demo pages could render two `<h1>` headings
+* Bug fix: some niche demo pages could render two H1 headings
   instead of one, specifically on a Home page that used a hero pattern
   with copy hand-written directly into the page (rather than inserted
   as a live, reusable pattern) and that had not yet been set as the
