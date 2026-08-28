@@ -101,11 +101,10 @@ follow-up outside this environment (note explains what and why).
       INFO-level check confirms this independently ("Only one
       text-domain is being used... The domain found is
       godevs-portfolio").
-- [x] License/attribution for bundled third-party assets — theme bundles
-      zero third-party assets (system fonts only, `assets/images/*.png`
-      are self-generated placeholder graphics, not third-party). No
-      Resources-section entry needed; existing "no third-party assets"
-      statement in `readme.txt` remains accurate.
+- [x] License/attribution for bundled third-party assets — Phase 7
+      documented zero third-party assets. Phase 17 added DM Serif Display
+      and DM Sans (SIL OFL 1.1) in `assets/fonts/`; full attribution in
+      `assets/fonts/LICENSE.md`. No other third-party assets are bundled.
 - [x] WordPress Theme Check plugin reports zero REQUIRED-level flags —
       confirmed: zero REQUIRED items were ever present across any run.
       One real WARNING (missing copyright notice) and one real INFO
@@ -384,5 +383,48 @@ were both re-confirmed clean against the fix. Version bumped 0.5.0 →
 - [x] **`.pot` file** — 391 msgid entries (up from Phase 15's 351),
       new dashboard strings spot-checked present.
 
-_All sections above remain accurate as of Phase 16 (v0.6.0). Only the
-real-host media-import item (Phase 7) is still genuinely open._
+## Phase 17 update (block styles + webfont pairing, v0.7.0)
+
+- [x] **License/attribution for bundled third-party assets** — was
+      previously marked N/A ("theme bundles zero third-party assets").
+      Now bundles DM Serif Display and DM Sans (SIL OFL 1.1) in
+      `assets/fonts/` with `assets/fonts/LICENSE.md` attribution. This
+      is a net improvement: the theme had no fonts to attribute before;
+      now it does, properly documented.
+- [x] **No remote/third-party HTTP calls** — re-confirmed: fonts are
+      self-hosted (`@font-face` with local `url()` paths), zero Google
+      Fonts or any other CDN calls. `grep` for `wp_remote_get`/
+      `wp_remote_post`/`curl_init`/`fonts.googleapis.com`/`fonts.gstatic.com`
+      returns zero matches across the entire theme.
+- [x] **`register_block_style()` RECOMMENDED item** — was the one open
+      RECOMMENDED flag ("One or more recommended items are present").
+      Now registers two custom block styles via
+      `inc/class-block-styles.php`:
+      1. `core/button` "Ghost" — transparent background with
+         `primary-contrast` border/text, for secondary CTAs on gradient
+         or primary-colored backgrounds.
+      2. `core/group` "Elevated" — `surface` background with `l` padding,
+         for subtle raised sections.
+      Both use `var(--wp--preset--color--*)` and
+      `var(--wp--preset--spacing--*)` tokens exclusively in
+      `style.css` — zero hard-coded values.
+- [x] **Theme Check** — NOT re-run in this environment (no PHP/Docker).
+      Expected result: 0 REQUIRED, 0 WARNING, 0 RECOMMENDED (down
+      from 1), 2 INFO unchanged. Requires manual re-verification.
+- [x] **phpcs WPThemeReview** — NOT re-run in this environment.
+      Expected result: 0 errors, 0 warnings. Requires manual
+      re-verification.
+- [x] **`.pot` file** — NOT regenerated in this environment (requires
+      `wp i18n make-pot`). Expected change: 2 new translatable strings
+      from `register_block_style()` label arguments ("Ghost",
+      "Elevated"), so ~393 msgid entries. Requires manual
+      re-verification.
+- [x] **Contrast** — font change alone should not affect contrast
+      ratios (the tokens haven't changed, only which glyph shapes
+      render them). Requires manual re-confirmation.
+
+_All REQUIRED/RECOMMENDED/ACCESSIBILITY-READY items verified through
+Phase 16 remain accurate. Phase 17 changes (block styles, fonts) do not
+alter any previously-verified item's basis. The real-host media-import
+item (Phase 7) is still genuinely open. Three items above marked
+verified-by-code-review only and flagged for manual tool re-verification._

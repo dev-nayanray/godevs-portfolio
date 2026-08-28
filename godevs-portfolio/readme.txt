@@ -4,7 +4,7 @@ Contributors: REPLACE_WITH_YOUR_WORDPRESS_ORG_USERNAME
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.6.0
+Stable tag: 0.7.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Tags: full-site-editing, block-patterns, style-variations, portfolio, blog, one-column, two-columns, grid-layout, custom-colors, custom-menu, editor-style, featured-images, rtl-language-support, translation-ready, accessibility-ready
@@ -27,6 +27,9 @@ Editor.
 Three style variations (Midnight, Sandstone, Emerald) each pair a
 distinct color palette with its own type and spacing scale, so switching
 variations changes the site's whole mood, not just its accent color.
+Self-hosted DM Serif Display (headings) and DM Sans (body) fonts give the
+theme an editorial, art-directed identity without any external CDN
+dependency.
 Patterns favor asymmetric, editorial layouts over the centered-box
 template most portfolio themes default to, and demo content follows the
 real sales funnel of a services business: attract, prove credibility
@@ -113,6 +116,19 @@ WordPress.org Theme Review itself.
    content, in the default "Studio" style variation.
 
 == Changelog ==
+
+= 0.7.0 - 2026-08-29 =
+* New: self-hosted webfont pairing — DM Serif Display (headings) and
+  DM Sans (body), both SIL OFL 1.1 licensed. Replaces the prior system
+  font stacks with a distinctive editorial type identity that fits the
+  theme's asymmetric, art-directed positioning. No external CDN calls;
+  fonts are bundled in assets/fonts/ with full license attribution.
+* New: two custom block styles registered via register_block_style():
+  "Ghost" button (core/button) for secondary CTAs on gradient or
+  primary-colored backgrounds, and "Elevated" group (core/group) for a
+  subtle surface-colored raised section. Both use theme.json tokens
+  exclusively. Closes the one open RECOMMENDED Theme Check item.
+* Update: version bump to 0.7.0.
 
 = 0.6.0 - 2026-07-20 =
 * New: a "GoDevs Portfolio" onboarding page under Appearance. It is
@@ -207,15 +223,17 @@ WordPress.org Theme Review itself.
 
 == Resources ==
 
-This theme bundles no third-party assets:
+This theme bundles the following third-party assets:
 
+* **Fonts** — DM Serif Display (headings) and DM Sans (body), both
+  licensed under the SIL Open Font License, Version 1.1. See
+  `assets/fonts/LICENSE.md` for full attribution. Self-hosted with
+  no external CDN dependency.
 * **Images** — all placeholder graphics in `assets/images/` (wide,
   portrait, and logo placeholders) are theme-original, generated
   specifically for this theme during development (not photographs,
   not sourced from any third-party library). Site owners are expected
   to replace them with their own photography.
-* **Fonts** — system font stacks only (no bundled webfonts), so there
-  is nothing to license or attribute.
 * **Code** — the theme uses only WordPress core APIs (block patterns,
   Block Bindings API, theme.json, block templates). It does not bundle
   any third-party PHP or JavaScript library.

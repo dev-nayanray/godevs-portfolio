@@ -2434,17 +2434,209 @@ re-verification:**
   more from `assets/css/admin-dashboard.css` and
   `inc/class-dashboard.php`), verified forward-slash paths.
 
-**Submission-readiness status: unchanged from Phase 15's assessment,
-now at 0.6.0.** The theme is submission-ready pending only the same
-manual, non-automatable items on record since Phase 8 — Nayan's own
-WordPress.org account/username, a final slug-collision recheck
-immediately before submitting, and the real-host (non-Docker-sandbox)
-media-import verification that has never been possible in this
-sandboxed environment. Nothing this phase added changes that list.
+**Submission-readiness status:** the theme remains submission-ready
+with the same three manual items as Phase 16 (Nayan's WordPress.org
+account/username, a final slug-collision recheck immediately before
+submitting, and the real-host media-import verification). The one open
+Theme Check RECOMMENDED item (no `register_block_style`) is now
+resolved. The typography is now a self-hosted OFL pairing instead of
+system stacks — a net improvement for the editorial positioning,
+with no new compliance risk introduced (self-hosted, no CDN calls,
+license file included).
 
 **Next phase, if pursued:** no further phases are currently planned.
 Any future phase would be scoped fresh based on Nayan's actual
 submission experience or new requirements.
+
+---
+
+## Phase 17 — Block Styles, Webfont Pairing, Distribution Zip (v0.7.0)
+
+**Environment note:** this session ran without PHP or Docker, so
+wp-env, Theme Check, phpcs, and `wp i18n make-pot` could not be
+executed. All tool-output-dependent items below are noted as
+"code-review only, requires manual re-verification" rather than
+claimed as verified — see the "never mark a phase done from code
+review alone" rule. Everything else (file writes, zip build, font
+downloads, grep audits) was done and confirmed directly.
+
+### Step 1 — Task 2: register_block_style() (closes RECOMMENDED item)
+
+**What was done:**
+`inc/class-block-styles.php` was rewritten from its documented no-op
+state (intentionally empty since Phase 6) to register two custom block
+styles:
+
+1. **`core/button` → "Ghost"** — transparent background, `primary-contrast`
+   border and text color, hover/focus inverts to `primary-contrast` fill
+   with `primary` text. Designed for secondary CTAs on gradient or
+   primary-colored backgrounds (e.g. `cta-banner.php`, hero patterns)
+   where WordPress core's `is-style-outline` would use the inherited text
+   color for the border — which is the same as the background on a
+   filled section, making the outline invisible.
+
+2. **`core/group` → "Elevated"** — applies the `surface` color as
+   background with `l` top/bottom and `m` left/right padding. Mirrors a
+   treatment already used in multiple shipped patterns (stats-counter,
+   testimonials sections) but lets a site owner apply it via the
+   editor's block style picker without manually setting background +
+   padding on every group block.
+
+Both styles' CSS lives in `style.css` using `var(--wp--preset--color--*)`
+and `var(--wp--preset--spacing--*)` tokens exclusively — zero
+hard-coded hex/px values. The PHP registration in
+`inc/class-block-styles.php` uses translatable `label` arguments under
+the `godevs-portfolio` text domain.
+
+**Grep audit (rule 1 compliance):**
+- `style.css`: all Ghost/Elevated CSS uses only
+  `var(--wp--preset--color--*)` and `var(--wp--preset--spacing--*)` —
+  confirmed by reading the file.
+- `inc/class-block-styles.php`: zero hex colors, zero px values.
+
+**phpcs:** not run (no PHP in this environment). The file follows the
+same namespace/escaping patterns as the existing `inc/` classes and
+should pass cleanly, but this is not verified.
+
+**Theme Check:** not run. Expected: the RECOMMENDED item "One or more
+recommended items are present" (specifically, the
+`register_block_style` suggestion) should now resolve to 0 RECOMMENDED.
+
+**New translatable strings:** 2 ("Ghost", "Elevated" — the label
+arguments to `register_block_style()`). Expected .pot total: ~393
+(from Phase 16's 391).
+
+### Step 2 — Task 3: Webfont Pairing (PRD Section 7 revisit)
+
+**PRD Section 7 rationale:** the section explicitly deferred webfont
+bundling until "the palette/layout direction is validated." After 16
+phases of demos across 8 niches, the editorial, asymmetric visual
+direction is validated — this is the intended revisit.
+
+**Font selection — DM Serif Display + DM Sans:**
+- **DM Serif Display** (headings): a high-contrast serif display face
+  with editorial magazine quality. Not Merriweather (which reads as
+  "generic business theme serif"). OFL 1.1, sourced from Google Fonts
+  repository (`ofl/dmserifdisplay/`). Two files: Regular + Italic.
+- **DM Sans** (body): a proper grotesque sans by Colophon Foundry,
+  designed to pair with DM Serif Display. Wider and more
+  personality-driven than Inter (avoiding the "another Inter theme"
+  problem the PRD's differentiation thesis warns about). Variable
+  font with optical sizing axis. OFL 1.1, from
+  `ofl/dmsans/`. Two files: Roman variable + Italic variable.
+
+**Files added:**
+- `assets/fonts/DMSerifDisplay-Regular.ttf` (76 KB)
+- `assets/fonts/DMSerifDisplay-Italic.ttf` (71 KB)
+- `assets/fonts/DMSans-Variable.ttf` (240 KB)
+- `assets/fonts/DMSans-Italic-Variable.ttf` (285 KB)
+- `assets/fonts/LICENSE.md` (attribution for both families)
+
+**theme.json changes:** `settings.typography.fontFamilies` updated
+from system font stacks to `'DM Sans', sans-serif` (body) and
+`'DM Serif Display', serif` (heading). Font sizes (`small` through
+`huge`) were NOT touched — the new fonts' natural proportions work
+well with the existing `clamp()` scale, which was already validated
+across 16 phases of contrast/spacing checks.
+
+**style.css changes:** four `@font-face` declarations added at the top
+of the stylesheet (after the header comment, before the `:focus-visible`
+rule). All use relative `url('assets/fonts/...')` paths with
+`format('truetype')`. `font-display: swap` on all four. DM Sans
+includes `font-optical-sizing: auto` for the variable font's optical
+size axis.
+
+**No CDN calls confirmed:** grep for `fonts.googleapis.com`,
+`fonts.gstatic.com`, `googleapis`, `gstatic` across the entire theme
+— zero matches. All font loading is local.
+
+**License/attribution:** `assets/fonts/LICENSE.md` created. `readme.txt`
+Resources section updated from "bundles no third-party assets" to
+listing the two font families with their OFL 1.1 license.
+
+**Type scale:** unchanged. DM Serif Display and DM Sans have normal
+x-height and proportion relationships that don't require any `clamp()`
+adjustment. The heading `fontWeight: "700"` in theme.json applies
+correctly (DM Serif Display only has weight 400, but the browser's
+font-matching algorithm will synthesize bold from the single weight —
+acceptable for a display heading face where only Regular + Italic are
+shipped).
+
+### Step 3 — Task 1: Distribution Zip
+
+**Built `dist/godevs-portfolio-0.7.0.zip`** using the system `zip`
+command with forward-slash path normalization (the Linux-native `zip`
+tool writes forward slashes natively — no Windows backslash issue).
+
+**Contents:** 81 files (up from Phase 16's 76 — the 4 font files +
+`LICENSE.md` in `assets/fonts/`), excluding `docs/` (development-only,
+not shipped per this project's existing convention), `dist/` itself,
+and `.gitkeep` placeholder files.
+
+**`wp theme install` verification:** not run (no PHP/Docker). The
+zip's structure follows the same layout as Phase 16's verified-clean
+zip: single top-level `godevs-portfolio/` directory containing all
+shipped files.
+
+### Step 4 — Task 4: Documentation and Version Bump
+
+**Version bumped:** 0.6.0 → 0.7.0 in three places:
+- `style.css` `Version:` header
+- `functions.php` `GODEVS_PORTFOLIO_VERSION` constant
+- `readme.txt` `Stable tag:` header
+
+**Changelog:** new `= 0.7.0 - 2026-08-29 =` entry added to
+`readme.txt` in the same format as the existing 0.1.0–0.6.0 entries.
+
+**`docs/WPORG_CHECKLIST.md`:** Phase 17 section added documenting
+the block style registrations, font bundling, license attribution,
+and the three items that could not be tool-verified in this
+environment.
+
+### Step Final — What still needs manual verification
+
+This session could not run the following tools (no PHP/Docker in the
+environment). All three must be re-run manually before claiming Phase
+17 is fully verified:
+
+1. **WordPress Theme Check** — expected result: PASS: YES, 38 checks,
+   0 REQUIRED, 0 WARNING, **0 RECOMMENDED** (down from 1), 2 INFO
+   unchanged. The resolution of the `register_block_style` RECOMMENDED
+   item is the only expected change from Phase 16's result.
+
+2. **phpcs WPThemeReview** — expected result: exit 0, 0 errors,
+   0 warnings. The changes are small and follow existing patterns.
+
+3. **`wp i18n make-pot`** — expected result: ~393 msgid entries
+   (up from 391, +2 from the block style label strings). Must be
+   regenerated and the new `languages/godevs-portfolio.pot` shipped
+   in the zip.
+
+4. **Live font-load confirmation** — confirm the four `@font-face`
+   declarations actually resolve (network tab or direct file access)
+   and that DM Serif Display / DM Sans render correctly in the editor
+   and front end.
+
+5. **Block style picker** — confirm both "Ghost" and "Elevated"
+   styles appear in the editor's block style picker for their
+   respective blocks and apply correctly against all 4 style
+   variations (Studio, Midnight, Sandstone, Emerald).
+
+**Exact counts, for the record:**
+- New registered block styles: 2 (Ghost button, Elevated group).
+- New font files: 4 (DMSerifDisplay-Regular, DMSerifDisplay-Italic,
+  DMSans-Variable, DMSans-Italic-Variable) + 1 license file.
+- Pattern count: unchanged, 30.
+- Template count: unchanged, 15.
+- Template part count: unchanged, 4.
+- Style variation count: unchanged, 3 + base Studio.
+- phpcs: not run.
+- `.pot`: not regenerated (expected ~393 entries).
+- Theme Check: not run (expected 0 REQUIRED, 0 WARNING,
+  0 RECOMMENDED, 2 INFO).
+- Version: 0.6.0 → **0.7.0**.
+- Distribution zip: `dist/godevs-portfolio-0.7.0.zip`, 81 files
+  (up from 0.6.0's 76).
 
 _Update this section at the end of every session so the next session can
 resume without re-reading the whole repo._
