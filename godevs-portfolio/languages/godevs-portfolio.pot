@@ -1747,3 +1747,13 @@ msgstr ""
 msgctxt "Style variation name"
 msgid "Sandstone"
 msgstr ""
+
+#. Block style label
+#: inc/class-block-styles.php:57
+msgid "Ghost"
+msgstr ""
+
+#. Block style label
+#: inc/class-block-styles.php:75
+msgid "Elevated"
+msgstr ""
