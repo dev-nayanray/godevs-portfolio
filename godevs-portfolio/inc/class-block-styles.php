@@ -24,7 +24,7 @@ class Block_Styles {
          * Hook this class's callbacks into WordPress.
          */
         public static function init() {
-                add_action( 'after_setup_theme', [ __CLASS__, 'register_styles' ] );
+                add_action( 'init', [ __CLASS__, 'register_styles' ] );
         }
 
         /**
